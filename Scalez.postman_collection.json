@@ -2,6 +2,7 @@
 	"info": {
 		"_postman_id": "1852d56c-4bf4-414d-a5c8-5b208bd5bdc2",
 		"name": "Scalez",
+		"description": "API for the endpoints of the Scalez app. Currently all of the endpoints are following the \"happy path\", meaning no error cases are currently being handled and everything is assumed to be successful. Once error cases are added, each endpoint will be put into a top level folder, and each error case will be given its own tab.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -11,7 +12,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "5c003f8b-abfe-4eb0-8f31-b3182422f5ff",
+						"id": "d4324efd-1f01-49e4-bb5a-e2fbf46fc8c5",
 						"type": "text/javascript",
 						"exec": [
 							"pm.test(\"Status code is 201\", () => pm.response.to.have.status(201));",
@@ -45,9 +46,42 @@
 						""
 					]
 				},
-				"description": "This request will create a new user"
+				"description": "This request will create a new user. The request body will contain a JSON string containing the username, password, firstname, and lastname of the user. The response body will be raw text containing the username of the user. The response status should be 201 is successful.\n"
 			},
-			"response": []
+			"response": [
+				{
+					"name": "New User",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"username\": \"un\", \"password\": \"pw\", \"firstname\" : \"fn\", \"lastname\" : \"ln\"}"
+						},
+						"url": {
+							"raw": "{{host}}/user/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								""
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "text",
+					"header": [],
+					"cookie": [],
+					"body": "\"username\""
+				}
+			]
 		},
 		{
 			"name": "Delete User",
@@ -82,7 +116,91 @@
 						"{{username}}"
 					]
 				},
-				"description": "This request will delete a user based of the username in the URL"
+				"description": "This request will delete a user based of the username in the URL. The response status should be 200 if successful."
+			},
+			"response": []
+		},
+		{
+			"name": "Change username",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+<<<<<<< HEAD
+					"raw": ""
+=======
+					"raw": "\"new username\""
+>>>>>>> 608458008db0c4119a477386e4a0e16090130548
+				},
+				"url": {
+					"raw": "{{host}}/user/{{username}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"{{username}}"
+					]
+				},
+				"description": "This request will change the username of the user. The old username is specified in the URL and the new username is specified in the request body. The response status should 200 if successful."
+			},
+			"response": []
+		},
+		{
+			"name": "User login",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/user/login?username={{username}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"login"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "{{username}}"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"disabled": true
+						}
+					]
+				},
+				"description": "This request will login the user based on the request body. The request body will contain a JSON string of the username and password of the user. The response body will contain the username of the user in plain text. The response status should be 200 if successful."
+			},
+			"response": []
+		},
+		{
+			"name": "User logout",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/user/logout",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"logout"
+					]
+				},
+				"description": "This request will log out the user based on the request body. The username of the user is supplied in the URL. The response should be 200 if successful."
 			},
 			"response": []
 		},
@@ -106,7 +224,7 @@
 						"recordings"
 					]
 				},
-				"description": "This request will get all of the user's recordings."
+				"description": "This request will get all of the user's recordings. The response body will have a JSON string with that contains an array of audio files and an array of timestamps. The response status should be 200 if successful."
 			},
 			"response": []
 		},
@@ -135,75 +253,6 @@
 			"response": []
 		},
 		{
-			"name": "User login",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{host}}/user/login",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"user",
-						"login"
-					]
-				},
-				"description": "This request will login the user based on the request body. "
-			},
-			"response": []
-		},
-		{
-			"name": "User logout",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{host}}/user/logout",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"user",
-						"logout"
-					]
-				},
-				"description": "This request will log out the user based on the request body. "
-			},
-			"response": []
-		},
-		{
-			"name": "Change username",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{host}}/user/{{username}}",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"user",
-						"{{username}}"
-					]
-				},
-				"description": "This request will change the username of the user. The old username is specified in the URL and the new username is specified in the request body."
-			},
-			"response": []
-		},
-		{
 			"name": "Score scale",
 			"request": {
 				"method": "POST",
@@ -223,7 +272,7 @@
 						"recording"
 					]
 				},
-				"description": "This request will send an audio file in the request body. This audio file will belong the user. The response body will contain the score. "
+				"description": "This request will send an audio file in the request body. This audio file will belong the user. The response body will contain the score. The response status should be 201 if completed."
 			},
 			"response": []
 		},
@@ -272,7 +321,7 @@
 						"{{auditionID}}"
 					]
 				},
-				"description": "This request will complete an audition. The request body will contain the requested scales from the auditioner. "
+				"description": "This request will complete an audition. The request body will contain the requested scales from the auditioner. The response status should be 200 if successful."
 			},
 			"response": []
 		},
@@ -297,7 +346,7 @@
 						"{{auditionID}}"
 					]
 				},
-				"description": "This request will get the audition specified by the ID in the URL"
+				"description": "This request will get the audition specified by the ID in the URL. The response body should be 200 if successful."
 			},
 			"response": []
 		},
@@ -321,9 +370,31 @@
 						"audition"
 					]
 				},
-				"description": "This request will get all of the auditions for the specified user."
+				"description": "This request will get all of the auditions for the specified user. The reponse status should be 200 if successful."
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "aa6c7fdf-a0b8-46e0-bcf3-7148c8958580",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "d7a80d58-7257-4c88-931e-53c808edc02c",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }
