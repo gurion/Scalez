@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f81b35a5-5cab-45a6-bd1f-2e376fca9fd7",
+		"_postman_id": "1852d56c-4bf4-414d-a5c8-5b208bd5bdc2",
 		"name": "Scalez",
 		"description": "API for the endpoints of the Scalez app. Currently all of the endpoints are following the \"happy path\", meaning no error cases are currently being handled and everything is assumed to be successful. Once error cases are added, each endpoint will be put into a top level folder, and each error case will be given its own tab.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -127,7 +127,11 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
+<<<<<<< HEAD
 					"raw": "\"new username\""
+=======
+					"raw": ""
+>>>>>>> 0b0cc7e... update complete audition to a put request
 				},
 				"url": {
 					"raw": "{{host}}/user/{{username}}",
@@ -148,7 +152,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "{{host}}/user/login?username={{username}}",
 					"host": [
@@ -179,7 +186,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "{{host}}/user/logout",
 					"host": [
@@ -199,7 +209,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "{{host}}/user/{{username}}/recordings",
 					"host": [
@@ -220,7 +233,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "{{host}}/user/{{username}}/scores",
 					"host": [
@@ -241,7 +257,10 @@
 			"request": {
 				"method": "POST",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "{{host}}/user/{{username}}/recording",
 					"host": [
@@ -262,7 +281,10 @@
 			"request": {
 				"method": "POST",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "{{host}}/user/{{username}}/audition",
 					"host": [
@@ -281,9 +303,12 @@
 		{
 			"name": "Complete audition",
 			"request": {
-				"method": "GET",
+				"method": "PUT",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "{{host}}/user/{{username}}/audition/{{auditionID}}",
 					"host": [
@@ -305,7 +330,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "{{host}}/user/{{username}}/audition/{{auditionID}}",
 					"host": [
@@ -327,7 +355,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "{{host}}/user/{{username}}/audition",
 					"host": [
