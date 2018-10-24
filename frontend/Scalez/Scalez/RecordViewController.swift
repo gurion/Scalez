@@ -4,7 +4,6 @@
 //
 //  Created by Gurion on 10/15/18.
 //  Copyright © 2018 OOSE. All rights reserved.
-//
 
 import Foundation
 import AVFoundation
@@ -24,13 +23,12 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         recordingSession = AVAudioSession.sharedInstance()
         
         do {
-            try recordingSession.setCategory(AVAudioSession.Category.playAndRecord)
+            try recordingSession.setCategory(.playAndRecord, mode: .default, options: [])
             try recordingSession.setActive(true)
-            recordingSession.requestRecordPermission() { [unowned self] allowed  in
+            self.recordingSession.requestRecordPermission() { [unowned self] allowed  in
                 DispatchQueue.main.async {
                     if allowed {
                         self.loadRecordingUI()
@@ -41,7 +39,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
             }
             
         } catch {
-            //failed to record
+            print("catching error")
         }
         // Do any additional setup after loading the view, typically from a nib.
     }
