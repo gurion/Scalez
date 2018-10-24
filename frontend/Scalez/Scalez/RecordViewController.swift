@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 import UIKit
 
-class RecordViewController: UIViewController, AVAudioRecorderDelegate{
+class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     
     var recordButton: UIButton!
     var recordingSession: AVAudioSession!
@@ -18,7 +18,6 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate{
     
     @IBOutlet weak var testLabel: UILabel!
     
-}
     @IBAction func recordOnTap(_ sender: Any) {
         
     }
@@ -105,6 +104,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate{
         if !flag {
             finishRecording(success: false)
         }
+    }
 }
 
 
