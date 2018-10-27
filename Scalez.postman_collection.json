@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "59fce122-8408-4b23-ac83-1c2ebacce8b7",
+		"_postman_id": "6d17def8-8f9f-4dd9-8a3d-e028c570c7c3",
 		"name": "Scalez",
 		"description": "API for the endpoints of the Scalez app. Currently all of the endpoints are following the \"happy path\", meaning no error cases are currently being handled and everything is assumed to be successful. Once error cases are added, each endpoint will be put into a top level folder, and each error case will be given its own tab.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -135,7 +135,7 @@
 					},
 					"status": "No Content",
 					"code": 204,
-					"_postman_previewlanguage": "",
+					"_postman_previewlanguage": "Text",
 					"header": [],
 					"cookie": [],
 					"body": ""
@@ -186,7 +186,7 @@
 					},
 					"status": "OK",
 					"code": 204,
-					"_postman_previewlanguage": "",
+					"_postman_previewlanguage": "Text",
 					"header": [],
 					"cookie": [],
 					"body": ""
@@ -310,7 +310,7 @@
 					},
 					"status": "No Content",
 					"code": 204,
-					"_postman_previewlanguage": "",
+					"_postman_previewlanguage": "Text",
 					"header": [],
 					"cookie": [],
 					"body": ""
@@ -425,9 +425,35 @@
 		},
 		{
 			"name": "Score scale",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8862195f-e59e-444a-9cd1-fa95ad784d34",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});",
+							"",
+							"pm.test(\"Content-Type is ‘application/json’\", () => pm.response.to.have.header(\"Content-Type\", \"application/json\"",
+							"));",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": ""
@@ -522,7 +548,7 @@
 					},
 					"status": "OK",
 					"code": 204,
-					"_postman_previewlanguage": "",
+					"_postman_previewlanguage": "Text",
 					"header": [],
 					"cookie": [],
 					"body": ""
@@ -577,7 +603,7 @@
 					},
 					"status": "OK",
 					"code": 204,
-					"_postman_previewlanguage": "",
+					"_postman_previewlanguage": "Text",
 					"header": [],
 					"cookie": [],
 					"body": ""
@@ -697,7 +723,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "{{host}}/leaderboard",
 					"host": [
@@ -715,7 +744,10 @@
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "{{host}}/leaderboard",
 							"host": [
