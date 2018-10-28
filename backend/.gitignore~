@@ -1,7 +1,5 @@
 venv/
 
-*.py~
-*.un~
 *.pyc
 __pycache__/
 
