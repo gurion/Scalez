@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "1852d56c-4bf4-414d-a5c8-5b208bd5bdc2",
+		"_postman_id": "59fce122-8408-4b23-ac83-1c2ebacce8b7",
 		"name": "Scalez",
 		"description": "API for the endpoints of the Scalez app. Currently all of the endpoints are following the \"happy path\", meaning no error cases are currently being handled and everything is assumed to be successful. Once error cases are added, each endpoint will be put into a top level folder, and each error case will be given its own tab.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -12,14 +12,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "d4324efd-1f01-49e4-bb5a-e2fbf46fc8c5",
+						"id": "2f5e97c4-5e7a-47b0-a0f0-c444a0787370",
 						"type": "text/javascript",
 						"exec": [
-							"pm.test(\"Status code is 201\", () => pm.response.to.have.status(201));",
-							"",
-							"pm.test(\"Body is correct\", function () {",
-							"    pm.response.to.have.body(\"response_body_string\");",
-							"});"
+							""
 						]
 					}
 				}
@@ -34,7 +30,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \"username\": \"un\", \"password\": \"pw\", \"firstname\" : \"fn\", \"lastname\" : \"ln\"}"
+					"raw": "{ \"username\": \"efeldm16\", \"password\": \"aeiou\", \"firstname\" : \"Eric\", \"lastname\" : \"Feldman\"}"
 				},
 				"url": {
 					"raw": "{{host}}/user/",
@@ -79,7 +75,7 @@
 					"_postman_previewlanguage": "text",
 					"header": [],
 					"cookie": [],
-					"body": "\"username\""
+					"body": "\"efeldm16\""
 				}
 			]
 		},
@@ -89,12 +85,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "e46bfd34-18d4-4620-9a3b-ce1d2a6ef38a",
+						"id": "6b6cf724-f2bd-43c5-8f4b-084b3e1dc714",
 						"type": "text/javascript",
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
+							""
 						]
 					}
 				}
@@ -116,9 +110,37 @@
 						"{{username}}"
 					]
 				},
-				"description": "This request will delete a user based of the username in the URL. The response status should be 200 if successful."
+				"description": "This request will delete a user based of the username in the URL. The response status should be 204 if successful."
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Delete User",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user/{{username}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{username}}"
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "",
+					"header": [],
+					"cookie": [],
+					"body": ""
+				}
+			]
 		},
 		{
 			"name": "Change username",
@@ -127,11 +149,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-<<<<<<< HEAD
-					"raw": ""
-=======
 					"raw": "\"new username\""
->>>>>>> 608458008db0c4119a477386e4a0e16090130548
 				},
 				"url": {
 					"raw": "{{host}}/user/{{username}}",
@@ -143,9 +161,37 @@
 						"{{username}}"
 					]
 				},
-				"description": "This request will change the username of the user. The old username is specified in the URL and the new username is specified in the request body. The response status should 200 if successful."
+				"description": "This request will change the username of the user. The old username is specified in the URL and the new username is specified in the request body. The response status should 204 if successful."
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Change username",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\"new username\""
+						},
+						"url": {
+							"raw": "{{host}}/user/{{username}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{username}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 204,
+					"_postman_previewlanguage": "",
+					"header": [],
+					"cookie": [],
+					"body": ""
+				}
+			]
 		},
 		{
 			"name": "User login",
@@ -179,7 +225,46 @@
 				},
 				"description": "This request will login the user based on the request body. The request body will contain a JSON string of the username and password of the user. The response body will contain the username of the user in plain text. The response status should be 200 if successful."
 			},
-			"response": []
+			"response": [
+				{
+					"name": "User login",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user/login?username={{username}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"login"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "{{username}}"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "text",
+					"header": [],
+					"cookie": [],
+					"body": "\"efeldm16\""
+				}
+			]
 		},
 		{
 			"name": "User logout",
@@ -200,9 +285,37 @@
 						"logout"
 					]
 				},
-				"description": "This request will log out the user based on the request body. The username of the user is supplied in the URL. The response should be 200 if successful."
+				"description": "This request will log out the user based on the request body. The username of the user is supplied in the URL. The response should be 204 if successful."
 			},
-			"response": []
+			"response": [
+				{
+					"name": "User logout",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user/logout",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"logout"
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "",
+					"header": [],
+					"cookie": [],
+					"body": ""
+				}
+			]
 		},
 		{
 			"name": "Get recordings",
@@ -224,12 +337,41 @@
 						"recordings"
 					]
 				},
-				"description": "This request will get all of the user's recordings. The response body will have a JSON string with that contains an array of audio files and an array of timestamps. The response status should be 200 if successful."
+				"description": "This request will get all of the user's recordings. The response body will have a JSON string with that contains an array of audio files (audio files are arrays of integers) and an array of timestamps. The response status should be 200 if successful."
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Get recordings",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user/{{username}}/recordings",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{username}}",
+								"recordings"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"recordings\": [\n        {\n            \"data\": [\n                1,\n                2,\n                3,\n                4\n            ],\n            \"timestamp\": \"1/1/18 11:11PM\",\n            \"score\": 10,\n            \"id\": 1,\n            \"isPublic\": true,\n            \"instrument\": \"piano\"\n        },\n        {\n            \"data\": [\n                4,\n                3,\n                2,\n                1\n            ],\n            \"timestamp\": \"2/2/18 11:11PM\",\n            \"score\": 10,\n            \"id\": 1,\n            \"isPublic\": true,\n            \"instrument\": \"piano\"\n        }\n    ]\n}"
+				}
+			]
 		},
 		{
-			"name": "Get scores",
+			"name": "Get leaderboard",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -238,19 +380,48 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{host}}/user/{{username}}/scores",
+					"raw": "{{host}}/user/{{username}}/leaderboard",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
 						"user",
 						"{{username}}",
-						"scores"
+						"leaderboard"
 					]
 				},
-				"description": "This request will get all of the user's scores "
+				"description": "This request will get the leaderboard for the current user. This will allow the front end to display the scores over time. The response status should be 200 if successful."
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Get leaderboard",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user/{{username}}/leaderboard",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{username}}",
+								"leaderboard"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"leaderboard\": {\n        \"eric\": 10,\n        \"gurion\": 5\n    }\n}"
+				}
+			]
 		},
 		{
 			"name": "Score scale",
@@ -274,7 +445,36 @@
 				},
 				"description": "This request will send an audio file in the request body. This audio file will belong the user. The response body will contain the score. The response status should be 201 if completed."
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Score scale",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user/{{username}}/recording",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{username}}",
+								"recording"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"score\": 10\n}"
+				}
+			]
 		},
 		{
 			"name": "New audition",
@@ -298,7 +498,36 @@
 				},
 				"description": "This request will create a new audition. The request body will contain the username of the auditonee, and the types of scales that should be played."
 			},
-			"response": []
+			"response": [
+				{
+					"name": "New audition",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user/{{username}}/audition",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{username}}",
+								"audition"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 204,
+					"_postman_previewlanguage": "",
+					"header": [],
+					"cookie": [],
+					"body": ""
+				}
+			]
 		},
 		{
 			"name": "Complete audition",
@@ -323,7 +552,37 @@
 				},
 				"description": "This request will complete an audition. The request body will contain the requested scales from the auditioner. The response status should be 200 if successful."
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Complete audition",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user/{{username}}/audition/{{auditionID}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{username}}",
+								"audition",
+								"{{auditionID}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 204,
+					"_postman_previewlanguage": "",
+					"header": [],
+					"cookie": [],
+					"body": ""
+				}
+			]
 		},
 		{
 			"name": "Get audition",
@@ -348,7 +607,37 @@
 				},
 				"description": "This request will get the audition specified by the ID in the URL. The response body should be 200 if successful."
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Get audition",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user/{{username}}/audition/{{auditionID}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{username}}",
+								"audition",
+								"{{auditionID}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\"auditioner\" : \"eric\", \"request\" : \"c scale\", \"deadline\" : \"1/1/18 10:00PM\"}"
+				}
+			]
 		},
 		{
 			"name": "Get auditions",
@@ -372,7 +661,79 @@
 				},
 				"description": "This request will get all of the auditions for the specified user. The reponse status should be 200 if successful."
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Get auditions",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user/{{username}}/audition",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{username}}",
+								"audition"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"auditions\": [\n        {\n            \"auditioner\": \"eric\",\n            \"request\": \"c scale\",\n            \"deadline\": \"1/1/18 10:00PM\"\n        },\n        {\n            \"auditioner\": \"jake\",\n            \"request\": \"c scale\",\n            \"deadline\": \"2/2/18 10:00PM\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Get global leaderboard",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/leaderboard",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"leaderboard"
+					]
+				},
+				"description": "This will be used to get the global leaderboard of scores. The response status should be 200 if successful."
+			},
+			"response": [
+				{
+					"name": "Get global leaderboard",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{host}}/leaderboard",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"leaderboard"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"leaderboard\": {\n        \"eric\": 10,\n        \"gurion\": 5\n    }\n}"
+				}
+			]
 		}
 	],
 	"event": [
