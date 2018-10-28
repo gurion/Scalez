@@ -18,11 +18,11 @@ bp = Blueprint('user', __name__, url_prefix='/auth')
 #       check if users are actually in the database
 #       General Error Handeling
 
-@bp.route('/', methods=('POST'))
-def new_user():
+#@bp.route('/', methods=('POST'))
+#def new_user():
 #    if request.method == 'POST':
 
-@bp.route('test')
+@user.route('test')
     return 'this is a test'
 
 
