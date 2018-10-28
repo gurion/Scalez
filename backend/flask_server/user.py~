@@ -7,9 +7,9 @@ from flask import (
         Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 #this is for authentication
-from wekzeug.security import check_password_hash, generate_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
 
-bp = Blueprint('user', __name__, url_prefix='/auth')
+bp = Blueprint('user', __name__, url_prefix='/user')
 
 
 
@@ -23,6 +23,7 @@ bp = Blueprint('user', __name__, url_prefix='/auth')
 #    if request.method == 'POST':
 
 @bp.route('test')
+def test():
     return 'this is a test'
 
 
