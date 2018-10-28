@@ -52,9 +52,12 @@ def processScale(wavFile, sr):
 	form = scaleFormation(pitch_changes)
 	print(form)
 	
-	#plots whatever you want to plot
+	#get experimental pitch error
+	pitchErr = ratePitches(freqs)
+	print(pitchErr)
 	
-	plt.show()
+	#plots whatever you want to plot
+	#plt.show()
 
 	#plotQ(C, sr)
 
@@ -149,6 +152,39 @@ def scaleFormation(unique_freq_differences_arr):
 			formation += ['h']
 		
 	return formation
+	
+#param: int (a frequency) -> int (ideal next half-step up frequency)
+def getHalfStepUp(currentNote):
+	return 1.0595 * currentNote
+#param: int (a frequency) -> int (ideal next half-step down frequency)
+def getHalfStepDown(currentNote):
+	return currentNote / 1.0595
+
+#param: int (a frequency) -> list (ideal next four frequencies [ideal half up, ideal whole up, ideal half down, ideal whole down])
+def getIdealSteps(currentNote):
+	halfUp = getHalfStepUp(currentNote)
+	halfDown = getHalfStepDown(currentNote)
+	return [halfUp, getHalfStepUp(halfUp), halfDown, getHalfStepDown(halfDown)]
+
+#param: list (of unique frequencies) -> int (number of freqs from each ideal next freq)
+def ratePitches(frequencyArray):
+	#remove first and last pitch (needs to be deprecated)
+	frequencyArray = frequencyArray[1:-1]
+	totalErrorDistance = 0
+	
+	for i in range(len(frequencyArray) - 1):
+		currentNote = frequencyArray[i]
+		actualNextNote = frequencyArray[i + 1]
+		idealNextNotes = getIdealSteps(currentNote)
+		bestGuessErr = float('inf')
+		for idealNote in idealNextNotes:
+			errorDistance = abs(actualNextNote - idealNote)
+			if errorDistance < bestGuessErr:
+				bestGuessErr = errorDistance
+		
+		totalErrorDistance += bestGuessErr
+	return totalErrorDistance
+	
 
 y, sr = librosa.load('/Users/jakesager/Desktop/Senior Fall/OOSE/scales.wav', sr=None)
 y = y[:300000]
