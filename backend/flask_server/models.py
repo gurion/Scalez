@@ -1,5 +1,5 @@
 #this models file is adapted from miguelgrinberg mega tutorial
-
+from datetime import datetime
 from flask_server import db
 
 class User(db.Model):
@@ -14,7 +14,7 @@ class User(db.Model):
 
 class Recording(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    score = db.Column(db.float)
+    score = db.Column(db.Float)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
