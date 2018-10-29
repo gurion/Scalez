@@ -6,21 +6,27 @@ import functools
 from flask import (
         Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
-#this is for authentication
-from werkzeug.security import check_password_hash, generate_password_hash
+from flask_server import db
+from flask_json import FlaskJSON, JsonError, json_response, as_json
 
 bp = Blueprint('user', __name__, url_prefix='/user')
 
+@bp.route('/', methods=['POST'])
+def new_user():
+    #TODO: add in error handeling, the log in must be robust
+    data = request.get_json()
 
+    username = data['username']
+    password = data['password']
+    lastname = data['lastname']
+    firstname = data['firstname']
 
-#the focus of this iteration is to send/score recordings
-#TODO:  add authentication with passwords
-#       check if users are actually in the database
-#       General Error Handeling
+    u = User(username=username, lastname=lastname, firstname=firstname)
+    u.set_password(password)
+    db.session.add(u)
+    db.session.commit()
 
-#@bp.route('/', methods=('POST'))
-#def new_user():
-#    if request.method == 'POST':
+    return json_response()
 
 @bp.route('test')
 def test():
