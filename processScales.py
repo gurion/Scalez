@@ -24,7 +24,7 @@ import librosa
 import librosa.display
 import numpy as np
 import statistics
-from collections import OrderedDict
+import math
 
 def processScale(wavFile, sr):
 	#compute Constant-Q Transform
@@ -39,27 +39,32 @@ def processScale(wavFile, sr):
 	
 	#smooth these frequencies with a median filter to remove artifacts
 	freqs = medianFilter(freqs, 50)
-	plt.stem(freqs)
+	
+	#count the number of frequencies before pitch changes (duration of note)
+	durations = intervalLengthArray(freqs)
+	
 	#get only the unique frequencies
 	freqs = uniqueArray(freqs)
-	
-	print(freqs)
 
 	#array of differences between every pitch change
 	pitch_changes = arrDifferences(freqs)
 	
 	#form of the scale (w-w-h-w-w-w-h vs. w-h-w-w-h-w-w)
 	form = scaleFormation(pitch_changes)
-	print(form)
 	
-	#get experimental pitch error
-	pitchErr = ratePitches(freqs)
-	print(pitchErr)
+	#get experimental scores
+	pitchScore = ratePitches(freqs)
+	durationScore = statistics.variance(durations)
+	
+	#get and squash overall score
+	totalScore = sigmoid((pitchScore + durationScore) * .01)
+	print(totalScore)
 	
 	#plots whatever you want to plot
 	#plt.show()
 
-	#plotQ(C, sr)
+def sigmoid(x):
+	return 1 / (1 + math.exp(-x))
 
 def plotQ(q_transform, sr):
 	librosa.display.specshow(librosa.amplitude_to_db(q_transform, ref=np.max), sr=sr, x_axis='time', y_axis='cqt_hz', cmap='viridis')
@@ -124,23 +129,34 @@ def medianFilter(arr, window_size):
 		arr[i] = statistics.median_low(curr_window)
 	return arr
 
+#param: array -> array with just number of values between unique values
+def intervalLengthArray(arr):
+	intervalArr = []
+	currentNumber = 0
+	for i in range(len(arr) - 1):
+		currentNumber += 1
+		if arr[i] != arr[i + 1]:
+			intervalArr += [currentNumber]
+			currentNumber = 0
+	return intervalArr
+
 #param: array -> array with just unique values
 def uniqueArray(arr):
-	unique_arr = []
-	unique_arr += [arr[0]]
+	uniqueArr = []
+	uniqueArr += [arr[0]]
 	for i in range(len(arr) - 1):
 		if arr[i] != arr[i + 1]:
-			unique_arr += [arr[i + 1]]
-	return unique_arr
+			uniqueArr += [arr[i + 1]]
+	return uniqueArr
 
 #param: array -> array of differences between arr[i] and arr[i+1]
 def arrDifferences(arr):
-	dif_arr = []
+	diffArr = []
 	for i in range(len(arr) - 1):
 		cur, nxt = arr[i], arr[i + 1]
-		dif_arr += [abs(cur-nxt)]
+		diffArr += [abs(cur-nxt)]
 		
-	return dif_arr
+	return diffArr
 
 #param: list (of unique frequencies) -> array of step size guesses (whole or half)
 def scaleFormation(unique_freq_differences_arr):
