@@ -13,10 +13,24 @@
 					"listen": "test",
 					"script": {
 						"id": "2f5e97c4-5e7a-47b0-a0f0-c444a0787370",
-						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "1bb9df1e-f5ba-49b5-97eb-f75d9989b45d",
 						"exec": [
 							""
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -455,8 +469,14 @@
 					}
 				],
 				"body": {
-					"mode": "raw",
-					"raw": ""
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": ""
+						}
+					]
 				},
 				"url": {
 					"raw": "{{host}}/user/{{username}}/recording",
