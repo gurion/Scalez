@@ -11,45 +11,32 @@ import UIKit
 
 class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     
-    var recordButton: UIButton!
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
+    @IBOutlet var recordButton: UIButton!
     
-    @IBOutlet weak var testLabel: UILabel!
-    
-    @IBAction func recordOnTap(_ sender: Any) {
-        
+    @IBAction func recordAudio(_ sender: Any) {
+        if (audioRecorder != nil) {
+            stopRecording(success: true)
+            recordButton.setTitle("Start Recording", for: .normal)
+        } else {
+            startRecording()
+            recordButton.setTitle("Stop Recording", for: .normal)
+        }
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+
         recordingSession = AVAudioSession.sharedInstance()
         
         do {
             try recordingSession.setCategory(.playAndRecord, mode: .default, options: [])
             try recordingSession.setActive(true)
-            self.recordingSession.requestRecordPermission() { [unowned self] allowed  in
-                DispatchQueue.main.async {
-                    if allowed {
-                        self.loadRecordingUI()
-                    } else {
-                        //failed to record
-                    }
-                }
-            }
-            
         } catch {
             print("catching error")
         }
         // Do any additional setup after loading the view, typically from a nib.
-    }
-    
-    func loadRecordingUI() {
-        self.recordButton = UIButton(frame: CGRect(x: 64, y: 64, width: 128, height: 64))
-        self.recordButton.setTitle("Tap to Record", for: .normal)
-        self.recordButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.title1)
-        self.recordButton.addTarget(self, action: #selector(recordTapped), for: .touchUpInside)
-        view.addSubview(self.recordButton)
     }
     
     func startRecording() {
@@ -69,7 +56,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
             
             recordButton.setTitle("Tap to Stop", for: .normal)
         } catch {
-            finishRecording(success: false)
+            stopRecording(success: false)
         }
     }
     
@@ -78,7 +65,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         return paths[0]
     }
 
-    func finishRecording(success: Bool) {
+    func stopRecording(success: Bool) {
         audioRecorder.stop()
         audioRecorder = nil
         
@@ -90,17 +77,9 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         }
     }
 
-    @objc func recordTapped() {
-        if audioRecorder == nil {
-            startRecording()
-        } else {
-            finishRecording(success: true)
-        }
-    }
-
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         if !flag {
-            finishRecording(success: false)
+            stopRecording(success: false)
         }
     }
     
