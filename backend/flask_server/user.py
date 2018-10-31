@@ -30,13 +30,18 @@ def new_user():
         lastname = data['lastname']
         firstname = data['firstname']
 
-        u = User(username=username, lastname=lastname, firstname=firstname)
-        u.set_password(password)
-        db.session.add(u)
-        db.session.commit()
- 
         response = app.response_class(status=201,mimetype='application/json')
-        return response
+        u = User(username=username, lastname=lastname, firstname=firstname)
+
+        #check for same username,
+        check = db.session.query(User).filter_by(username=username).first()
+        if check:
+            return response
+        else:
+            u.set_password(password)
+            db.session.add(u)
+            db.session.commit()
+            return response
 
 #TODO: require a log in to access this
 #I get the strong feeling this needs to be refactored, but I want to see if I can get
@@ -47,7 +52,7 @@ def sendScore(username):
 
     #get user from database
     #TODO: error handle in case the user is not found
-    user = db.session.query(model.User).filter_by(username=username).one()
+    user = db.session.query(User).filter_by(username=username).one()
 
     #score recording
     score = 42
