@@ -30,6 +30,28 @@ def new_user():
     r = make_summary()
     return jsonify(r)
 
+#TODO: require a log in to access this
+#I get the strong feeling this needs to be refactored, but I want to see if I can get
+#this to "work" and then go from there
+@bp.route('/<username>/recording', methods=['POST'])
+def sendScore(username):
+    f = request.files['file']
+
+    #get user from database
+    #TODO: error handle in case the user is not found
+    user = db.session.query(model.User).filter_by(username=username).one()
+
+    #score recording
+    score = 42
+
+    #make new recording
+    record = Recording(score=42,user_id=user.id)
+    db.session.add(record)
+    db.session.commit()
+
+    return jsonify(score)
+
+
 @bp.route('test')
 def test():
     return 'this is a test'
