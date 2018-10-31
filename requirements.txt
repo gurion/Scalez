@@ -1,0 +1,5 @@
+scipy.signal
+librosa
+numpy
+statistics
+math
