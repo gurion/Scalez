@@ -25,8 +25,11 @@ import librosa.display
 import numpy as np
 import statistics
 import math
+import scipy.signal
 
 def processScale(floating_point_time_series, sr):
+	pitch_weight, dynamic_weight, duration_weight = .01, .01, .01
+	
 	#compute Constant-Q Transform
 	C = transform(floating_point_time_series, sr, transform_type='Q')
 	C = threshold_Q_transform(C, sr)
@@ -55,13 +58,16 @@ def processScale(floating_point_time_series, sr):
 	#get experimental scores
 	pitch_score = rate_pitches(freqs)
 	duration_score = statistics.variance(durations)
+	dynamics_score = rate_dynamics(dynamics)
+
 	
 	#get and squash overall score
-	total_score = sigmoid((pitch_score + duration_score) * .01)
+	total_score = sigmoid(pitch_score * pitch_weight + duration_score * duration_weight + dynamics_score * dynamic_weight)
 	print(total_score)
 	
 	#plots whatever you want to plot
-	#plt.show()
+#	plt.plot(dynamics)
+#	plt.show()
 
 def sigmoid(x):
 	return 1 / (1 + math.exp(-x))
@@ -201,6 +207,16 @@ def rate_pitches(frequency_array):
 		total_error_distance += best_guess_err
 	return total_error_distance
 	
+#param: list (of amplitudes) -> int (variance in max 16 amplitudes)
+def rate_dynamics(amplitude_array):
+	peaks = []
+	peak_indices = scipy.signal.find_peaks(amplitude_array)[0]
+	peak_indices.sort()
+	if len(peak_indices >= 16):
+		peak_indices = peak_indices[-16:]
+	for peak in peak_indices:
+		peaks += [amplitude_array[peak]]
+	return statistics.variance(peaks)
 
 y, sr = librosa.load('/Users/jakesager/Desktop/Senior Fall/OOSE/scales.wav', sr=None)
 y = y[:300000]
