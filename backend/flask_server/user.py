@@ -9,26 +9,34 @@ from flask import (
 from flask_server import db
 from flask_json import FlaskJSON, JsonError, json_response, as_json
 from flask import jsonify
+from flask_server import app
+from flask_server.models import *
 
 bp = Blueprint('user', __name__, url_prefix='/user')
 
-@bp.route('/', methods=['POST'])
+@bp.route('/', methods=['POST', 'GET'])
 def new_user():
     #TODO: add in error handeling, the log in must be robust
-    data = request.get_json()
 
-    username = data['username']
-    password = data['password']
-    lastname = data['lastname']
-    firstname = data['firstname']
+    if request.method == 'GET':
+        response = app.response_class(status=200, mimetype='application/json')
+        return response
 
-    u = User(username=username, lastname=lastname, firstname=firstname)
-    u.set_password(password)
-    db.session.add(u)
-    db.session.commit()
-  
-    r = make_summary()
-    return jsonify(r)
+    elif request.method == 'POST': 
+        data = request.get_json()
+
+        username = data['username']
+        password = data['password']
+        lastname = data['lastname']
+        firstname = data['firstname']
+
+        u = User(username=username, lastname=lastname, firstname=firstname)
+        u.set_password(password)
+        db.session.add(u)
+        db.session.commit()
+ 
+        response = app.response_class(status=201,mimetype='application/json')
+        return response
 
 #TODO: require a log in to access this
 #I get the strong feeling this needs to be refactored, but I want to see if I can get
