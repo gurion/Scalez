@@ -8,6 +8,7 @@ from flask import (
 )
 from flask_server import db
 from flask_json import FlaskJSON, JsonError, json_response, as_json
+from flask import jsonify
 
 bp = Blueprint('user', __name__, url_prefix='/user')
 
@@ -25,8 +26,9 @@ def new_user():
     u.set_password(password)
     db.session.add(u)
     db.session.commit()
-
-    return json_response()
+  
+    r = make_summary()
+    return jsonify(r)
 
 @bp.route('test')
 def test():

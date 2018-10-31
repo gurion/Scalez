@@ -25,4 +25,3 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://%(user)s:\
 #on the last line
 from flask_server import models, user
 app.register_blueprint(user.bp)
-
