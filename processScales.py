@@ -26,39 +26,39 @@ import numpy as np
 import statistics
 import math
 
-def processScale(wavFile, sr):
+def processScale(floating_point_time_series, sr):
 	#compute Constant-Q Transform
-	C = transform(wavFile, sr, transform_type='Q')
-	C = thresholdQ(C, sr)
+	C = transform(floating_point_time_series, sr, transform_type='Q')
+	C = threshold_Q_transform(C, sr)
 	
 	#we just happen to get an array representing dynamics - saved for later
-	dynamics = dynamicDimension(C)
+	dynamics = dynamic_dimension(C)
 	
 	#gets a list of just the frequencies over time (no intensity info)
-	freqs = frequencyDimension(C)
+	freqs = frequency_dimension(C)
 	
 	#smooth these frequencies with a median filter to remove artifacts
-	freqs = medianFilter(freqs, 50)
+	freqs = median_filter(freqs, 50)
 	
 	#count the number of frequencies before pitch changes (duration of note)
-	durations = intervalLengthArray(freqs)
+	durations = interval_length_array(freqs)
 	
 	#get only the unique frequencies
-	freqs = uniqueArray(freqs)
+	freqs = unique_array(freqs)
 
 	#array of differences between every pitch change
-	pitch_changes = arrDifferences(freqs)
+	pitch_changes = arr_differences(freqs)
 	
 	#form of the scale (w-w-h-w-w-w-h vs. w-h-w-w-h-w-w)
-	form = scaleFormation(pitch_changes)
+	form = scale_formation(pitch_changes)
 	
 	#get experimental scores
-	pitchScore = ratePitches(freqs)
-	durationScore = statistics.variance(durations)
+	pitch_score = rate_pitches(freqs)
+	duration_score = statistics.variance(durations)
 	
 	#get and squash overall score
-	totalScore = sigmoid((pitchScore + durationScore) * .01)
-	print(totalScore)
+	total_score = sigmoid((pitch_score + duration_score) * .01)
+	print(total_score)
 	
 	#plots whatever you want to plot
 	#plt.show()
@@ -76,32 +76,32 @@ def plotQ(q_transform, sr):
 	#to-do: plot option for mel
 	# librosa.display.specshow(librosa.power_to_db(S, ref=np.max), y_axis='mel', fmax=8000, x_axis='time', hop_length=64, sr=sr,cmap='viridis')
 
-def thresholdQ(q_transform, sr):
+def threshold_Q_transform(q_transform, sr):
 	for column in q_transform.T:
 		threshold = np.amax(column)
 		column[column < threshold] = 0
 		column[column < 1] = 0
 	return q_transform
 	
-def transform(wavFile, sr, transform_type):
+def transform(floating_point_time_series, sr, transform_type):
 	if (transform_type == 'Q'):
-		return np.abs(librosa.cqt(wavFile, sr=sr, filter_scale=5))
+		return np.abs(librosa.cqt(floating_point_time_series, sr=sr, filter_scale=5))
 	if (transform_type == 'STFT'):
-		return librosa.stft(wavFile, n_fft=4096)
+		return librosa.stft(floating_point_time_series, n_fft=4096)
 	if (transform_type == 'Mel'):
-		return librosa.feature.melspectrogram(y=wavFile, sr=sr, n_mels=128, fmax=8000, hop_length=64, n_fft=4096)
+		return librosa.feature.melspectrogram(y=floating_point_time_series, sr=sr, n_mels=128, fmax=8000, hop_length=64, n_fft=4096)
 
 #param: any spectrogram looking np array -> array of amplitudes (over time)
-def dynamicDimension(C):
+def dynamic_dimension(C):
 	frequencies = []
 	for column in C.T:
 		frequencies += [np.amax(column)]
 	return frequencies
 
 #param: any spectrogram looking np array -> array of frequencies (over time)
-def frequencyDimension(C):
+def frequency_dimension(C):
 	frequencies = []
-	freq_map = getFrequencyMap()
+	freq_map = get_frequency_map()
 	
 	for column in C.T:
 		frequencies += [column.argmax()]
@@ -110,7 +110,7 @@ def frequencyDimension(C):
 	return frequencies
 
 #param: none -> a mapping of Q-Transform bins to frequencies in Hz
-def getFrequencyMap():
+def get_frequency_map():
 	freqs = np.empty(85)
 	freqs[0] = 5
 	for i in range(1, 85):
@@ -120,7 +120,7 @@ def getFrequencyMap():
 	return freqs
 
 #param: any 1D array and sliding window size -> median-smoothed array
-def medianFilter(arr, window_size):
+def median_filter(arr, window_size):
 	for i in range(0, len(arr) - window_size):
 		curr_window = []
 		for k in range(i, i + window_size):
@@ -130,36 +130,36 @@ def medianFilter(arr, window_size):
 	return arr
 
 #param: array -> array with just number of values between unique values
-def intervalLengthArray(arr):
-	intervalArr = []
-	currentNumber = 0
+def interval_length_array(arr):
+	interval_arr = []
+	current_number = 0
 	for i in range(len(arr) - 1):
-		currentNumber += 1
+		current_number += 1
 		if arr[i] != arr[i + 1]:
-			intervalArr += [currentNumber]
-			currentNumber = 0
-	return intervalArr
+			interval_arr += [current_number]
+			current_number = 0
+	return interval_arr
 
 #param: array -> array with just unique values
-def uniqueArray(arr):
-	uniqueArr = []
-	uniqueArr += [arr[0]]
+def unique_array(arr):
+	unique_arr = []
+	unique_arr += [arr[0]]
 	for i in range(len(arr) - 1):
 		if arr[i] != arr[i + 1]:
-			uniqueArr += [arr[i + 1]]
-	return uniqueArr
+			unique_arr += [arr[i + 1]]
+	return unique_arr
 
 #param: array -> array of differences between arr[i] and arr[i+1]
-def arrDifferences(arr):
-	diffArr = []
+def arr_differences(arr):
+	diff_arr = []
 	for i in range(len(arr) - 1):
 		cur, nxt = arr[i], arr[i + 1]
-		diffArr += [abs(cur-nxt)]
+		diff_arr += [abs(cur - nxt)]
 		
-	return diffArr
+	return diff_arr
 
 #param: list (of unique frequencies) -> array of step size guesses (whole or half)
-def scaleFormation(unique_freq_differences_arr):
+def scale_formation(unique_freq_differences_arr):
 	formation = []
 	for dif in unique_freq_differences_arr:
 		if 60 < dif < 120:
@@ -170,36 +170,36 @@ def scaleFormation(unique_freq_differences_arr):
 	return formation
 	
 #param: int (a frequency) -> int (ideal next half-step up frequency)
-def getHalfStepUp(currentNote):
-	return 1.0595 * currentNote
+def get_half_step_up(current_note):
+	return 1.0595 * current_note
 #param: int (a frequency) -> int (ideal next half-step down frequency)
-def getHalfStepDown(currentNote):
-	return currentNote / 1.0595
+def get_half_step_down(current_note):
+	return current_note / 1.0595
 
 #param: int (a frequency) -> list (ideal next four frequencies [ideal half up, ideal whole up, ideal half down, ideal whole down])
-def getIdealSteps(currentNote):
-	halfUp = getHalfStepUp(currentNote)
-	halfDown = getHalfStepDown(currentNote)
-	return [halfUp, getHalfStepUp(halfUp), halfDown, getHalfStepDown(halfDown)]
+def get_ideal_steps(current_note):
+	half_up = get_half_step_up(current_note)
+	half_down = get_half_step_down(current_note)
+	return [half_up, get_half_step_up(half_up), half_down, get_half_step_down(half_down)]
 
 #param: list (of unique frequencies) -> int (number of freqs from each ideal next freq)
-def ratePitches(frequencyArray):
+def rate_pitches(frequency_array):
 	#remove first and last pitch (needs to be deprecated)
-	frequencyArray = frequencyArray[1:-1]
-	totalErrorDistance = 0
+	frequency_array = frequency_array[1:-1]
+	total_error_distance = 0
 	
-	for i in range(len(frequencyArray) - 1):
-		currentNote = frequencyArray[i]
-		actualNextNote = frequencyArray[i + 1]
-		idealNextNotes = getIdealSteps(currentNote)
-		bestGuessErr = float('inf')
-		for idealNote in idealNextNotes:
-			errorDistance = abs(actualNextNote - idealNote)
-			if errorDistance < bestGuessErr:
-				bestGuessErr = errorDistance
+	for i in range(len(frequency_array) - 1):
+		current_note = frequency_array[i]
+		actual_next_note = frequency_array[i + 1]
+		ideal_next_notes = get_ideal_steps(current_note)
+		best_guess_err = float('inf')
+		for ideal_note in ideal_next_notes:
+			error_distance = abs(actual_next_note - ideal_note)
+			if error_distance < best_guess_err:
+				best_guess_err = error_distance
 		
-		totalErrorDistance += bestGuessErr
-	return totalErrorDistance
+		total_error_distance += best_guess_err
+	return total_error_distance
 	
 
 y, sr = librosa.load('/Users/jakesager/Desktop/Senior Fall/OOSE/scales.wav', sr=None)
