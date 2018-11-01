@@ -446,13 +446,11 @@
 						"id": "8862195f-e59e-444a-9cd1-fa95ad784d34",
 						"exec": [
 							"pm.test(\"Successful POST request\", function () {",
-							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,200]);",
 							"});",
 							"",
 							"pm.test(\"Content-Type is ‘application/json’\", () => pm.response.to.have.header(\"Content-Type\", \"application/json\"",
-							"));",
-							"",
-							""
+							"));"
 						],
 						"type": "text/javascript"
 					}
@@ -469,14 +467,8 @@
 					}
 				],
 				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "file",
-							"type": "file",
-							"src": ""
-						}
-					]
+					"mode": "raw",
+					"raw": "{\"username\" : \"efeldm16\", \"file\" : [1.00, 2.00, 3.00, 4.00, 5.00], \"rate\" : 12000, \"frameCount\" : 10000}\n\n"
 				},
 				"url": {
 					"raw": "{{host}}/user/{{username}}/recording",
