@@ -6,7 +6,8 @@ Create a postgreSQL database
 
     (b) Go to the /backend/flask_server and open init(), make sure all the POSTGRES fields match (look at lines 14-18 in init)
 2. cd to the backend folder (The rest should be done in /backend)
-3. $ flask db init
+3. Make sure there is no existing migrations folder and then run:
+    $ flask db init
 4. $ flask db migrate
 5. $ flask db upgrade
 6. $ python3 add_user.py 
