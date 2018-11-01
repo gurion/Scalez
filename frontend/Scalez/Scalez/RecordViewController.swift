@@ -13,6 +13,9 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
+    var audioFilename: URL!
+    var audioFileArray: [Float]!
+    
     @IBOutlet var recordButton: UIButton!
     
     @IBAction func recordAudio(_ sender: Any) {
@@ -33,6 +36,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         do {
             try recordingSession.setCategory(.playAndRecord, mode: .default, options: [])
             try recordingSession.setActive(true)
+            
         } catch {
             print("catching error")
         }
@@ -40,8 +44,9 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     }
     
     func startRecording() {
-        let audioFilename = getDocumentsDirectory().appendingPathComponent("recording.m4a")
-        
+        print("starting")
+        self.audioFilename = getDocumentsDirectory().appendingPathComponent("recording.m4a")
+        print(audioFilename)
         let settings = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
             AVSampleRateKey: 12000,
@@ -66,6 +71,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     }
 
     func stopRecording(success: Bool) {
+        print("ending")
         audioRecorder.stop()
         audioRecorder = nil
         
@@ -75,12 +81,23 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
             recordButton.setTitle("Tap to Record", for: .normal)
             // recording failed :(
         }
+        
+        //print(loadAudioSignal(audioURL: self.audioFilename))
     }
 
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         if !flag {
             stopRecording(success: false)
         }
+    }
+    
+    func loadAudioSignal(audioURL: URL) -> (signal: [Float], rate: Double, frameCount: Int) {
+        let file = try! AVAudioFile(forReading: audioURL)
+        let format = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: file.fileFormat.sampleRate, channels: file.fileFormat.channelCount, interleaved: false)
+        let buf = AVAudioPCMBuffer(pcmFormat: format!, frameCapacity: UInt32(file.length))
+        try! file.read(into: buf!) // You probably want better error handling
+        let floatArray = Array(UnsafeBufferPointer(start: buf!.floatChannelData![0], count:Int(buf!.frameLength)))
+        return (signal: floatArray, rate: file.fileFormat.sampleRate, frameCount: Int(file.length))
     }
     
     //posting something to a server
@@ -113,7 +130,31 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
             }.resume()
         
     }
-    
+//
+//    func postX() {
+//        let audioData: NSData = Data(contentsOf: self.audioFilename)
+//
+//            Alamofire.Manager.upload(.PUT,
+//                                     URL,
+//                                     headers: headers,
+//                                     multipartFormData: { multipartFormData in
+//                                        multipartFormData.appendBodyPart(data: "3".dataUsingEncoding(NSUTF8StringEncoding), name: "from_account_id")
+//                                        multipartFormData.appendBodyPart(data: "4".dataUsingEncoding(NSUTF8StringEncoding), name: "to_account_id")
+//                                        multipartFormData.appendBodyPart(data: audioData, name: "file", fileName: "file", mimeType: "audio/m4a")
+//            },
+//                                     encodingCompletion: { encodingResult in
+//                                        switch encodingResult {
+//
+//                                        case .Success(let upload, _, _):
+//                                            upload.responseJSON { response in
+//
+//                                            }
+//
+//                                        case .Failure(let encodingError):
+//                                            print("error uploading")
+//                                        }
+//            })
+//    }
 }
 
 
