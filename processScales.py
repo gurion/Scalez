@@ -218,6 +218,13 @@ def rate_dynamics(amplitude_array):
 		peaks += [amplitude_array[peak]]
 	return statistics.variance(peaks)
 
+#for iteration 3 testing
+def translateSwiftTrash(swift_trash):
+	swift_trash = swift_trash.split(',')
+	return list(map(float, swift_trash))
+	
+
 y, sr = librosa.load('/Users/jakesager/Desktop/Senior Fall/OOSE/scales.wav', sr=None)
 y = y[:300000]
 processScale(y, sr)
+
