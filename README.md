@@ -12,6 +12,7 @@ Create a postgreSQL database
 4. $ flask db migrate
 5. $ flask db upgrade
 6. $ python3 add_user.py 
+   
    (Make sure that a User model has already been inilized in the database)
 7. $ flask run
 8. Build XCode project
