@@ -48,8 +48,9 @@ def new_user():
 #this to "work" and then go from there
 @bp.route('/<username>/recording', methods=['POST'])
 def sendScore(username):
-    f = request.files['file']
-
+    data = request.get_json()
+    audio = data['file']
+    print(audio)
     #get user from database
     #TODO: error handle in case the user is not found
     user = db.session.query(User).filter_by(username=username).one()
@@ -63,7 +64,6 @@ def sendScore(username):
     db.session.commit()
 
     return jsonify(score)
-
 
 @bp.route('test')
 def test():
