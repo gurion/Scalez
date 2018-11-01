@@ -13,6 +13,8 @@ from flask import jsonify
 from flask_server import app
 from flask_server.models import *
 
+from flask_server.processScales import processScale
+
 bp = Blueprint('user', __name__, url_prefix='/user')
 
 
@@ -59,7 +61,7 @@ def sendScore(username):
     user = db.session.query(User).filter_by(username=username).one()
 
     # score recording
-    score = 42
+    score = processScale(audio, 12000)
 
     # make new recording
     record = Recording(score=score, user_id=user.id)
