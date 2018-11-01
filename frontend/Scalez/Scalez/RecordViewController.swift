@@ -121,7 +121,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     
         let parameters = ["username": "Gurion", "file": str, "rate": sampleRate, "frameCount": frameCount]
         
-        guard let url = URL(string: "http://127.0.0.1:5000/user/Gurion/recording") else { return }
+        guard let url = URL(string: "https://scalez.herokuapp.com/user/Gurion/recording") else { return }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
