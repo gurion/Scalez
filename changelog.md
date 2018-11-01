@@ -12,3 +12,15 @@
   - Added functionality that allows a user to record audio on a button press
   - Added functionality to convert that audio into raw .wav data
   - Added functionality to send raw audio data to our server
+
+**flask_server** *(backend)*
+  - Added user blueprint
+  - Debug user/test route
+  - Integrated Scale Rating logic
+  - Created postrgreSQL database
+  - Created User and Recording models
+  - Users have password_hash
+  - Recording require a User from the database to be instantiated
+  - added .flaskenv file
+  - Updated requirments.txt
+  - Recordings have a time 
