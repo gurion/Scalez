@@ -1,6 +1,6 @@
-OOSE Group 21 Changelog
+## OOSE Group 21 Changelog
 
-Scale Rating Logic (processScales.py)
+**Scale Rating Logic** *processScales.py*
   - Added functionality to detect the sequence of half/whole steps in a scale. This will allow us to detect major/minor scale      patterns
   - Added an algorithm to score a scale based on a weighted combination of pitch accuracy, dynamic consistency, and note duration consistancy
   - Added a temporary way to normalize scale scores
