@@ -24,3 +24,7 @@
   - added .flaskenv file
   - Updated requirments.txt
   - Recordings have a time 
+  
+  **Heroku Deployment** *(backend)*
+  - Tried deploying on Heroku
+  - It didn't work; caused a lot of problems. This is a work in progress.
