@@ -1,4 +1,4 @@
-scipy.signal
+scipy
 librosa
 numpy
 statistics
