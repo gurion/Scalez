@@ -3,7 +3,7 @@ Be sure to have the postgreSQL database
 1.  (a) Go to the .flaskenv and change the DATABASE_URL variable to your database 
 
     (b) Go to the /backend/flask_server and open init(), make sure all the POSTGRES fields match (look at lines 14-18 in init)
-2. go to the backend folder (The rest should be done in /backend)
+2. cd to the backend folder (The rest should be done in /backend)
 3. $ flask db init
 4. $ flask db migrate
 5. $ flask db upgrade
