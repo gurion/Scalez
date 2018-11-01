@@ -1,5 +1,6 @@
 # Build Instructions
 Requirements: pip install everything in the requirements file
+
 Create a postgreSQL database
 1.  (a) Go to the .flaskenv and change the DATABASE_URL variable to your database 
 
