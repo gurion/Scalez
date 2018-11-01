@@ -14,9 +14,10 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
     var audioFilename: URL!
-    var audioFileArray: [Float]!
     
     @IBOutlet var recordButton: UIButton!
+    @IBOutlet var scoreButton: UIButton!
+    
     
     @IBAction func recordAudio(_ sender: Any) {
         if (audioRecorder != nil) {
@@ -103,7 +104,14 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     //posting something to a server
     //this code came from https://github.com/Kilo-Loco
     @IBAction func postOnTap(_ sender: Any) {
-        let parameters = ["username": "@kilo_loco", "tweet": "HelloWorld"]
+        let audioFileData = loadAudioSignal(audioURL: self.audioFilename)
+        let audioFloatArray = audioFileData.signal
+        let sampleRate = String(audioFileData.rate)
+        let frameCount = String(audioFileData.frameCount)
+        let strarr = audioFloatArray.map { String($0) }
+        let str = strarr.joined(separator: ",")
+    
+        let parameters = ["username": "gurion", "file": str, "rate": sampleRate, "frameCount": frameCount]
         
         guard let url = URL(string: "https://jsonplaceholder.typicode.com/posts") else { return }
         var request = URLRequest(url: url)
@@ -121,40 +129,14 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
             if let data = data {
                 do {
                     let json = try JSONSerialization.jsonObject(with: data, options: [])
-                    print(json)
+//                    print(json)
                 } catch {
                     print(error)
                 }
             }
             
             }.resume()
-        
     }
-//
-//    func postX() {
-//        let audioData: NSData = Data(contentsOf: self.audioFilename)
-//
-//            Alamofire.Manager.upload(.PUT,
-//                                     URL,
-//                                     headers: headers,
-//                                     multipartFormData: { multipartFormData in
-//                                        multipartFormData.appendBodyPart(data: "3".dataUsingEncoding(NSUTF8StringEncoding), name: "from_account_id")
-//                                        multipartFormData.appendBodyPart(data: "4".dataUsingEncoding(NSUTF8StringEncoding), name: "to_account_id")
-//                                        multipartFormData.appendBodyPart(data: audioData, name: "file", fileName: "file", mimeType: "audio/m4a")
-//            },
-//                                     encodingCompletion: { encodingResult in
-//                                        switch encodingResult {
-//
-//                                        case .Success(let upload, _, _):
-//                                            upload.responseJSON { response in
-//
-//                                            }
-//
-//                                        case .Failure(let encodingError):
-//                                            print("error uploading")
-//                                        }
-//            })
-//    }
 }
 
 
