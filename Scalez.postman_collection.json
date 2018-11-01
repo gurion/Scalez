@@ -149,7 +149,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "\"eF96\""
+					"raw": "\"new username\""
 				},
 				"url": {
 					"raw": "{{host}}/user/{{username}}",
