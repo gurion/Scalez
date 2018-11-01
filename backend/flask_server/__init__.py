@@ -11,9 +11,9 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 POSTGRES = {
-    'user': 'postgres',
-    'pw': 'Arpiarpi2',
-    'db': 'testdb',
+    'user': 'Gurion',
+    'pw': '',
+    'db': 'Gurion',
     'host': 'localhost',
     'port': '5432',
 }

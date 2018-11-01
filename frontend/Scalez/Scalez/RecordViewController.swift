@@ -14,9 +14,10 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
     var audioFilename: URL!
+    var scoreData: String = ""
     
     @IBOutlet var recordButton: UIButton!
-    @IBOutlet var scoreButton: UIButton!
+    @IBOutlet var score: UITextField!
     
     
     @IBAction func recordAudio(_ sender: Any) {
@@ -26,6 +27,13 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         } else {
             startRecording()
             recordButton.setTitle("Stop Recording", for: .normal)
+        }
+    }
+    @IBAction func setScoreLabel(_ sender: Any) {
+        if (self.scoreData != nil) {
+            self.score.text = scoreData
+        } else {
+            self.score.text = "No Score Available"
         }
     }
     
@@ -111,9 +119,9 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         let strarr = audioFloatArray.map { String($0) }
         let str = strarr.joined(separator: ",")
     
-        let parameters = ["username": "gurion", "file": str, "rate": sampleRate, "frameCount": frameCount]
+        let parameters = ["username": "Gurion", "file": str, "rate": sampleRate, "frameCount": frameCount]
         
-        guard let url = URL(string: "https://jsonplaceholder.typicode.com/posts") else { return }
+        guard let url = URL(string: "http://127.0.0.1:5000/user/Gurion/recording") else { return }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -125,18 +133,19 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
             if let response = response {
                 print(response)
             }
-            
             if let data = data {
                 do {
-                    let json = try JSONSerialization.jsonObject(with: data, options: [])
-//                    print(json)
+//                    let json = try JSONSerialization.jsonObject(with: data, options: [])
+//                    try print(String(data: data, encoding: .utf8)!)
+                    //self.score.text = String(data: data, encoding: .utf8)!
+                    self.scoreData = String(data: data, encoding: .utf8)!
+                    
                 } catch {
-                    print(error)
+                    print("This is the error being printed error")
                 }
             }
-            
-            }.resume()
+        }.resume()
     }
-}
 
+}
 

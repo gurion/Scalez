@@ -7,5 +7,4 @@ flask
 flask-migrate
 flask-sqlalchemy
 python-dotenv
-werkzueg.security
 psycopg2
