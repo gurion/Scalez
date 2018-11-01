@@ -16,6 +16,7 @@ Create a postgreSQL database
    (Makes sure that a User model has already been initialized in the database)
 7. $ flask run
 8. Build XCode project
+   
    We ran on an XR iOS 12.1 simulator. Others > iOS 12 should work.
 9. Press 'Record' and make some noise for a couple seconds. Press 'Stop Recording'
 10. Press Upload
