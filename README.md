@@ -1,5 +1,6 @@
 # Build Instructions
-Be sure to have the postgreSQL database
+Requirements: pip install everything in the requirements file
+Create a postgreSQL database
 1.  (a) Go to the .flaskenv and change the DATABASE_URL variable to your database 
 
     (b) Go to the /backend/flask_server and open init(), make sure all the POSTGRES fields match (look at lines 14-18 in init)
