@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-
+'''
 POSTGRES = {
     'user': 'Gurion',
     'pw': '',
@@ -17,8 +17,8 @@ POSTGRES = {
     'host': 'localhost',
     'port': '5432',
 }
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://%(user)s:\
-%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES
+'''
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_URL"]
 
 
 #following the grinberg tutorial, I'm importing the models and blueprints
