@@ -29,7 +29,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
             recordButton.setTitle("Stop Recording", for: .normal)
         }
     }
-    @IBAction func setScoreLabel(_ sender: Any) {
+    func setScoreLabel() {
         if (self.scoreData != nil) {
             self.score.text = scoreData
         } else {
@@ -86,6 +86,9 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         
         if success {
             recordButton.setTitle("Tap to Re-record", for: .normal)
+            postOnTap()
+            sleep(2)
+            setScoreLabel()
         } else {
             recordButton.setTitle("Tap to Record", for: .normal)
             // recording failed :(
@@ -111,7 +114,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     
     //posting something to a server
     //this code came from https://github.com/Kilo-Loco
-    @IBAction func postOnTap(_ sender: Any) {
+    func postOnTap() {
         let audioFileData = loadAudioSignal(audioURL: self.audioFilename)
         let audioFloatArray = audioFileData.signal
         let sampleRate = String(audioFileData.rate)

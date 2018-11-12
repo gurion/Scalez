@@ -64,8 +64,7 @@ def processScale(floating_point_time_series, sr):
     dynamics_score = rate_dynamics(dynamics)
 
     # get and squash overall score
-    total_score = sigmoid(pitch_score * pitch_weight + duration_score *
-                          duration_weight + dynamics_score * dynamic_weight)
+    total_score = pitch_score * pitch_weight + duration_score * duration_weight + dynamics_score * dynamic_weight
     return total_score
 
     # plots whatever you want to plot
