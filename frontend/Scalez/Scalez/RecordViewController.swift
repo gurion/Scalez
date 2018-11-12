@@ -39,7 +39,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.recordButton.backgroundColor = UIColor.red
         recordingSession = AVAudioSession.sharedInstance()
         
         do {
