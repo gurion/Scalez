@@ -15,6 +15,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     var audioRecorder: AVAudioRecorder!
     var audioFilename: URL!
     var scoreData: String = ""
+    var recording: Bool = false
     
     @IBOutlet var recordButton: UIButton!
     @IBOutlet var score: UITextField!
@@ -23,10 +24,10 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     @IBAction func recordAudio(_ sender: Any) {
         if (audioRecorder != nil) {
             stopRecording(success: true)
-            recordButton.setTitle("Start Recording", for: .normal)
+            setRecordButtonImage()
         } else {
             startRecording()
-            recordButton.setTitle("Stop Recording", for: .normal)
+            setRecordButtonImage()
         }
     }
     func setScoreLabel() {
@@ -37,9 +38,17 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         }
     }
     
+    func setRecordButtonImage() {
+        if self.recording {
+            self.recordButton.setImage(UIImage(named: "stop_button"), for: .normal)
+        } else {
+            self.recordButton.setImage(UIImage(named: "play_button"), for: .normal)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.recordButton.backgroundColor = UIColor.red
+        setRecordButtonImage()
         recordingSession = AVAudioSession.sharedInstance()
         
         do {
@@ -53,7 +62,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     }
     
     func startRecording() {
-        print("starting")
+        self.recording = true
         self.audioFilename = getDocumentsDirectory().appendingPathComponent("recording.m4a")
         print(audioFilename)
         let settings = [
@@ -67,8 +76,6 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
             self.audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
             self.audioRecorder.delegate = self
             self.audioRecorder.record()
-            
-            recordButton.setTitle("Tap to Stop", for: .normal)
         } catch {
             stopRecording(success: false)
         }
@@ -80,17 +87,17 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     }
 
     func stopRecording(success: Bool) {
-        print("ending")
+        self.recording = false
         audioRecorder.stop()
         audioRecorder = nil
         
         if success {
-            recordButton.setTitle("Tap to Re-record", for: .normal)
+            setRecordButtonImage()
             postOnTap()
             sleep(2)
             setScoreLabel()
         } else {
-            recordButton.setTitle("Tap to Record", for: .normal)
+            setRecordButtonImage()
             // recording failed :(
         }
         
