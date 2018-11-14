@@ -1,1 +1,1 @@
-web: gunicorn backend/flask_server:server
+web: gunicorn backend:server
