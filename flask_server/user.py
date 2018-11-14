@@ -25,7 +25,7 @@ def new_user():
     print('this is a test1')
     if request.method == 'GET':
         response = app.response_class(status=200, mimetype='application/json')
-    print('this is a test2')
+        print('this is a test2')
         return response
     print('this is a test3')
 '''
