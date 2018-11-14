@@ -22,10 +22,12 @@ bp = Blueprint('user', __name__, url_prefix='/user')
 def new_user():
     # TODO: add in error handeling, the log in must be robust
 
+    print('this is a test1')
     if request.method == 'GET':
         response = app.response_class(status=200, mimetype='application/json')
+    print('this is a test2')
         return response
-    print('this is a test')
+    print('this is a test3')
 '''
     elif request.method == 'POST':
         data = request.get_json()
