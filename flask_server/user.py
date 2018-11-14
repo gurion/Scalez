@@ -27,11 +27,11 @@ def new_user():
         response = app.response_class(status=200, mimetype='application/json')
         print('this is a test2')
         return response
-    print('this is a test3')
 
     elif request.method == 'POST':
         data = request.get_json()
 
+        print('this is a test3')
         username = data['username']
         password = data['password']
         lastname = data['lastname']
