@@ -31,10 +31,10 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         }
     }
     func setScoreLabel() {
-        if (self.scoreData != nil) {
+        if (self.scoreData != "") {
             self.score.text = scoreData
         } else {
-            self.score.text = "No Score Available"
+            self.score.text = "_____"
         }
     }
     
@@ -63,6 +63,8 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     
     func startRecording() {
         self.recording = true
+        self.scoreData = ""
+        setScoreLabel()
         self.audioFilename = getDocumentsDirectory().appendingPathComponent("recording.m4a")
         print(audioFilename)
         let settings = [
