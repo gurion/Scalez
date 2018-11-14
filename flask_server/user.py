@@ -61,7 +61,7 @@ def sendScore(username):
     user = db.session.query(User).filter_by(username=username).first()
 
     # score recording
-    score = processScale(audio, 12000)
+    score =42 # processScale(audio, 12000)
 
     # make new recording
     record = Recording(score=score, user_id=user.id)
