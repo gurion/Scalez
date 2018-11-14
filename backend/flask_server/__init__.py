@@ -6,20 +6,10 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
 app = Flask(__name__)
-app.config.from_object(Config)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_URL"]
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-'''
-POSTGRES = {
-    'user': 'Gurion',
-    'pw': '',
-    'db': 'Gurion',
-    'host': 'localhost',
-    'port': '5432',
-}
-'''
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_URL"]
-
 
 #following the grinberg tutorial, I'm importing the models and blueprints
 #on the last line

@@ -1,0 +1,7 @@
+to initlize the database, make sure you do the following:
+
+1. create a local postgres database
+2. remeber your postgres password, be sure to set the URL to:
+	postgresql://<user>:<password>@localhost:<port(probably5432)>/<database_name>
+3. now run db_create.py
+4. Congratualtions, the database can be set up and populated
