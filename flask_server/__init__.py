@@ -10,7 +10,7 @@ from flask_migrate import Migrate
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_URL"]
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-DATABASE_URL = os.enviorn['DATABASE_URL']
+DATABASE_URL = os.environ['DATABASE_URL']
 conn = pyscopg2.connect(DATABASE_URL, sslmode='require')
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
