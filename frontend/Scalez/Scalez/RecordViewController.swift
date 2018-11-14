@@ -95,7 +95,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         
         if success {
             setRecordButtonImage()
-            postOnTap()
+            postAudioFile()
             sleep(2)
             setScoreLabel()
         } else {
@@ -123,7 +123,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     
     //posting something to a server
     //this code came from https://github.com/Kilo-Loco
-    func postOnTap() {
+    func postAudioFile() {
         let audioFileData = loadAudioSignal(audioURL: self.audioFilename)
         let audioFloatArray = audioFileData.signal
         let sampleRate = String(audioFileData.rate)
