@@ -28,7 +28,7 @@ def new_user():
         print('this is a test2')
         return response
     print('this is a test3')
-'''
+
     elif request.method == 'POST':
         data = request.get_json()
 
@@ -49,7 +49,7 @@ def new_user():
             db.session.add(u)
             db.session.commit()
             return response
-'''
+
 # TODO: require a log in to access this
 # I get the strong feeling this needs to be refactored, but I want to see if I can get
 # this to "work" and then go from there
