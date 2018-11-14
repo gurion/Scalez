@@ -22,16 +22,13 @@ bp = Blueprint('user', __name__, url_prefix='/user')
 def new_user():
     # TODO: add in error handeling, the log in must be robust
 
-    print('this is a test1')
     if request.method == 'GET':
         response = app.response_class(status=200, mimetype='application/json')
-        print('this is a test2')
         return response
 
     elif request.method == 'POST':
         data = request.get_json()
 
-        print('this is a test3')
         username = data['username']
         password = data['password']
         lastname = data['lastname']
@@ -61,7 +58,7 @@ def sendScore(username):
     audio = data['file']
     # get user from database
     # TODO: error handle in case the user is not found
-    user = db.session.query(User).filter_by(username=username).one()
+    user = db.session.query(User).filter_by(username=username).first()
 
     # score recording
     score = processScale(audio, 12000)
