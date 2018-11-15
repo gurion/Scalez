@@ -11,12 +11,11 @@ from flask_server import db
 from flask_json import FlaskJSON, JsonError, json_response, as_json
 from flask import jsonify
 from flask_server import app
+from flask_login import current_user, login_user
 from flask_server.models import *
-
 from flask_server.processScales import processScale
 
 bp = Blueprint('user', __name__, url_prefix='/user')
-
 
 @bp.route('/', methods=['POST', 'GET'])
 def new_user():
@@ -45,9 +44,14 @@ def new_user():
             db.session.commit()
             return response
 
-# TODO: require a log in to access this
-# I get the strong feeling this needs to be refactored, but I want to see if I can get
-# this to "work" and then go from there
+@bp.route('/login', methods=['GET'])
+def login():
+    data = request.get_json()
+    
+    ##insert stuff here to log people on
+
+    return app.response_class(status=200, mimetype='application/json')
+
 
 
 @bp.route('/<username>/recording', methods=['POST'])
@@ -55,7 +59,6 @@ def sendScore(username):
     data = request.get_json()
     audio = data['file']
     # get user from database
-    # TODO: error handle in case the user is not found
     user = db.session.query(User).filter_by(username=username).first()
 
     # score recording
@@ -90,7 +93,6 @@ def del_user(username):
         db.session.delete(r)
 
     db.session.delete(user)
-
     db.session.commit()
 
     return response
