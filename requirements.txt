@@ -3,7 +3,6 @@ matplotlib
 librosa
 numpy
 statistics
-math
 flask
 flask-migrate
 flask-sqlalchemy
