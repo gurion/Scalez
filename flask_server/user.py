@@ -20,8 +20,6 @@ bp = Blueprint('user', __name__, url_prefix='/user')
 
 @bp.route('/', methods=['POST', 'GET'])
 def new_user():
-    # TODO: add in error handeling, the log in must be robust
-
     if request.method == 'GET':
         response = app.response_class(status=200, mimetype='application/json')
         return response
@@ -40,7 +38,7 @@ def new_user():
         # check for same username,
         check = db.session.query(User).filter_by(username=username).first()
         if check:
-            return response
+            return make_error('400', 'user already exsits')
         else:
             u.set_password(password)
             db.session.add(u)
@@ -77,16 +75,16 @@ def sendScore(username):
     return response
 
 #remove specified user and associated recordings from the database
-@bp.route('/<username>', methods['DEL'])
-def del_user(username) 
+@bp.route('/<username>', methods=['DEL'])
+def del_user(username): 
     
     user = db.session.query(User).filter_by(username=username).first() 
     response = app.response_class(status=200, mimetype='application/json')
     
-    if user = None:
+    if user is None:
         return response
 
-    recordings user.recordings.all()
+    recordings = user.recordings.all()
 
     for r in recordings:
         db.session.delete(r)
@@ -95,6 +93,10 @@ def del_user(username)
 
     db.session.commit()
 
+    return response
+
+def make_error(status, message):
+    response = jsonify({'status': status, 'message':message})
     return response
 
 @bp.route('test')
