@@ -147,11 +147,10 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
             }
             if let data = data {
                 do {
-//                    let json = try JSONSerialization.jsonObject(with: data, options: [])
-//                    try print(String(data: data, encoding: .utf8)!)
+                    //let json = try JSONSerialization.jsonObject(with: data, options: [])
+                    //try print(String(data: data, encoding: .utf8)!)
                     //self.score.text = String(data: data, encoding: .utf8)!
                     self.scoreData = String(data: data, encoding: .utf8)!
-                    
                 } catch {
                     print("This is the error being printed error")
                 }
