@@ -61,15 +61,41 @@ def sendScore(username):
     user = db.session.query(User).filter_by(username=username).first()
 
     # score recording
-    score =42 # processScale(audio, 12000)
+    score = 42 # processScale(audio, 12000)
 
     # make new recording
     record = Recording(score=score, user_id=user.id)
     db.session.add(record)
     db.session.commit()
 
-    return json.dumps(score)
 
+    response = app.response_class(
+            response = json.dumps(score),
+            status=201, 
+            mimetype='application/json')
+
+    return response
+
+#remove specified user and associated recordings from the database
+@bp.route('/<username>', methods['DEL'])
+def del_user(username) 
+    
+    user = db.session.query(User).filter_by(username=username).first() 
+    response = app.response_class(status=200, mimetype='application/json')
+    
+    if user = None:
+        return response
+
+    recordings user.recordings.all()
+
+    for r in recordings:
+        db.session.delete(r)
+
+    db.session.delete(user)
+
+    db.session.commit()
+
+    return response
 
 @bp.route('test')
 def test():
