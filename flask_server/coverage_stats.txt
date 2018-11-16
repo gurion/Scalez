@@ -1,0 +1,4 @@
+Name                                                                  Stmts   Miss  Cover
+-----------------------------------------------------------------------------------------
+processScales.py                                                        164     14    91%
+processScalesTesting.py                                                  46      0   100%
