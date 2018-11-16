@@ -3,5 +3,5 @@ install:
   - pip install -r requirements.txt
   - npm install -g newman
 script:
-  - export FLASK_APP = server.py
+  - export FLASK_APP=server.py
   - flask run && newman run 'Scalez.postman_collection.json' --environment 'Development.postman_environment.json'
