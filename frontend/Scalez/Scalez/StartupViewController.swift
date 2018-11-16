@@ -19,23 +19,36 @@ class StartupViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    @IBAction func logIn(_ sender: Any) {
         self.loginAlert()
-        self.setUserDefaults()
     }
     
     func loginAlert() {
         let alert = UIAlertController(title: "Please Log In", message: nil, preferredStyle: .alert)
         
-        let loginAction = UIAlertAction(title: "Login", style: .default) { (action) in
+        alert.addTextField { (textField : UITextField!) -> Void in
+            textField.placeholder = "First Name"
+        }
+        alert.addTextField { (textField : UITextField!) -> Void in
+            textField.placeholder = "Last Name"
+        }
+        alert.addTextField { (textField : UITextField!) -> Void in
+            textField.placeholder = "Username"
+        }
+        
+        alert.addTextField { (textField : UITextField!) -> Void in
+            textField.placeholder = "Password"
+            textField.isSecureTextEntry = true
+        }
+        
+        let loginAction = UIAlertAction(title: "Login", style: .default) { action in
+
             let firstnameField = alert.textFields![0] as UITextField
             let lastnameField = alert.textFields![1] as UITextField
             let usernameField = alert.textFields![2] as UITextField
             let passwordField = alert.textFields![3] as UITextField
-            
-            firstnameField.placeholder = "First Name"
-            lastnameField.placeholder = "Last Name"
-            usernameField.placeholder = "Username"
-            passwordField.placeholder = "Password"
             
             self.firstname = firstnameField.text!
             self.lastname = lastnameField.text!
@@ -43,10 +56,17 @@ class StartupViewController : UIViewController {
             self.password = passwordField.text!
             
             self.postUserData()
+            self.setUserDefaults()
+            
+            self.performSegue(withIdentifier: "Login" , sender: self)
         }
         
+
         alert.addAction(loginAction)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        self.present(alert, animated: true, completion: nil)
+        
     }
     
     func setUserDefaults() {

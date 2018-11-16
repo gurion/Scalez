@@ -564,6 +564,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CCC2BB78B3D0A992C0C9EAAF /* Pods-Scalez.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Scalez/Info.plist;
@@ -582,6 +583,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 18AF58FFCD40FD4799281557 /* Pods-Scalez.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Scalez/Info.plist;
