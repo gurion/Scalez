@@ -16,9 +16,11 @@ class StartupViewController : UIViewController {
     var password: String = ""
 
     @IBOutlet var createAccount: UIButton!
+    @IBOutlet var logo: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        logo.image = #imageLiteral(resourceName: "logo")
     }
     
     @IBAction func logIn(_ sender: Any) {
