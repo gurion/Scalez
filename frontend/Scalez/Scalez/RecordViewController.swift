@@ -15,6 +15,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     var audioRecorder: AVAudioRecorder!
     var audioFilename: URL!
     var scoreData: String = ""
+    var recording: Bool = false
     
     @IBOutlet var recordButton: UIButton!
     @IBOutlet var score: UITextField!
@@ -23,23 +24,31 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     @IBAction func recordAudio(_ sender: Any) {
         if (audioRecorder != nil) {
             stopRecording(success: true)
-            recordButton.setTitle("Start Recording", for: .normal)
+            setRecordButtonImage()
         } else {
             startRecording()
-            recordButton.setTitle("Stop Recording", for: .normal)
+            setRecordButtonImage()
         }
     }
-    @IBAction func setScoreLabel(_ sender: Any) {
-        if (self.scoreData != nil) {
+    func setScoreLabel() {
+        if (self.scoreData != "") {
             self.score.text = scoreData
         } else {
-            self.score.text = "No Score Available"
+            self.score.text = "_____"
+        }
+    }
+    
+    func setRecordButtonImage() {
+        if self.recording {
+            self.recordButton.setImage(UIImage(named: "stop_button"), for: .normal)
+        } else {
+            self.recordButton.setImage(UIImage(named: "play_button"), for: .normal)
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setRecordButtonImage()
         recordingSession = AVAudioSession.sharedInstance()
         
         do {
@@ -53,7 +62,9 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     }
     
     func startRecording() {
-        print("starting")
+        self.recording = true
+        self.scoreData = ""
+        setScoreLabel()
         self.audioFilename = getDocumentsDirectory().appendingPathComponent("recording.m4a")
         print(audioFilename)
         let settings = [
@@ -67,8 +78,6 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
             self.audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
             self.audioRecorder.delegate = self
             self.audioRecorder.record()
-            
-            recordButton.setTitle("Tap to Stop", for: .normal)
         } catch {
             stopRecording(success: false)
         }
@@ -80,14 +89,17 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     }
 
     func stopRecording(success: Bool) {
-        print("ending")
+        self.recording = false
         audioRecorder.stop()
         audioRecorder = nil
         
         if success {
-            recordButton.setTitle("Tap to Re-record", for: .normal)
+            setRecordButtonImage()
+            postAudioFile()
+            sleep(2)
+            setScoreLabel()
         } else {
-            recordButton.setTitle("Tap to Record", for: .normal)
+            setRecordButtonImage()
             // recording failed :(
         }
         
@@ -111,17 +123,18 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     
     //posting something to a server
     //this code came from https://github.com/Kilo-Loco
-    @IBAction func postOnTap(_ sender: Any) {
+    func postAudioFile() {
         let audioFileData = loadAudioSignal(audioURL: self.audioFilename)
         let audioFloatArray = audioFileData.signal
         let sampleRate = String(audioFileData.rate)
         let frameCount = String(audioFileData.frameCount)
         let strarr = audioFloatArray.map { String($0) }
         let str = strarr.joined(separator: ",")
-    
-        let parameters = ["username": "Gurion", "file": str, "rate": sampleRate, "frameCount": frameCount]
+        let username = UserDefaults.standard.string(forKey: "username")
         
-        guard let url = URL(string: "http://127.0.0.1:5000/user/Gurion/recording") else { return }
+        let parameters = ["username": username, "file": str, "rate": sampleRate, "frameCount": frameCount]
+        
+        guard let url = URL(string: "https://testdeployment-scalez.herokuapp.com/user/"+username!+"/recording") else { return }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -135,11 +148,10 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
             }
             if let data = data {
                 do {
-//                    let json = try JSONSerialization.jsonObject(with: data, options: [])
-//                    try print(String(data: data, encoding: .utf8)!)
+                    //let json = try JSONSerialization.jsonObject(with: data, options: [])
+                    //try print(String(data: data, encoding: .utf8)!)
                     //self.score.text = String(data: data, encoding: .utf8)!
                     self.scoreData = String(data: data, encoding: .utf8)!
-                    
                 } catch {
                     print("This is the error being printed error")
                 }

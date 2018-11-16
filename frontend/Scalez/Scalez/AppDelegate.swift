@@ -16,6 +16,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+//        self.window = UIWindow(frame:UIScreen.main.bounds)
+//        
+//        let isLoggedIn = UserDefaults.standard.bool(forKey: "Login")
+//        
+//        if (isLoggedIn) {
+//            let initialViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "RecordVC") as! RecordViewController
+//            self.window?.rootViewController = initialViewController
+//            self.window?.makeKeyAndVisible()
+//        } else {
+//            let initialViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "StartupVC") as! StartupViewController
+//            self.window?.rootViewController = initialViewController
+//            self.window?.makeKeyAndVisible()
+//        }
+        
         return true
     }
 

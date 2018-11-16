@@ -1,0 +1,6 @@
+framework module Pods_Scalez {
+  umbrella header "Pods-Scalez-umbrella.h"
+
+  export *
+  module * { export * }
+}
