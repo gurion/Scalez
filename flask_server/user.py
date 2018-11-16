@@ -14,6 +14,9 @@ from flask_server import app
 from flask_login import current_user, login_user
 from flask_server.models import *
 from flask_server.processScales import processScale
+from werkzeug.urls import url_parse
+
+#TODO: SET UP USER SESSIONS WITH AUTHNITCATION AND SHIT
 
 bp = Blueprint('user', __name__, url_prefix='/user')
 
@@ -47,12 +50,16 @@ def new_user():
 @bp.route('/login', methods=['GET'])
 def login():
     data = request.get_json()
-    
-    ##insert stuff here to log people on
+   
+    username = data['username']
+    password = data['password']
+
+    check_user = db.session.query(User).filter_by(username=username).first()
+
+    if check_user is None or (check_user.check_password(password) == false):
+        return redirect(url_for('login'))
 
     return app.response_class(status=200, mimetype='application/json')
-
-
 
 @bp.route('/<username>/recording', methods=['POST'])
 def sendScore(username):
@@ -68,7 +75,6 @@ def sendScore(username):
     record = Recording(score=score, user_id=user.id)
     db.session.add(record)
     db.session.commit()
-
 
     response = app.response_class(
             response = json.dumps(score),

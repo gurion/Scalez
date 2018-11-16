@@ -2,16 +2,17 @@ import psycopg2
 import os
 
 from flask_login import LoginManager
-from flask import Flask
+from flask import Flask, session
 #from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
 
 app = Flask(__name__)
+#app.secret_key = "kill me"
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_URL"]
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-DATABASE_URL = os.environ['DATABASE_URL']
+#DATABASE_URL = os.environ['DATABASE_URL']
 #conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 db = SQLAlchemy(app)
 login = LoginManager(app)
