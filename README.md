@@ -1,4 +1,15 @@
-# Build Instructions
+# Build Instructions 
+
+
+
+
+
+
+
+## Deprecated Build Instructions
+
+<details><summary>CLICK ME</summary>
+<p>
 Requirements: pip install everything in the requirements file
 
 Create a postgreSQL database
