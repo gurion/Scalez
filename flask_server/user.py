@@ -61,6 +61,7 @@ def login():
 
     return app.response_class(status=200, mimetype='application/json')
 
+#assumes that the user has a valid login
 @bp.route('/<username>/recording', methods=['POST'])
 def sendScore(username):
     data = request.get_json()
