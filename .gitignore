@@ -1,12 +1,12 @@
 venv/
-
+*~
 *.py~
 *.un~
 *.pyc
 __pycache__/
 
 instance/
-
+config.py
 .pytest_cache/
 .coverage
 htmlcov/
