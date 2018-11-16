@@ -82,7 +82,7 @@ class StartupViewController : UIViewController {
     func postUserData() {
         let parameters = ["username": self.username, "password" : self.password, "firstname" : self.firstname, "lastname" : self.lastname]
         
-        guard let url = URL(string: "http://127.0.0.1:5000/user/") else { return }
+        guard let url = URL(string: "https://testdeployment-scalez.herokuapp.com/user/") else { return }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")

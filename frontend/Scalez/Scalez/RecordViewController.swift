@@ -130,10 +130,11 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         let frameCount = String(audioFileData.frameCount)
         let strarr = audioFloatArray.map { String($0) }
         let str = strarr.joined(separator: ",")
-    
-        let parameters = ["username": "Gurion", "file": str, "rate": sampleRate, "frameCount": frameCount]
+        let username = UserDefaults.standard.string(forKey: "username")
         
-        guard let url = URL(string: "http://127.0.0.1:5000/user/Gurion/recording") else { return }
+        let parameters = ["username": username, "file": str, "rate": sampleRate, "frameCount": frameCount]
+        
+        guard let url = URL(string: "https://testdeployment-scalez.herokuapp.com/user/"+username!+"/recording") else { return }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
