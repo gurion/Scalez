@@ -80,7 +80,6 @@ def processScale(floating_point_time_series, sr):
     all_errors = [pitch_error, duration_error, dynamics_error]
 
     # get and squash overall score
-
     total_error = pitch_error * pitch_weight + duration_error * dynamic_weight + dynamics_error * dynamic_weight
     score = round(float(1 - total_error) * 100, 2)
     return score
