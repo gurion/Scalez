@@ -4,4 +4,4 @@ install:
   - npm install -g newman
 script:
   - export FLASK_APP=server.py
-  - flask run & newman run 'Scalez.postman_collection.json' --environment 'Development.postman_environment.json'
+  - flask run  & sleep 10 && newman run 'Scalez.postman_collection.json' --environment 'Development.postman_environment.json'
