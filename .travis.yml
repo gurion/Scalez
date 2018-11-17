@@ -2,11 +2,17 @@ language: python
 install:
   - pip install -r requirements.txt
   - npm install -g newman
+postgres:
+  adapter: postgresql
+  database: myapp_test
+  username: postgres
 before_script:
-  - psql -c 'create database travis_ci_test;' -U postgres
+  - psql -c 'create database myapp_test;' -U postgres
+  - rake db:migrate
   - python db_create.py
+services:
+  - postgresql
 script:
   - export FLASK_APP=server.py
   - flask run  & sleep 10 && newman run 'Scalez.postman_collection.json' --environment 'Development.postman_environment.json'
-services:
-  - postgresql
+
