@@ -5,16 +5,26 @@ Prototype to extract meaningful information from a .wav file input assumed to be
 Call processScale()
 
 To-Do:
-	Better smoothing
-	Scale formation recognition
-	Scale dynamic recognition
-	A ton of other stuff
+	Better smoothing____________________ X
+	Scale formation recognition ________ X
+	Scale dynamic recognition __________ X
+	Better Normalization _______________ X
+    Resilient to test cases ____________ O
 
 External Library Requirements (pip install _____):
 	matplotlib
 	librosa
 	numpy
 
+To Plot:
+    plot whatever you want to plot
+	plt.plot(dynamics)
+	plt.show()
+
+To Test Run:
+    y, sr = librosa.load('/Users/jakesager/Desktop/Senior Fall/OOSE/scales.wav', sr=None)
+    y = y[:300000]
+    print(processScale(y, sr))
 '''
 
 import matplotlib
@@ -27,12 +37,16 @@ import statistics
 import math
 import scipy.signal
 
-
 def processScale(floating_point_time_series, sr):
-    pitch_weight, dynamic_weight, duration_weight = .01, .01, .01
+    pitch_weight, dynamic_weight, duration_weight = .3, .3, .3
 
-    floating_point_time_series = np.array(translateSwiftTrash(floating_point_time_series))
+    #floating_point_time_series = np.array(translateSwiftTrash(floating_point_time_series))
 
+    #check to make sure input makes sense
+    if (type(floating_point_time_series) != type(np.ndarray([1,2])) or type(sr) != type(2)): return 1.0
+    if (len(floating_point_time_series) < 100 or sr < 1): return 1.0
+    
+    
     # compute Constant-Q Transform
     C = transform(floating_point_time_series, sr, transform_type='Q')
     C = threshold_Q_transform(C, sr)
@@ -59,24 +73,27 @@ def processScale(floating_point_time_series, sr):
     form = scale_formation(pitch_changes)
 
     # get experimental scores
-    pitch_score = rate_pitches(freqs)
-    duration_score = statistics.variance(durations + [0, 0, 0])
-    dynamics_score = rate_dynamics(dynamics)
+    pitch_error = normalize_pitch_error(rate_pitches(freqs))
+    duration_error = normalize_duration_error(rate_durations(durations), sr)
+    dynamics_error = normalize_dynamics_error(rate_dynamics(dynamics))
+    
+    all_errors = [pitch_error, duration_error, dynamics_error]
 
     # get and squash overall score
-    total_score = sigmoid(pitch_score * pitch_weight + duration_score *
-                          duration_weight + dynamics_score * dynamic_weight)
-    return total_score
 
-    # plots whatever you want to plot
-#	plt.plot(dynamics)
-#	plt.show()
+    total_error = pitch_error * pitch_weight + duration_error * dynamic_weight + dynamics_error * dynamic_weight
+    score = round(float(1 - total_error) * 100, 2)
+    return score
 
-
+#standard sigmoid
 def sigmoid(x):
     return 1 / (1 + math.exp(-x))
 
+#standard min max norm
+def min_max_normalization(upper, lower, x):
+    return (x-lower)/(upper-lower)
 
+#for plotting transforms
 def plotQ(q_transform, sr):
     librosa.display.specshow(librosa.amplitude_to_db(q_transform, ref=np.max),
                              sr=sr, x_axis='time', y_axis='cqt_hz', cmap='viridis')
@@ -88,7 +105,7 @@ def plotQ(q_transform, sr):
     # to-do: plot option for mel
     # librosa.display.specshow(librosa.power_to_db(S, ref=np.max), y_axis='mel', fmax=8000, x_axis='time', hop_length=64, sr=sr,cmap='viridis')
 
-
+#threshold based on volume
 def threshold_Q_transform(q_transform, sr):
     for column in q_transform.T:
         threshold = np.amax(column)
@@ -96,7 +113,7 @@ def threshold_Q_transform(q_transform, sr):
         column[column < 1] = 0
     return q_transform
 
-
+# param: time series, selected transform -> domain transform
 def transform(floating_point_time_series, sr, transform_type):
     if (transform_type == 'Q'):
         return np.abs(librosa.cqt(floating_point_time_series, sr=sr, filter_scale=5))
@@ -106,8 +123,6 @@ def transform(floating_point_time_series, sr, transform_type):
         return librosa.feature.melspectrogram(y=floating_point_time_series, sr=sr, n_mels=128, fmax=8000, hop_length=64, n_fft=4096)
 
 # param: any spectrogram looking np array -> array of amplitudes (over time)
-
-
 def dynamic_dimension(C):
     frequencies = []
     for column in C.T:
@@ -115,8 +130,6 @@ def dynamic_dimension(C):
     return frequencies
 
 # param: any spectrogram looking np array -> array of frequencies (over time)
-
-
 def frequency_dimension(C):
     frequencies = []
     freq_map = get_frequency_map()
@@ -128,8 +141,6 @@ def frequency_dimension(C):
     return frequencies
 
 # param: none -> a mapping of Q-Transform bins to frequencies in Hz
-
-
 def get_frequency_map():
     freqs = np.empty(85)
     freqs[0] = 5
@@ -140,8 +151,6 @@ def get_frequency_map():
     return freqs
 
 # param: any 1D array and sliding window size -> median-smoothed array
-
-
 def median_filter(arr, window_size):
     for i in range(0, len(arr) - window_size):
         curr_window = []
@@ -152,8 +161,6 @@ def median_filter(arr, window_size):
     return arr
 
 # param: array -> array with just number of values between unique values
-
-
 def interval_length_array(arr):
     interval_arr = []
     current_number = 0
@@ -165,8 +172,6 @@ def interval_length_array(arr):
     return interval_arr
 
 # param: array -> array with just unique values
-
-
 def unique_array(arr):
     unique_arr = []
     unique_arr += [arr[0]]
@@ -176,8 +181,6 @@ def unique_array(arr):
     return unique_arr
 
 # param: array -> array of differences between arr[i] and arr[i+1]
-
-
 def arr_differences(arr):
     diff_arr = []
     for i in range(len(arr) - 1):
@@ -187,8 +190,6 @@ def arr_differences(arr):
     return diff_arr
 
 # param: list (of unique frequencies) -> array of step size guesses (whole or half)
-
-
 def scale_formation(unique_freq_differences_arr):
     formation = []
     for dif in unique_freq_differences_arr:
@@ -200,27 +201,20 @@ def scale_formation(unique_freq_differences_arr):
     return formation
 
 # param: int (a frequency) -> int (ideal next half-step up frequency)
-
-
 def get_half_step_up(current_note):
     return 1.0595 * current_note
+    
 # param: int (a frequency) -> int (ideal next half-step down frequency)
-
-
 def get_half_step_down(current_note):
     return current_note / 1.0595
 
 # param: int (a frequency) -> list (ideal next four frequencies [ideal half up, ideal whole up, ideal half down, ideal whole down])
-
-
 def get_ideal_steps(current_note):
     half_up = get_half_step_up(current_note)
     half_down = get_half_step_down(current_note)
     return [half_up, get_half_step_up(half_up), half_down, get_half_step_down(half_down)]
 
 # param: list (of unique frequencies) -> int (number of freqs from each ideal next freq)
-
-
 def rate_pitches(frequency_array):
     # remove first and last pitch (needs to be deprecated)
     frequency_array = frequency_array[1:-1]
@@ -240,8 +234,6 @@ def rate_pitches(frequency_array):
     return total_error_distance
 
 # param: list (of amplitudes) -> int (variance in max 16 amplitudes)
-
-
 def rate_dynamics(amplitude_array):
     peaks = []
     peak_indices = scipy.signal.find_peaks(amplitude_array)[0]
@@ -252,14 +244,38 @@ def rate_dynamics(amplitude_array):
         peaks += [amplitude_array[peak]]
     return statistics.variance(peaks + [0, 0, 0])
 
+# param: length array -> duration error
+def rate_durations(duration_array):
+    return statistics.variance(duration_array + [0, 0, 0])
+
 # for iteration 3 testing
-
-
 def translateSwiftTrash(swift_trash):
     swift_trash = swift_trash.split(',')
     return list(map(float, swift_trash))
 
+#group of functions to normalize scores
+def normalize_pitch_error(pitch_error):
+    #a whole step is roughly 53 Hz, half a scale is 8 notes
+    upper = 53 * 8
+    lower = 0
+    if pitch_error > upper:
+        return 1.0
+    return min_max_normalization(upper, lower, pitch_error)
 
+def normalize_duration_error(duration_error, sr):
+    upper = .1
+    lower = 0
+    duration_error_in_seconds = duration_error / sr
+    if duration_error_in_seconds > upper:
+        return 1.0
+    return min_max_normalization(upper, lower, duration_error_in_seconds)
+
+def normalize_dynamics_error(dynamics_error):
+    upper = 400
+    lower = 0
+    if dynamics_error > upper:
+        return 1.0
+    return min_max_normalization(upper, lower, dynamics_error)
 #y, sr = librosa.load('/Users/jakesager/Desktop/Senior Fall/OOSE/scales.wav', sr=None)
 #y = y[:300000]
-#processScale(y, sr)
+#print(processScale(y, sr))
