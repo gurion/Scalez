@@ -1,4 +1,12 @@
-# Build Instructions
+# Build Instructions 
+1. Download the project from Github
+2. Open the XCode project in XCode and build for an iOS 12 iPhone Simulator
+3. Follow the on-screen instructions
+
+## Deprecated Build Instructions
+
+<details><summary>How to build locally</summary>
+<p>
 Requirements: pip install everything in the requirements file
 
 Create a postgreSQL database
