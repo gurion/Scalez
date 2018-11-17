@@ -2,6 +2,8 @@ language: python
 install:
   - pip install -r requirements.txt
   - npm install -g newman
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
 script:
   - export FLASK_APP=server.py
   - flask run  & sleep 10 && newman run 'Scalez.postman_collection.json' --environment 'Development.postman_environment.json'
