@@ -8,3 +8,5 @@ before_script:
 script:
   - export FLASK_APP=server.py
   - flask run  & sleep 10 && newman run 'Scalez.postman_collection.json' --environment 'Development.postman_environment.json'
+services:
+  - postgresql
