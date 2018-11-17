@@ -8,7 +8,7 @@ postgres:
   username: postgres
 before_script:
   - psql -c 'create database myapp_test;' -U postgres
-  - export DATABASE_URL=postgresql://postgres:@localhost:5000/myapp_test
+  - export DATABASE_URL=postgresql://postgres:@localhost:5432/myapp_test
   - python db_create.py
 services:
   - postgresql
