@@ -29,7 +29,7 @@ class SignupViewController: UIViewController {
         let p = passwordField.text!
         let q = checkPasswordField.text!
         
-        if (f.isEqual("") || l.isEqual("") || u.isEqual("") || p.isEqual("") || q.isEqual("")) {
+        if (f.isEmpty || l.isEmpty || u.isEmpty || p.isEmpty || q.isEmpty) {
             return
         } else if (self.checkIfPasswordsMatch()) {
             self.passwordsMatchAlert()
@@ -39,7 +39,8 @@ class SignupViewController: UIViewController {
     }
     
     func handleCreateAccount(f : String, l : String, u : String, p : String) {
-        if(postDataToServer(f: f, l: l, u: u, p: p)) {
+        postDataToServer(f: f, l: l, u: u, p: p)
+        if (UserDefaults.standard.bool(forKey: "isLoggedIn")) {
             present(RecordViewController(), animated: true, completion: nil)
         }
     }
@@ -68,7 +69,6 @@ class SignupViewController: UIViewController {
         let alert = UIAlertController(title: "Something went wrong", message: "Sorry! Please try again", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         self.present(alert, animated: true)
-
     }
     
     func setUserDefaults(u : String) {
@@ -78,24 +78,10 @@ class SignupViewController: UIViewController {
         defaults.set("https://testdeployment-scalez.herokuapp.com/user/\(u)", forKey: "userUrl")
     }
     
-    func errorHandling(statusCode : Int, u : String) -> Bool {
-        if (statusCode == 201) {
-            self.setUserDefaults(u: u)
-            return true
-        } else if (statusCode == 400) {
-            self.usernameTakenAlert()
-            return false
-        } else {
-            self.generalAlert()
-            return false
-        }
-    }
-    
-    func postDataToServer(f : String, l : String, u : String, p : String) -> Bool {
-        var signedUp = false
+    func postDataToServer(f : String, l : String, u : String, p : String) {
         let parameters = ["username": u, "password" : p, "firstname" : f, "lastname" : l]
         let urlString = "https://testdeployment-scalez.herokuapp.com/user/\(u)"
-        guard let url = URL(string: urlString) else { return signedUp }
+        guard let url = URL(string: urlString) else { return }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -106,11 +92,17 @@ class SignupViewController: UIViewController {
         let session = URLSession.shared
         let task = session.dataTask(with: request) { data, response, error in
             if let httpResponse = response as? HTTPURLResponse {
-                signedUp = self.errorHandling(statusCode: httpResponse.statusCode, u: u)
+                let statusCode = httpResponse.statusCode
+                if (statusCode == 201) {
+                    self.setUserDefaults(u: u)
+                } else if (statusCode == 400) {
+                    self.usernameTakenAlert()
+                } else {
+                    self.generalAlert()
+                }
             }
         }
         task.resume()
-        return signedUp
     }
 }
 
