@@ -20,6 +20,20 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     @IBOutlet var recordButton: UIButton!
     @IBOutlet var score: UITextField!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setRecordButtonImage()
+        recordingSession = AVAudioSession.sharedInstance()
+        
+        do {
+            try recordingSession.setCategory(.playAndRecord, mode: .default, options: [])
+            try recordingSession.setActive(true)
+            
+        } catch {
+            print("catching error")
+        }
+        // Do any additional setup after loading the view, typically from a nib.
+    }
     
     @IBAction func recordAudio(_ sender: Any) {
         if (audioRecorder != nil) {
@@ -46,20 +60,6 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setRecordButtonImage()
-        recordingSession = AVAudioSession.sharedInstance()
-        
-        do {
-            try recordingSession.setCategory(.playAndRecord, mode: .default, options: [])
-            try recordingSession.setActive(true)
-            
-        } catch {
-            print("catching error")
-        }
-        // Do any additional setup after loading the view, typically from a nib.
-    }
     
     func startRecording() {
         self.recording = true
@@ -134,7 +134,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         
         let parameters = ["username": username, "file": str, "rate": sampleRate, "frameCount": frameCount]
         
-        guard let url = URL(string: "https://testdeployment-scalez.herokuapp.com/user/"+username!+"/recording") else { return }
+        guard let url = URL(string: UserDefaults.standard.string(forKey: "userUrl")!+"/recording") else { return }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
