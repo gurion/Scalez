@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import CryptoSwift
 
 class LoginViewController : UIViewController {
     var username: String = ""
@@ -34,7 +35,7 @@ class LoginViewController : UIViewController {
         if (u.isEqual("") || p.isEqual("")) {
             return
         }
-        handleLogIn(u:u, p:p)
+        self.handleLogIn(u:u, p:p)
     }
     
     func handleLogIn(u : String, p : String) {
@@ -42,6 +43,10 @@ class LoginViewController : UIViewController {
         self.password = p
         logInToServer()
         present(RecordViewController(), animated: true, completion: nil)
+    }
+    
+    func passwordHash(u : String, p : String) -> String {
+        return "\(p).\(u)".sha256()
     }
     
     func setUserDefaults() {

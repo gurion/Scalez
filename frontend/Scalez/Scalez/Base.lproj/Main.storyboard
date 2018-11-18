@@ -144,11 +144,22 @@
                                 <rect key="frame" x="110" y="710" width="195" height="77"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Login" image="create_account"/>
+                                <connections>
+                                    <action selector="createAccount:" destination="kAv-gU-JKM" eventType="touchUpInside" id="u45-at-xwU"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="nuf-iG-NfB"/>
                     </view>
+                    <connections>
+                        <outlet property="checkPasswordField" destination="wqV-su-04j" id="J8u-NO-Snl"/>
+                        <outlet property="createAccountButton" destination="0Kl-Uo-PB9" id="gX1-06-yjJ"/>
+                        <outlet property="firstnameField" destination="cwl-JW-Sau" id="JsF-D8-MZE"/>
+                        <outlet property="lastnameField" destination="bhP-wC-IKa" id="dyZ-vI-HJW"/>
+                        <outlet property="passwordField" destination="mwQ-q4-lFW" id="915-3c-MtK"/>
+                        <outlet property="usernameField" destination="SMO-YT-b4p" id="W7W-h1-DeM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4cl-wB-Pow" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
