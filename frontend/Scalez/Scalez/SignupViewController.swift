@@ -89,7 +89,6 @@ class SignupViewController: UIViewController {
 
     func postDataToServer(f : String, l : String, u : String, p : String) {
         let parameters = ["username": u, "password" : passwordHash(u: u, p: p), "firstname" : f, "lastname" : l]
-        print(parameters)
         let urlString = "https://testdeployment-scalez.herokuapp.com/user/"
         guard let url = URL(string: urlString) else { return }
         var request = URLRequest(url: url)
@@ -97,21 +96,18 @@ class SignupViewController: UIViewController {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else { return }
-        print(httpBody)
         request.httpBody = httpBody
         
         let session = URLSession.shared
-        let task = session.dataTask(with: request) { data, response, error in
+        let task = session.dataTask(with: request) { (data, response, error) in
             print("response")
             print(response)
             if let httpResponse = response as? HTTPURLResponse {
                 let statusCode = httpResponse.statusCode
                 print("Status code")
                 print(statusCode)
-                if (statusCode == 201 || statusCode == 200) {
-                    DispatchQueue.main.async {
-                        self.setUserDefaults(u: u)
-                    }
+                if (statusCode == 201) {
+                    self.setUserDefaults(u: u)
                 } else if (statusCode == 400) {
                     DispatchQueue.main.async {
                         self.usernameTakenAlert()
