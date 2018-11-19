@@ -41,7 +41,7 @@ def new_user():
         # check for same username,
         check = db.session.query(User).filter_by(username=username).first()
         if check:
-            return make_error('400', 'User already exsits')
+            return make_error('400', 'user already exsits')
         else:
             u.set_password(password)
             db.session.add(u)

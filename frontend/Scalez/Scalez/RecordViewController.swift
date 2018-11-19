@@ -22,7 +22,6 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setRecordButtonImage()
         recordingSession = AVAudioSession.sharedInstance()
         
         do {

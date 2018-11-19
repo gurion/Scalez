@@ -32,7 +32,7 @@ class LoginViewController : UIViewController {
         let u = usernameField.text!
         let p = passwordField.text!
         
-        if (u.isEqual("") || p.isEqual("")) {
+        if (u.isEmpty || p.isEmpty) {
             return
         }
         self.handleLogIn(u:u, p:p)
@@ -40,9 +40,12 @@ class LoginViewController : UIViewController {
     
     func handleLogIn(u : String, p : String) {
         self.username = u
-        self.password = p
+        self.password = self.passwordHash(u: u, p: p)
         logInToServer()
-        present(RecordViewController(), animated: true, completion: nil)
+        if (UserDefaults.standard.bool(forKey: "isLoggedIn")) {
+            let next = self.storyboard?.instantiateViewController(withIdentifier: "RecordVC") as! RecordViewController
+            present(next, animated: true, completion: nil)
+        }
     }
     
     func passwordHash(u : String, p : String) -> String {
@@ -56,46 +59,48 @@ class LoginViewController : UIViewController {
         defaults.set("https://testdeployment-scalez.herokuapp.com/user/\(self.username)", forKey: "userUrl")
     }
     
-    func loginErrorAlert() {
-        let alert = UIAlertController(title: "Invalid username or password.", message: "Please try again.", preferredStyle: .alert)
+    func okButtonAlert(title : String, message : String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         self.present(alert, animated: true)
     }
     
-    func errorHandling(statusCode : Int) {
-        if (statusCode == 200) {
-            self.setUserDefaults()
-        } else {
-            self.loginErrorAlert()
-        }
+    func loginErrorAlert() {
+        self.okButtonAlert(title: "Invalid username or password", message: "Please try again")
     }
     
     func logInToServer() {
-        let parameters = ["username": self.username, "password" : self.password]
-        
-        guard let url = URL(string: "https://testdeployment-scalez.herokuapp.com/user/login?username=\(self.username)") else { return }
+        let parameters = ["username": self.username, "password" : self.passwordHash(u: self.username, p: self.password)]
+        print(parameters)
+        let urlString = "https://testdeployment-scalez.herokuapp.com/user/login"
+        guard let url = URL(string: urlString) else { return }
         var request = URLRequest(url: url)
-        request.httpMethod = "POST"
+        request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
         guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else { return }
         request.httpBody = httpBody
         
         let session = URLSession.shared
-        let task = session.dataTask(with: request) { (data, response, error) in
-            if let response = response as? HTTPURLResponse {
-                print(response)
-//                self.errorHandling(statusCode: response.statusCode)
-            }
-            if data != nil {
-                do {
-                    
-                } catch {
-                    print("This is the error being printed error")
+        let task = session.dataTask(with: request) { data, response, error in
+            print("response")
+            print(response)
+            if let httpResponse = response as? HTTPURLResponse {
+                let statusCode = httpResponse.statusCode
+                print("Status Code")
+                print(statusCode)
+                if (statusCode == 200) {
+                    DispatchQueue.main.async {
+                        self.setUserDefaults()
+                    }
+                } else if (statusCode == 404) {
+                    DispatchQueue.main.async {
+                        self.loginErrorAlert()
+                    }
                 }
             }
-            }
+        }
         task.resume()
     }
-    
 }
 

@@ -20,6 +20,7 @@ class SignupViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
     }
     
     @IBAction func createAccountButton(_ sender: Any) {
@@ -32,7 +33,10 @@ class SignupViewController: UIViewController {
         if (f.isEmpty || l.isEmpty || u.isEmpty || p.isEmpty || q.isEmpty) {
             return
         } else if (self.checkIfPasswordsMatch()) {
-            self.passwordsMatchAlert()
+            DispatchQueue.main.async {
+                self.passwordsMatchAlert()
+            }
+            return
         } else {
             self.handleCreateAccount(f:f, l:l, u:u, p:p)
         }
@@ -41,7 +45,8 @@ class SignupViewController: UIViewController {
     func handleCreateAccount(f : String, l : String, u : String, p : String) {
         postDataToServer(f: f, l: l, u: u, p: p)
         if (UserDefaults.standard.bool(forKey: "isLoggedIn")) {
-            present(RecordViewController(), animated: true, completion: nil)
+            let next = self.storyboard?.instantiateViewController(withIdentifier: "RecordVC") as! RecordViewController
+            present(next, animated: true, completion: nil)
         }
     }
     
@@ -53,22 +58,26 @@ class SignupViewController: UIViewController {
         return "\(p).\(u)".sha256()
     }
     
-    func passwordsMatchAlert() {
-        let alert = UIAlertController(title: "Password must match!", message: "Please re-enter you password", preferredStyle: .alert)
+    func okButtonAlert(title : String, message : String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         self.present(alert, animated: true)
+    }
+    
+    func incompleteFieldsAlert() {
+        self.okButtonAlert(title: "Please fill out all fields", message: "")
+    }
+    
+    func passwordsMatchAlert() {
+        self.okButtonAlert(title: "Password does not match", message: "Please re-enter you password")
     }
     
     func usernameTakenAlert() {
-            let alert = UIAlertController(title: "Username already taken!", message: "Please pick another username", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-            self.present(alert, animated: true)
+        self.okButtonAlert(title: "Username already taken", message: "Please pick another username")
     }
     
     func generalAlert() {
-        let alert = UIAlertController(title: "Something went wrong", message: "Sorry! Please try again", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-        self.present(alert, animated: true)
+        self.okButtonAlert(title: "Something went wrong", message: "Sorry! Please try again")
     }
     
     func setUserDefaults(u : String) {
@@ -77,28 +86,40 @@ class SignupViewController: UIViewController {
         defaults.set(u, forKey: "username")
         defaults.set("https://testdeployment-scalez.herokuapp.com/user/\(u)", forKey: "userUrl")
     }
-    
+
     func postDataToServer(f : String, l : String, u : String, p : String) {
-        let parameters = ["username": u, "password" : p, "firstname" : f, "lastname" : l]
-        let urlString = "https://testdeployment-scalez.herokuapp.com/user/\(u)"
+        let parameters = ["username": u, "password" : passwordHash(u: u, p: p), "firstname" : f, "lastname" : l]
+        print(parameters)
+        let urlString = "https://testdeployment-scalez.herokuapp.com/user/"
         guard let url = URL(string: urlString) else { return }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: [])
+        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else { return }
+        print(httpBody)
         request.httpBody = httpBody
         
         let session = URLSession.shared
         let task = session.dataTask(with: request) { data, response, error in
+            print("response")
+            print(response)
             if let httpResponse = response as? HTTPURLResponse {
                 let statusCode = httpResponse.statusCode
-                if (statusCode == 201) {
-                    self.setUserDefaults(u: u)
+                print("Status code")
+                print(statusCode)
+                if (statusCode == 201 || statusCode == 200) {
+                    DispatchQueue.main.async {
+                        self.setUserDefaults(u: u)
+                    }
                 } else if (statusCode == 400) {
-                    self.usernameTakenAlert()
+                    DispatchQueue.main.async {
+                        self.usernameTakenAlert()
+                    }
                 } else {
-                    self.generalAlert()
+                    DispatchQueue.main.async {
+                        self.generalAlert()
+                    }
                 }
             }
         }
