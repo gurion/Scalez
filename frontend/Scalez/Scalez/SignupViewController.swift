@@ -100,8 +100,6 @@ class SignupViewController: UIViewController {
         
         let session = URLSession.shared
         let task = session.dataTask(with: request) { (data, response, error) in
-            print("response")
-            print(response)
             if let httpResponse = response as? HTTPURLResponse {
                 let statusCode = httpResponse.statusCode
                 print("Status code")
