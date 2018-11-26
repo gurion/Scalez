@@ -21,13 +21,9 @@ from werkzeug.urls import url_parse
 bp = Blueprint('user', __name__, url_prefix='/user')
 
 
-@bp.route('/', methods=['POST', 'GET'])
+@bp.route('/', methods=['POST'])
 def new_user():
-    if request.method == 'GET':
-        response = app.response_class(status=200, mimetype='application/json')
-        return response
-
-    elif request.method == 'POST':
+    if request.method == 'POST':
         data = request.get_json()
 
         username = data['username']

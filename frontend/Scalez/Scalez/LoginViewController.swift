@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 import CryptoSwift
+import SwiftyJSON
+import Alamofire
 
 class LoginViewController : UIViewController {
     var username: String = ""
@@ -40,8 +42,8 @@ class LoginViewController : UIViewController {
     
     func handleLogIn(u : String, p : String) {
         self.username = u
-        self.password = self.passwordHash(u: u, p: p)
-        logInToServer()
+        self.password = self.passwordHash(u : u, p : p)
+        logInToServer(u : self.username, p : self.password)
         if (UserDefaults.standard.bool(forKey: "isLoggedIn")) {
             let next = self.storyboard?.instantiateViewController(withIdentifier: "RecordVC") as! RecordViewController
             present(next, animated: true, completion: nil)
@@ -69,38 +71,69 @@ class LoginViewController : UIViewController {
         self.okButtonAlert(title: "Invalid username or password", message: "Please try again")
     }
     
-    func logInToServer() {
-        let parameters = ["username": self.username, "password" : self.passwordHash(u: self.username, p: self.password)]
-        print(parameters)
-        let urlString = "https://testdeployment-scalez.herokuapp.com/user/login"
-        guard let url = URL(string: urlString) else { return }
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+    func generalAlert() {
+        self.okButtonAlert(title: "Something went wrong!", message: "Sorry! Please try again.")
+    }
+    
+    func logInToServer(u: String, p: String) {
+        let url: String = "https://testdeployment-scalez.herokuapp.com/user/login"
+        let params:[String:String] = ["username" : u,
+                                      "password" : passwordHash(u: u, p: p)]
+        print(params)
         
-        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else { return }
-        request.httpBody = httpBody
-        
-        let session = URLSession.shared
-        let task = session.dataTask(with: request) { data, response, error in
-            print("response")
-            print(response)
-            if let httpResponse = response as? HTTPURLResponse {
-                let statusCode = httpResponse.statusCode
-                print("Status Code")
-                print(statusCode)
-                if (statusCode == 200) {
-                    DispatchQueue.main.async {
+        Alamofire.request(url, method: .get, parameters: params, encoding: JSONEncoding.default)
+            .responseJSON { response in
+                print(response)
+                if let status = response.response?.statusCode {
+                    switch(status) {
+                    case 200:
                         self.setUserDefaults()
-                    }
-                } else if (statusCode == 404) {
-                    DispatchQueue.main.async {
-                        self.loginErrorAlert()
+                    case 404:
+                        DispatchQueue.main.async {
+                            self.loginErrorAlert()
+                        }
+                    default:
+                        DispatchQueue.main.async {
+                            self.generalAlert()
+                        }
                     }
                 }
-            }
         }
-        task.resume()
+        
     }
+    
+//    func logInToServer() {
+//        let parameters = ["username": self.username, "password" : self.passwordHash(u: self.username, p: self.password)]
+//        print(parameters)
+//        let urlString = "https://testdeployment-scalez.herokuapp.com/user/login"
+//        guard let url = URL(string: urlString) else { return }
+//        var request = URLRequest(url: url)
+//        request.httpMethod = "GET"
+//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//
+//        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else { return }
+//        request.httpBody = httpBody
+//
+//        let session = URLSession.shared
+//        let task = session.dataTask(with: request) { data, response, error in
+//            print("response")
+//            print(response)
+//            if let httpResponse = response as? HTTPURLResponse {
+//                let statusCode = httpResponse.statusCode
+//                print("Status Code")
+//                print(statusCode)
+//                if (statusCode == 200) {
+//                    DispatchQueue.main.async {
+//                        self.setUserDefaults()
+//                    }
+//                } else if (statusCode == 404) {
+//                    DispatchQueue.main.async {
+//                        self.loginErrorAlert()
+//                    }
+//                }
+//            }
+//        }
+//        task.resume()
+//    }
 }
 

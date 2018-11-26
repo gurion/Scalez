@@ -42,7 +42,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rfQ-ic-zcd">
-                                <rect key="frame" x="110" y="538" width="195" height="77"/>
+                                <rect key="frame" x="110" y="544" width="195" height="77"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Login" image="sign_in">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -93,7 +93,7 @@
             </objects>
             <point key="canvasLocation" x="-1213.0434782608697" y="821.65178571428567"/>
         </scene>
-        <!--Signup View Controller-->
+        <!--Title-->
         <scene sceneID="yta-96-OJP">
             <objects>
                 <viewController id="kAv-gU-JKM" customClass="SignupViewController" customModule="Scalez" customModuleProvider="target" sceneMemberID="viewController">
@@ -184,6 +184,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="nuf-iG-NfB"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Title" id="gJn-Xg-1ns"/>
                     <connections>
                         <outlet property="checkPasswordField" destination="wqV-su-04j" id="J8u-NO-Snl"/>
                         <outlet property="createAccountButton" destination="0Kl-Uo-PB9" id="gX1-06-yjJ"/>
