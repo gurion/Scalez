@@ -22,7 +22,6 @@ class SignupViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
     
     @IBAction func createAccountButton(_ sender: Any) {
@@ -117,41 +116,3 @@ class SignupViewController: UIViewController {
         
     }
 }
-    
-    
-//    func postDataToServer(f : String, l : String, u : String, p : String) {
-//        let parameters = ["username": u, "password" : passwordHash(u: u, p: p), "firstname" : f, "lastname" : l]
-//        let urlString = "https://testdeployment-scalez.herokuapp.com/user/"
-//        guard let url = URL(string: urlString) else { return }
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "POST"
-//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-//
-//        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else { return }
-//        request.httpBody = httpBody
-//
-//        let session = URLSession.shared
-//        let task = session.dataTask(with: request) { (data, response, error) in
-//            if let httpResponse = response as? HTTPURLResponse {
-//                let statusCode = httpResponse.statusCode
-//                print("Status code")
-//                print(statusCode)
-//                if (statusCode == 201) {
-//                    self.setUserDefaults(u: u)
-//                } else if (statusCode == 400) {
-//                    DispatchQueue.main.async {
-//                        self.usernameTakenAlert()
-//                    }
-//                } else {
-//                    DispatchQueue.main.async {
-//                        self.generalAlert()
-//                    }
-//                }
-//            }
-//        }
-//        task.resume()
-//    }
-
-
-
-

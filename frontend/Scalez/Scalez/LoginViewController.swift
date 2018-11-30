@@ -102,38 +102,5 @@ class LoginViewController : UIViewController {
         
     }
     
-//    func logInToServer() {
-//        let parameters = ["username": self.username, "password" : self.passwordHash(u: self.username, p: self.password)]
-//        print(parameters)
-//        let urlString = "https://testdeployment-scalez.herokuapp.com/user/login"
-//        guard let url = URL(string: urlString) else { return }
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "GET"
-//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-//
-//        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else { return }
-//        request.httpBody = httpBody
-//
-//        let session = URLSession.shared
-//        let task = session.dataTask(with: request) { data, response, error in
-//            print("response")
-//            print(response)
-//            if let httpResponse = response as? HTTPURLResponse {
-//                let statusCode = httpResponse.statusCode
-//                print("Status Code")
-//                print(statusCode)
-//                if (statusCode == 200) {
-//                    DispatchQueue.main.async {
-//                        self.setUserDefaults()
-//                    }
-//                } else if (statusCode == 404) {
-//                    DispatchQueue.main.async {
-//                        self.loginErrorAlert()
-//                    }
-//                }
-//            }
-//        }
-//        task.resume()
-//    }
 }
 

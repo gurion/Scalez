@@ -4,6 +4,7 @@
 //
 //  Created by Gurion on 10/15/18.
 //  Copyright © 2018 OOSE. All rights reserved.
+//
 
 import Foundation
 import AVFoundation
@@ -31,7 +32,6 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         } catch {
             print("catching error")
         }
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     @IBAction func recordAudio(_ sender: Any) {
@@ -43,6 +43,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
             setRecordButtonImage()
         }
     }
+    
     func setScoreLabel() {
         if (self.scoreData != "") {
             self.score.text = scoreData
@@ -159,4 +160,3 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     }
 
 }
-
