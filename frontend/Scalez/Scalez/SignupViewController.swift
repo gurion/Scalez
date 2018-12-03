@@ -99,6 +99,7 @@ class SignupViewController: UIViewController {
             .responseJSON { response in
                 print(response)
                 if let status = response.response?.statusCode {
+                    print(status)
                     switch(status) {
                     case 201:
                         self.setUserDefaults(u: u)

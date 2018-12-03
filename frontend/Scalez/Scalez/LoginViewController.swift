@@ -81,10 +81,11 @@ class LoginViewController : UIViewController {
                                       "password" : passwordHash(u: u, p: p)]
         print(params)
         
-        Alamofire.request(url, method: .get, parameters: params, encoding: JSONEncoding.default)
+        Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding.default)
             .responseJSON { response in
                 print(response)
                 if let status = response.response?.statusCode {
+                    print(status)
                     switch(status) {
                     case 200:
                         self.setUserDefaults()
