@@ -45,7 +45,7 @@ def new_user():
             return response
 
 
-@bp.route('/login', methods=['GET'])
+@bp.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
 
