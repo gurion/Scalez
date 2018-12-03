@@ -15,6 +15,4 @@ dist/
 build/
 *.egg-info/
 
-~/frontend/Scalez/Pods/Pods.xcodeproj/xcuserdata/Gurion.xcuserdatad/xcschemes/xcschememanagement.plist
-~/frontend/Scalez/Scalez.xcodeproj/xcuserdata/Gurion.xcuserdatad/xcschemes/xcschememanagement.plist
-~/frontend/Scalez/Scalez.xcworkspace/xcuserdata/Gurion.xcuserdatad/UserInterfaceState.xcuserstate
+xcuserdata/
