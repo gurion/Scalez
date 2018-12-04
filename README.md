@@ -1,24 +1,29 @@
-# Build Instructions
-Requirements: pip install everything in the requirements file
+# Build Instructions 
+1. Download the project from Github
+2. Open the XCode project in XCode and build for an iOS 12 iPhone Simulator
+3. Follow the on-screen instructions
 
-Create a postgreSQL database
-1.  (a) Go to the .flaskenv and change the DATABASE_URL variable to your database 
+## Deprecated Build Instructions
 
-    (b) Go to the /backend/flask_server and open init(), make sure all the POSTGRES fields match (look at lines 14-18 in init)
-2. cd to the backend folder (The rest should be done in /backend)
-3. Make sure there is no existing migrations folder and then run:
-    
-    $ flask db init
-4. $ flask db migrate
-5. $ flask db upgrade
-6. $ python3 add_user.py 
-   
-   (Makes sure that a User model has already been initialized in the database)
-7. $ flask run
-8. Build XCode project
-   
-   We ran on an XR iOS 12.1 simulator. Others > iOS 12 should work.
-9. Press 'Record' and make some noise for a couple seconds. Press 'Stop Recording'
-10. Press Upload
-11. Press get score and a score for your scale (really just noise, since I'm guessing you don't have an instrument handy (but feel free to sing)) will populate the score field. Scores are error, and lower scores are better
-12. Please call Arpad at 312-401-8223 or Jake at 973-294-8997 if there are any issues building.
+<details><summary>How to build locally</summary>
+<p>
+
+#to run locally
+
+1. Set up a database of SQLite or Postgres
+2. With the Database set up, go into command line and set the DATABASE_URL
+	enviornment variable to match your newly created database
+3. from the root folder run "python db_create.py", this will generate the tables
+	in the database
+4. Set the FLASK_APP enviornment variable to "server.py"
+5. Make sure that all the requirments that are found in requirments.txt are
+	installed
+6. Finally enter "flask run" in the command line, this should start the
+	server
+
+NOTE: AS OF NOW THE FRONT END IS CONNECTED TO THE HEROKU BUILD. YOU WOULD
+	HAVE TO GO IN MANUALLY AND CHANGE THE HOST IN SWIFT IF YOU SET UP
+	YOUR OWN BACKEDN
+
+
+#to try on deployed app
