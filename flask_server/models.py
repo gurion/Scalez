@@ -39,5 +39,5 @@ class Audition(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     auditioner = db.Column(db.Integer, db.ForeignKey('user.id'))
     auditionee = db.Column(db.Integer, db.ForeignKey('user.id'))
-    is_completed = (db.Boolean, default=False)
+    is_completed = db.Column(db.Boolean, default=False)
     score = db.Column(db.Float)

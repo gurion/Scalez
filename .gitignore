@@ -5,6 +5,7 @@ venv/
 *.pyc
 __pycache__/
 
+migration*
 instance/
 config.py
 .pytest_cache/
