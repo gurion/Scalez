@@ -33,4 +33,11 @@ class Recording(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
-        return '<Post {}>'.format(self.score)
+           return '<Post {}>'.format(self.score)
+
+class Audition(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    auditioner = db.Column(db.Integer, db.ForeignKey('user.id'))
+    auditionee = db.Column(db.Integer, db.ForeignKey('user.id'))
+    is_completed = (db.Boolean, default=False)
+    score = db.Column(db.Float)

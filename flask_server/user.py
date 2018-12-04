@@ -20,13 +20,10 @@ from werkzeug.urls import url_parse
 
 bp = Blueprint('user', __name__, url_prefix='/user')
 
-@bp.route('/', methods=['POST', 'GET'])
+@bp.route('/', methods=['POST'])
 def new_user():
-    if request.method == 'GET':
-        response = app.response_class(status=200, mimetype='application/json')
-        return response
 
-    elif request.method == 'POST':
+    if request.method == 'POST':
         data = request.get_json()
 
         username = data['username']
@@ -47,7 +44,7 @@ def new_user():
             db.session.commit()
             return response
 
-@bp.route('/login', methods=['GET'])
+@bp.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
    
@@ -57,7 +54,7 @@ def login():
     check_user = db.session.query(User).filter_by(username=username).first()
 
     if check_user is None or (check_user.check_password(password) == false):
-        return redirect(url_for('login'))
+        return make_error('404', 'bad login, username or passwrod incorrect')
 
     return app.response_class(status=200, mimetype='application/json')
 
