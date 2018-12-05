@@ -42,7 +42,7 @@ def new_user():
             u.set_password(password)
             db.session.add(u)
             db.session.commit()
-            return response
+            return jsonify({'status'=201, 'message'= "new user made"})
 
 @bp.route('/login', methods=['POST'])
 def login():
@@ -56,7 +56,7 @@ def login():
     if check_user is None or (check_user.check_password(password) == false):
         return make_error('404', 'bad login, username or passwrod incorrect')
 
-    return app.response_class(status=200, mimetype='application/json')
+    return jsonify({'status':201, 'message': 'login successful'})
 
 #assumes that the user has a valid login
 @bp.route('/<username>/recording', methods=['POST'])
@@ -74,32 +74,38 @@ def sendScore(username):
     db.session.add(record)
     db.session.commit()
 
-    response = app.response_class(
-            response = json.dumps(score),
-            status=201, 
-            mimetype='application/json')
+    #response = app.response_class(
+    #        response = json.dumps(score),
+    #        status=201, 
+    #        mimetype='application/json')
 
-    return response
+    return jsonify({'score'=score, 'status'=201})
 
 #remove specified user and associated recordings from the database
 @bp.route('/<username>', methods=['DEL'])
 def del_user(username): 
     
     user = db.session.query(User).filter_by(username=username).first() 
-    response = app.response_class(status=200, mimetype='application/json')
+    #response = app.response_class(status=200, mimetype='application/json')
     
     if user is None:
-        return response
+        return make_error(404, "user not found")
 
     recordings = user.recordings.all()
+    auditions = user.auditions.all()
 
+    #delete recordings here
     for r in recordings:
         db.session.delete(r)
+
+    #delet auditions here
+    for a in aditions:
+        db.session.delete(a)
 
     db.session.delete(user)
     db.session.commit()
 
-    return response
+    return jsonify({'user'=200, 'message'='user has been deleted'})
 
 def make_error(status, message):
     response = jsonify({'status': status, 'message':message})
