@@ -16,8 +16,6 @@ from flask_server.models import *
 from flask_server.processScales import processScale
 from werkzeug.urls import url_parse
 
-#TODO: SET UP USER SESSIONS WITH AUTHNITCATION AND SHIT
-
 bp = Blueprint('user', __name__, url_prefix='/user')
 
 @bp.route('/', methods=['POST'])
@@ -31,7 +29,6 @@ def new_user():
         lastname = data['lastname']
         firstname = data['firstname']
 
-        response = app.response_class(status=201, mimetype='application/json')
         u = User(username=username, lastname=lastname, firstname=firstname)
 
         # check for same username,
@@ -42,7 +39,7 @@ def new_user():
             u.set_password(password)
             db.session.add(u)
             db.session.commit()
-            return jsonify({'status'=201, 'message'= "new user made"})
+            return jsonify({'status'=201, 'message'="new user made"})
 
 @bp.route('/login', methods=['POST'])
 def login():
@@ -56,13 +53,15 @@ def login():
     if check_user is None or (check_user.check_password(password) == false):
         return make_error('404', 'bad login, username or passwrod incorrect')
 
-    return jsonify({'status':201, 'message': 'login successful'})
+    return jsonify({'status'=201, 'message'='user has been logged in'})
 
 #assumes that the user has a valid login
 @bp.route('/<username>/recording', methods=['POST'])
 def sendScore(username):
+
     data = request.get_json()
     audio = data['file']
+
     # get user from database
     user = db.session.query(User).filter_by(username=username).first()
 
@@ -74,22 +73,16 @@ def sendScore(username):
     db.session.add(record)
     db.session.commit()
 
-    #response = app.response_class(
-    #        response = json.dumps(score),
-    #        status=201, 
-    #        mimetype='application/json')
-
-    return jsonify({'score'=score, 'status'=201})
+    return jsonify({'score'=score, 'status'=201, 'message'='new recording has been created'})
 
 #remove specified user and associated recordings from the database
 @bp.route('/<username>', methods=['DEL'])
 def del_user(username): 
     
     user = db.session.query(User).filter_by(username=username).first() 
-    #response = app.response_class(status=200, mimetype='application/json')
     
     if user is None:
-        return make_error(404, "user not found")
+        return response
 
     recordings = user.recordings.all()
     auditions = user.auditions.all()
@@ -105,12 +98,26 @@ def del_user(username):
     db.session.delete(user)
     db.session.commit()
 
-    return jsonify({'user'=200, 'message'='user has been deleted'})
+    return jsonify({'status':200, 'message':"user has been removed"})
 
+@bp.route('/<username>', methods=['PUT'])
+def change_name(username)
+    data = request.get_json() #get the new username form the request
+    
+    #search of user in database
+    user = db.session.query(User).filter_by(username=username).first() 
+    
+    if user is None
+        return make_error(404,'user not found')
+
+    user.change_username(user.data['username'])
+    return jsonify({'status'=204, 'message'='username has been changed'})
+
+#this is just to make it explicit when I'm making an error
 def make_error(status, message):
-    response = jsonify({'status': status, 'message':message})
-    return response
+    return = jsonify({'status': status, 'message':message})
 
 @bp.route('test')
 def test():
     return 'this is a test'
+

@@ -16,6 +16,11 @@ class User(UserMixin, db.Model):
     lastname = db.Column(db.String(64), index=True, unique=False)
     password_hash = db.Column(db.String(128))
     recordings = db.relationship('Recording', backref='author', lazy='dynamic')
+    auditionee = db.realtionship('Audition', backref='auditionee', lazy='dynamic')
+    auditioner = db.realtionship('Audition', backref='auditioner', lazy='dyanmic')
+
+    def change_username(self, name)
+        self.username = name
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -31,9 +36,12 @@ class Recording(db.Model):
     score = db.Column(db.Float)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-
+    
     def __repr__(self):
-           return '<Post {}>'.format(self.score)
+        return '<Post {}>'.format(self.score)
+    
+    def response_string(self)
+        return self.timestamp + ':' + self.score
 
 class Audition(db.Model):
     id = db.Column(db.Integer, primary_key=True)
