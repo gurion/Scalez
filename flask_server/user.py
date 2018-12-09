@@ -58,7 +58,11 @@ def login():
 def sendScore(username):
 
     data = request.get_json()
-    audio = data['file']
+    
+    try:
+        audio = data['file']
+    except KeyError:
+        return make_error(400,'Bad Request')
 
     # get user from database
     user = db.session.query(User).filter_by(username=username).first()
@@ -107,8 +111,12 @@ def change_name(username):
     user = db.session.query(User).filter_by(username=username).first()  
     if user is None:
         return make_error(404,'user not found')
+    
+    try:
+        user.change_username(user.data['username'])
+    except KeyError:
+        return make_error(400,'Bad Request')
 
-    user.change_username(user.data['username'])
     return jsonify({'status':204, 'message':'username has been changed'})
 
 #this is just to make it explicit when I'm making an error
