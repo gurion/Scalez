@@ -4,13 +4,6 @@ from werkzeug.security import check_password_hash, generate_password_hash
 #from flask_server import login
 from flask_login import UserMixin
 
-
-'''
-@login.user_loader
-def load_user(id):
-    return User.query.get(int(id))
-'''
-
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
@@ -18,8 +11,8 @@ class User(db.Model):
     lastname = db.Column(db.String(64), index=True, unique=False)
     password_hash = db.Column(db.String(128))
     recordings = db.relationship('Recording', backref='author', lazy='dynamic')
-    auditionee = db.relationship('Audition', backref='auditionee', lazy='dynamic')
-    auditioner = db.relationship('Audition', backref='auditioner', lazy='dyanmic')
+    auditionee = db.relationship('Audition')
+
 
     def get_recording(self):
         recordings =  self.recordings.all()
@@ -43,6 +36,9 @@ class User(db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+    def get_ID(self):
+        return self.id
+
 class Recording(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     score = db.Column(db.Float)
@@ -58,8 +54,9 @@ class Recording(db.Model):
 class Audition(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     is_completed = db.Column(db.Boolean, default=False)
-    auditioner = db.Column(db.String(64), index=True, unique=False)
-    auditionee = db.Column(db.String(64), index=True, unique=False)
+    auditioner = db.Column(db.String(64), index=False, unique=False)
+    auditionee = db.Column(db.String(64), index=False, unique=False)
+    auditionee_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     score = db.Column(db.Float)
     scale = db.Column(db.String(64), index=True, unique=False)
 
@@ -70,5 +67,8 @@ class Audition(db.Model):
     def score(self, score):
         self.score = score
         db.session.commit()
+
+
+
 
 

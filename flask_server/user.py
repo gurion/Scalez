@@ -41,126 +41,139 @@ def new_user():
 
 @bp.route('/login', methods=['POST'])
 def login():
-    data = request.get_json()
-   
-    username = data['username']
-    password = data['password']
 
-    check_user = db.session.query(User).filter_by(username=username).first()
+    if request.method == 'POST':
+        data = request.get_json()
+       
+        username = data['username']
+        password = data['password']
 
-    if check_user is None or (check_user.check_password(password) == false):
-        return make_error('404', 'bad login, username or passwrod incorrect')
+        check_user = db.session.query(User).filter_by(username=username).first()
 
-    return jsonify({'message':'user has been logged in'}), 201
+        if check_user is None or (check_user.check_password(password) == false):
+            return make_error('404', 'bad login, username or passwrod incorrect')
+
+        return jsonify({'message':'user has been logged in'}), 201
 
 #Scores the recording
 @bp.route('/<username>/recording', methods=['POST'])
 def sendScore(username):
 
-    data = request.get_json()
-    
-    try:
-        audio = data['file']
-    except KeyError:
-        return make_error(400,'Bad Request')
+    if request.method == 'POST':
+        data = request.get_json()
+        
+        try:
+            audio = data['file']
+        except KeyError:
+            return make_error(400,'Bad Request')
 
-    # get user from database
-    user = db.session.query(User).filter_by(username=username).first()
+        # get user from database
+        user = db.session.query(User).filter_by(username=username).first()
 
-    # score recording
-    score = processScale(audio, 12000)
+        # score recording
+        score = processScale(audio, 12000)
 
-    # make new recording
-    record = Recording(score=score, user_id=user.id)
-    db.session.add(record)
-    db.session.commit()
+        # make new recording
+        record = Recording(score=score, user_id=user.id)
+        db.session.add(record)
+        db.session.commit()
 
-    return jsonify({'score':score, 'message':'new recording has been created'}), 201
+        return jsonify({'score':score, 'message':'new recording has been created'}), 201
 
 #remove specified user and associated recordings from the database
 @bp.route('/<username>', methods=['DEL'])
 def del_user(username): 
+
+    if request.method == 'DEL':
     
-    user = db.session.query(User).filter_by(username=username).first() 
-    
-    if user is None:
-        return response
+        user = db.session.query(User).filter_by(username=username).first() 
+        
+        if user is None:
+            return response
 
-    recordings = user.recordings.all()
-    auditions = user.auditions.all()
+        recordings = user.recordings.all()
+        auditions = user.auditions.all()
 
-    #delete recordings here
-    for r in recordings:
-        db.session.delete(r)
+        #delete recordings here
+        for r in recordings:
+            db.session.delete(r)
 
-    #delet auditions here
-    for a in aditions:
-        db.session.delete(a)
+        #delet auditions here
+        for a in aditions:
+            db.session.delete(a)
 
-    db.session.delete(user)
-    db.session.commit()
+        db.session.delete(user)
+        db.session.commit()
 
-    return jsonify({'message':'user has been removed'}), 200
+        return jsonify({'message':'user has been removed'}), 200
 
 #changes the username to the one in the request body
 @bp.route('/<username>', methods=['PUT'])
 def change_name(username):
-    data = request.get_json() #get the new username form the request
-    
-    #search of user in database
-    user = db.session.query(User).filter_by(username=username).first()  
-    if user is None:
-        return make_error(404,'user not found')
-    
-    try:
-        user.change_username(user.data['username'])
-    except KeyError:
-        return make_error(400,'Bad Request')
 
-    return jsonify({'message':'username has been changed'}), 204
+    if request.method == 'PUT':
+        data = request.get_json() #get the new username form the request
+        
+        #search of user in database
+        user = db.session.query(User).filter_by(username=username).first()  
+        if user is None:
+            return make_error(404,'user not found')
+        
+        try:
+            user.change_username(user.data['username'])
+        except KeyError:
+            return make_error(400,'Bad Request')
+
+        return jsonify({'message':'username has been changed'}), 204
 
 #this is just to make it explicit when I'm making an error
 def make_error(status, message):
-    return jsonify({'message':message}), status
+    return jsonify({'error': message}), status
 
 #get the current user's leaderboard
+@bp.route('/<username>/leaderboard', methods=['GET'])
 def get_leaderboard(username):
 
-    user = db.session.query(User).filter_by(username=username).first()
-    if user is None:
-        return make_error(404,'user not found')
+    if request.method == 'GET':
+        user = db.session.query(User).filter_by(username=username).first()
+        if user is None:
+            return make_error(404,'user not found')
 
-    #TODO : fix the user.get_recording to have the right format
-    return jsonify({user.get_recording()}), 200
+        #TODO : fix the user.get_recording to have the right format
+        return jsonify({user.get_recording()}), 200
 
 #new audition
-@bp.route('/<username>/audition', methods=['PUT'])
+@bp.route('/<username>/audition', methods=['POST'])
 def new_audition(username):
-    data = request.get_json()
-    
-    try:
-        auditionee = data['auditionee']
-        scale = data['scale']
-    except KeyError:
-        return make_error(400, 'bad json')
 
-    auditionee = db.session.query(User).filer_by(username=auditionee).first()
-    
-    if auditionee is None:
-        return make_error(404, 'auditionee not found')
+    if request.method == 'POST':
+        data = request.get_json()
+        
+        try:
+            auditionee = data['auditionee']
+            scale = data['scale']
+        except KeyError:
+            return make_error(400, 'bad json')
 
-    #create the audition object
-    aud = Audtion(  is_completed = False,
-                    auditioner = username,
-                    auditionee = audtionee,
-                    score = 0,
-                    scale = scale
-                 )
-    
-    db.session.add(aud)
-    db.session.commit()
+        auditionee = db.session.query(User).filter_by(username=auditionee).first()
+        auditioner = db.session.query(User).filter_by(username=username).first()
 
-    return jsonify({'message':'audition created'}), 200
+        if auditionee or auditioner is None:
+            return make_error(404, 'auditionee or auditioner not found')
+
+        #create the audition object
+        aud = Audtion(  is_completed = False,
+                        auditioner = username,
+                        auditionee = audtionee,
+                        auditionee_id = auditioner.get_ID(),
+                        score = 0,
+                        scale = scale
+                     )
+        
+        db.session.add(aud)
+        db.session.commit()
+
+        return jsonify({'message':'audition created'}), 200
 
 #this is to get and complete auditions
 @bp.route('/<username>/audition/<audtionID>', methods=['GET', 'PUT'])
