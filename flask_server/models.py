@@ -18,8 +18,8 @@ class User(db.Model):
     lastname = db.Column(db.String(64), index=True, unique=False)
     password_hash = db.Column(db.String(128))
     recordings = db.relationship('Recording', backref='author', lazy='dynamic')
-   # auditionee = db.relationship('Audition', backref='auditionee', lazy='dynamic')
-   # auditioner = db.relationship('Audition', backref='auditioner', lazy='dyanmic')
+    auditionee = db.relationship('Audition', backref='auditionee', lazy='dynamic')
+    auditioner = db.relationship('Audition', backref='auditioner', lazy='dyanmic')
 
     def get_recording(self):
         recordings =  self.recordings.all()
@@ -55,11 +55,20 @@ class Recording(db.Model):
     def response_string(self):
         return (str(self.timestamp) + ' : ' + str(self.score))
 
-'''
 class Audition(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    auditioner = db.Column(db.Integer, db.ForeignKey('user.id'))
-    auditionee = db.Column(db.Integer, db.ForeignKey('user.id'))
     is_completed = db.Column(db.Boolean, default=False)
+    auditioner = db.Column(db.String(64), index=True, unique=Flase)
+    auditionee = db.Column(db.String(64), index=True, unique=Flase)
     score = db.Column(db.Float)
-'''
+    scale = db.Column(db.String(64), index=True, unique=Flase)
+
+    def complete(self):
+        self.is_completed = True
+        db.session.commit()
+
+    def score(self, score)
+        self.score = score
+        db.session.commit()
+
+        
