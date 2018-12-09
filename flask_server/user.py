@@ -173,7 +173,7 @@ def audition_update(auditionID):
         return make_error(400, 'Bad auditionID')
 
     if request.method == 'GET':
-        return jsonify({'message'='found audition'}), 200
+        return jsonify({'message':'found audition'}), 200
 
     if request.method == 'PUT':
         
@@ -181,7 +181,7 @@ def audition_update(auditionID):
             audio = data['file']
             rate = data['rate']
             frame_count = data['frameCount']
-        except KeyError
+        except KeyError:
             return make_error(400, 'no file in request body')
         
         score = processScales(audio, 12000)

@@ -58,17 +58,17 @@ class Recording(db.Model):
 class Audition(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     is_completed = db.Column(db.Boolean, default=False)
-    auditioner = db.Column(db.String(64), index=True, unique=Flase)
-    auditionee = db.Column(db.String(64), index=True, unique=Flase)
+    auditioner = db.Column(db.String(64), index=True, unique=False)
+    auditionee = db.Column(db.String(64), index=True, unique=False)
     score = db.Column(db.Float)
-    scale = db.Column(db.String(64), index=True, unique=Flase)
+    scale = db.Column(db.String(64), index=True, unique=False)
 
     def complete(self):
         self.is_completed = True
         db.session.commit()
 
-    def score(self, score)
+    def score(self, score):
         self.score = score
         db.session.commit()
 
-        
+
