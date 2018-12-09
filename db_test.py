@@ -14,4 +14,48 @@ THE DATABASE BEFORE RUNNING db_test.py
 if __name__ == '__main__':
     unittest.main()
 
-#these are test methods to garuntee that the CRUD is working
+#these are test methods to garuntee that the CRUD is working as intended
+
+class UserTestCase(unittest.TestCase):
+    def setUp(self):
+        u = User(username='test', lastname='last1', firstname='first1')
+        db.session.add(u)
+        db.session.commit()
+
+        #add some recordings too!
+        r1 = Recording(score=42, user_id=user.id)
+        r2 = Recording(score=24, user_id=user.id)
+        db.session.add(r1)
+        db.session.add(r2)
+        db.session.commit()
+
+    def test_exist(self):
+        user = db.session.query(User).filter_by(username='test').first()
+        assertIsNotNone(user)
+    
+    def test_namechange(self):
+        user = db.session.query(User).filter_by(username='test').first()
+        assertIsNotNone(user)
+        user.change_username('change')
+        user = db.session.query(User).filter_by(username='change').first()
+        assertIsnotNone(user)
+        user.change_username('test')
+        user = db.session.query(User).filter_by(username='test').first()
+        assertIsnotNone(user)
+
+    def get_Recordings(self):
+        user = db.session.query(User).filter_by(username='test').first() 
+        print  user.get_recordings()
+        assertTrue(True) 
+
+
+    def tearDown(self):
+        user = db.session.query(User).filter_by(username='test').first()
+        recordings = user.recordings.all()
+
+        for r in recordings:
+            db.session.delete(r)
+
+        db.session.delete(user)
+        db.session.commit()
+         
