@@ -307,7 +307,9 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
-							"});"
+							"});",
+							"",
+							"pm.test(\"Content-Type is ‘application/json’\", () => pm.response.to.have.header(\"Content-Type\", \"application/json\"));"
 						],
 						"type": "text/javascript"
 					}
@@ -377,7 +379,14 @@
 							"});",
 							"",
 							"pm.test(\"Content-Type is ‘application/json’\", () => pm.response.to.have.header(\"Content-Type\", \"application/json\"",
-							"));"
+							"));",
+							"",
+							"pm.test(\"Response contains a score\", () => {",
+							"    const response = pm.response.json();",
+							"    pm.expect(response).to.an(\"object\").that.has.all.keys(\"score\");",
+							"    const score = response.score;",
+							"    pm.expect(score).to.be.an(\"double\");",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -601,6 +610,20 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type is ‘application/json’\", () => pm.response.to.have.header(\"Content-Type\", \"application/json\"",
+							"));",
+							"",
+							"pm.test(\"Response contains a correct data\", () => {",
+							"    const response = pm.response.json();",
+							"    pm.expect(response).to.an(\"object\").that.has.all.keys(\"auditioner\", \"scale\", \"id\");",
+							"    const auditioner = response.auditioner;",
+							"    pm.expect(auditioner).to.be.an(\"String\");",
+							"    const scale = response.scale;",
+							"    pm.expect(scale).to.be.an(\"String\");",
+							"    const id = response.id;",
+							"    pm.expect(id).to.be.an(\"int\");",
 							"});"
 						],
 						"type": "text/javascript"
@@ -662,6 +685,34 @@
 		},
 		{
 			"name": "Get auditions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3f897bd8-2bae-419e-b016-c0d18e49fbe4",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type is ‘application/json’\", () => pm.response.to.have.header(\"Content-Type\", \"application/json\"",
+							"));",
+							"",
+							"pm.test(\"Response contains a correct data\", () => {",
+							"    const response = pm.response.json();",
+							"    pm.expect(response).to.an(\"object\").that.has.all.keys(\"auditions\");",
+							"    const auditions = response.auditions;",
+							"    const sample = auditions[0];",
+							"    const auditioner = sample.auditioner;",
+							"    pm.expect(auditioner).to.be.an(\"String\");",
+							"    const request = sample.request;",
+							"    pm.expect(request).to.be.an(\"String\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -723,6 +774,14 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type is ‘application/json’\", () => pm.response.to.have.header(\"Content-Type\", \"application/json\"",
+							"));",
+							"",
+							"pm.test(\"Response contains a correct data\", () => {",
+							"    const response = pm.response.json();",
+							"    pm.expect(response).to.an(\"object\").that.has.all.keys(\"leaderboard\");",
 							"});"
 						],
 						"type": "text/javascript"
@@ -786,6 +845,22 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type is ‘application/json’\", () => pm.response.to.have.header(\"Content-Type\", \"application/json\"",
+							"));",
+							"",
+							"pm.test(\"Response contains a correct data\", () => {",
+							"    const response = pm.response.json();",
+							"    pm.expect(response).to.an(\"object\").that.has.all.keys(\"firstname\", \"lastname\", \"average_score\", \"top_score\");",
+							"    const firstname = response.firstname;",
+							"    pm.expect(firstname).to.be.an(\"String\");",
+							"    const lastname = response.lastname;",
+							"    pm.expect(lastname).to.be.an(\"String\");",
+							"    const average = response.average_score;",
+							"    pm.expect(average).to.be.an(\"int\");",
+							"    const top = response.top_score;",
+							"    pm.expect(top).to.be.an(\"int\");",
 							"});"
 						],
 						"type": "text/javascript"
