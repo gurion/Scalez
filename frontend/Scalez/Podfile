@@ -9,6 +9,7 @@ target 'Scalez' do
   pod 'CryptoSwift'
   pod 'SwiftyJSON', '~> 4.0'
   pod 'Alamofire', '~> 4.7'
+  pod 'Charts'
   
   target 'ScalezTests' do
     inherit! :search_paths
