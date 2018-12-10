@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		159713379F84FFC6E3AA6981 /* Pods_Scalez.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550A3468F728018A872F1C3B /* Pods_Scalez.framework */; };
 		3E004C1E21750F9D0009DE1D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E004C1D21750F9D0009DE1D /* AppDelegate.swift */; };
-		3E004C2021750F9D0009DE1D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E004C1F21750F9D0009DE1D /* ViewController.swift */; };
+		3E004C2021750F9D0009DE1D /* AuditionMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E004C1F21750F9D0009DE1D /* AuditionMenuViewController.swift */; };
 		3E004C2321750F9D0009DE1D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E004C2121750F9D0009DE1D /* Main.storyboard */; };
 		3E004C2521750F9E0009DE1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E004C2421750F9E0009DE1D /* Assets.xcassets */; };
 		3E004C2821750F9E0009DE1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E004C2621750F9E0009DE1D /* LaunchScreen.storyboard */; };
@@ -53,7 +53,7 @@
 		18AF58FFCD40FD4799281557 /* Pods-Scalez.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scalez.release.xcconfig"; path = "Pods/Target Support Files/Pods-Scalez/Pods-Scalez.release.xcconfig"; sourceTree = "<group>"; };
 		3E004C1A21750F9D0009DE1D /* Scalez.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scalez.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E004C1D21750F9D0009DE1D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3E004C1F21750F9D0009DE1D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3E004C1F21750F9D0009DE1D /* AuditionMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditionMenuViewController.swift; sourceTree = "<group>"; };
 		3E004C2221750F9D0009DE1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3E004C2421750F9E0009DE1D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3E004C2721750F9E0009DE1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -138,7 +138,7 @@
 			children = (
 				3E004C1D21750F9D0009DE1D /* AppDelegate.swift */,
 				3EF4517321A0E2E300ED97C8 /* SignupViewController.swift */,
-				3E004C1F21750F9D0009DE1D /* ViewController.swift */,
+				3E004C1F21750F9D0009DE1D /* AuditionMenuViewController.swift */,
 				3E004C2121750F9D0009DE1D /* Main.storyboard */,
 				3E296FC821BDC43500E43092 /* KeyboardButton.swift */,
 				3E296FCA21BDC89200E43092 /* BlackKeyboardButton.swift */,
@@ -437,7 +437,7 @@
 				3EF4517421A0E2E300ED97C8 /* SignupViewController.swift in Sources */,
 				3E004C4C2175197C0009DE1D /* RecordViewController.swift in Sources */,
 				3E296FCB21BDC89200E43092 /* BlackKeyboardButton.swift in Sources */,
-				3E004C2021750F9D0009DE1D /* ViewController.swift in Sources */,
+				3E004C2021750F9D0009DE1D /* AuditionMenuViewController.swift in Sources */,
 				3EF4517021A08E8D00ED97C8 /* LoginViewController.swift in Sources */,
 				3E296FC921BDC43500E43092 /* KeyboardButton.swift in Sources */,
 				3ED5ED61219E334B00947662 /* ProfileViewController.swift in Sources */,

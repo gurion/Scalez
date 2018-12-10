@@ -14,6 +14,8 @@ import Alamofire
 class PendingAuditionsViewController : UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet var pendingAuditions: UITableView!
+    @IBOutlet var back: UIButton!
+
     var auditions = [[String : Any]]()
     var auditionID: String = ""
     

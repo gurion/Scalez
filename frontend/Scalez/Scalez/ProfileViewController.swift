@@ -15,12 +15,14 @@ import SwiftyJSON
 class ProfileViewController: UIViewController {
     
     @IBOutlet weak var LineChart: LineChartView!
+    @IBOutlet weak var usernameLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Profile"
         let xAxis = LineChart.xAxis
         xAxis.granularity = 3600.0
-        
+        usernameLabel.text = "Username: " + UserDefaults.standard.string(forKey: "username")!
         getChartFromServer()
         // Do any additional setup after loading the view.
     }

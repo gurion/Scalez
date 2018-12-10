@@ -262,15 +262,16 @@
         <!--Leaderboard-->
         <scene sceneID="w0V-We-twa">
             <objects>
-                <viewController title="Leaderboard" id="MlM-e7-vcU" sceneMemberID="viewController">
+                <viewController title="Leaderboard" id="MlM-e7-vcU" customClass="LeaderboardViewController" customModule="Scalez" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2U8-Ik-VHk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Leaderboard" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JPP-bk-2LL">
-                                <rect key="frame" x="158" y="204" width="98" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Leaderboard" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bYw-ed-4jz">
+                                <rect key="frame" x="73" y="86" width="270" height="69"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -300,11 +301,34 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="da4-7m-rIc" customClass="LineChartView" customModule="Charts">
+                                <rect key="frame" x="20" y="299" width="374" height="270"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Personal History" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ocy-8E-VXf">
+                                <rect key="frame" x="20" y="577" width="218" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Username:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kF2-zq-V19">
+                                <rect key="frame" x="20" y="205" width="172" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="ZSL-B4-64P"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="zkZ-CY-lcr"/>
+                    <connections>
+                        <outlet property="LineChart" destination="da4-7m-rIc" id="6PY-UA-c4U"/>
+                        <outlet property="usernameLabel" destination="kF2-zq-V19" id="M5O-ro-U1n"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="noq-md-9C4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -441,7 +465,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="44"/>
                                 <state key="normal" title="&lt;"/>
                                 <connections>
-                                    <segue destination="DRD-wR-FhK" kind="show" id="An2-UX-yb2"/>
+                                    <segue destination="DRD-wR-FhK" kind="show" id="phB-X3-IYZ"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OYw-4q-MIb">
@@ -461,6 +485,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="k6e-wR-eCg"/>
                     <connections>
+                        <outlet property="back" destination="JG1-nY-TG3" id="RlW-N8-V4f"/>
                         <outlet property="pendingAuditions" destination="9vi-9z-yG4" id="GKS-8D-jxg"/>
                         <segue destination="jXA-eM-MYE" kind="show" identifier="completeAudition" id="BWP-gK-L34"/>
                     </connections>
@@ -705,37 +730,7 @@
         <!--Auditions-->
         <scene sceneID="Zma-mC-7P1">
             <objects>
-                <viewController title="Auditions" id="DRD-wR-FhK" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="YvL-aw-Kws">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DEG-wi-Y9o">
-                                <rect key="frame" x="20" y="202" width="374" height="101"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="42"/>
-                                <state key="normal" title="Request Audition">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <segue destination="298-1q-cSX" kind="show" id="GeJ-cs-WSi"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mVX-Cp-yrC">
-                                <rect key="frame" x="20" y="398" width="374" height="101"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="42"/>
-                                <state key="normal" title="Pending Auditions">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <segue destination="R8E-Zz-mWB" kind="show" id="anu-Cm-LED"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="Dc4-h1-PZv"/>
-                    </view>
+                <viewController title="Auditions" id="DRD-wR-FhK" customClass="AuditionMenuViewController" customModule="Scalez" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="yXU-Rl-FO3"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9yg-Hh-4mL" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -750,7 +745,7 @@
         <image name="sign_in" width="634" height="238"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="7S5-3B-rlJ"/>
-        <segue reference="YwV-kg-FNk"/>
+        <segue reference="30l-2w-miC"/>
+        <segue reference="phB-X3-IYZ"/>
     </inferredMetricsTieBreakers>
 </document>
