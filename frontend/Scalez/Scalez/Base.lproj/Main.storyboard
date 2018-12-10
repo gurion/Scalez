@@ -399,7 +399,6 @@
         <!--Item-->
         <scene sceneID="3AR-R9-rqh">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="FOj-q9-PVT" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="R8E-Zz-mWB" customClass="PendingAuditionsViewController" customModule="Scalez" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="itF-Qf-nId">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -474,8 +473,64 @@
                         <outlet property="pendingAuditions" destination="9vi-9z-yG4" id="GKS-8D-jxg"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FOj-q9-PVT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4285.507246376812" y="1553.5714285714284"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Y2b-kc-Zqx">
+            <objects>
+                <viewController id="jXA-eM-MYE" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rUo-Io-IVQ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Complete Audition" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AUj-qI-2jf" userLabel="label">
+                                <rect key="frame" x="23" y="113" width="371" height="57"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="47"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Score" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IpY-L1-set">
+                                <rect key="frame" x="109" y="689" width="197" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ncr-vk-9jE" userLabel="recordButton">
+                                <rect key="frame" x="28" y="302" width="359" height="363"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="play_button">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="150"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="recordAudio:" destination="XvQ-bK-E8X" eventType="touchUpInside" id="21p-eB-d8g"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="glU-w1-ILg">
+                                <rect key="frame" x="0.0" y="44" width="62" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="44"/>
+                                <state key="normal" title="&lt;"/>
+                                <connections>
+                                    <segue destination="DRD-wR-FhK" kind="show" id="uX7-a7-LiV"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="q5C-s2-qPk"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="y6k-eL-Ms3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5203" y="1554"/>
         </scene>
         <!--Item-->
         <scene sceneID="nR0-4h-PN5">
@@ -654,7 +709,6 @@
         <!--Item-->
         <scene sceneID="Zma-mC-7P1">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9yg-Hh-4mL" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="DRD-wR-FhK" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YvL-aw-Kws">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -688,6 +742,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="yXU-Rl-FO3"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9yg-Hh-4mL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3750.7246376811595" y="821.65178571428567"/>
         </scene>
@@ -700,6 +755,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="7S5-3B-rlJ"/>
-        <segue reference="UGX-ai-xDb"/>
+        <segue reference="uX7-a7-LiV"/>
     </inferredMetricsTieBreakers>
 </document>
