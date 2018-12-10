@@ -16,7 +16,10 @@
 		3E004C3321750F9E0009DE1D /* ScalezTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E004C3221750F9E0009DE1D /* ScalezTests.swift */; };
 		3E004C3E21750F9E0009DE1D /* ScalezUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E004C3D21750F9E0009DE1D /* ScalezUITests.swift */; };
 		3E004C4C2175197C0009DE1D /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E004C4B2175197C0009DE1D /* RecordViewController.swift */; };
-		3ED5ED53219E26D100947662 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3ED5ED52219E26D100947662 /* GoogleService-Info.plist */; };
+		3E296FC721BB4B4700E43092 /* NewAuditionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E296FC621BB4B4700E43092 /* NewAuditionViewController.swift */; };
+		3E296FC921BDC43500E43092 /* KeyboardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E296FC821BDC43500E43092 /* KeyboardButton.swift */; };
+		3E296FCB21BDC89200E43092 /* BlackKeyboardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E296FCA21BDC89200E43092 /* BlackKeyboardButton.swift */; };
+		3E296FCD21BE196300E43092 /* RequestAuditionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E296FCC21BE196300E43092 /* RequestAuditionViewController.swift */; };
 		3ED5ED5F219E333E00947662 /* LeaderboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5ED5E219E333E00947662 /* LeaderboardViewController.swift */; };
 		3ED5ED61219E334B00947662 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5ED60219E334B00947662 /* ProfileViewController.swift */; };
 		3EF4517021A08E8D00ED97C8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4516F21A08E8D00ED97C8 /* LoginViewController.swift */; };
@@ -60,7 +63,10 @@
 		3E004C3D21750F9E0009DE1D /* ScalezUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScalezUITests.swift; sourceTree = "<group>"; };
 		3E004C3F21750F9E0009DE1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E004C4B2175197C0009DE1D /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
-		3ED5ED52219E26D100947662 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3E296FC621BB4B4700E43092 /* NewAuditionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAuditionViewController.swift; sourceTree = "<group>"; };
+		3E296FC821BDC43500E43092 /* KeyboardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardButton.swift; sourceTree = "<group>"; };
+		3E296FCA21BDC89200E43092 /* BlackKeyboardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackKeyboardButton.swift; sourceTree = "<group>"; };
+		3E296FCC21BE196300E43092 /* RequestAuditionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestAuditionViewController.swift; sourceTree = "<group>"; };
 		3ED5ED5E219E333E00947662 /* LeaderboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardViewController.swift; sourceTree = "<group>"; };
 		3ED5ED60219E334B00947662 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		3EF4516F21A08E8D00ED97C8 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -130,6 +136,10 @@
 				3EF4517321A0E2E300ED97C8 /* SignupViewController.swift */,
 				3E004C1F21750F9D0009DE1D /* ViewController.swift */,
 				3E004C2121750F9D0009DE1D /* Main.storyboard */,
+				3E296FC821BDC43500E43092 /* KeyboardButton.swift */,
+				3E296FCA21BDC89200E43092 /* BlackKeyboardButton.swift */,
+				3E296FC621BB4B4700E43092 /* NewAuditionViewController.swift */,
+				3E296FCC21BE196300E43092 /* RequestAuditionViewController.swift */,
 				3E004C4B2175197C0009DE1D /* RecordViewController.swift */,
 				3ED5ED5E219E333E00947662 /* LeaderboardViewController.swift */,
 				3E004C2421750F9E0009DE1D /* Assets.xcassets */,
@@ -137,7 +147,6 @@
 				3ED5ED60219E334B00947662 /* ProfileViewController.swift */,
 				3E004C2621750F9E0009DE1D /* LaunchScreen.storyboard */,
 				3E004C2921750F9E0009DE1D /* Info.plist */,
-				3ED5ED52219E26D100947662 /* GoogleService-Info.plist */,
 			);
 			path = Scalez;
 			sourceTree = "<group>";
@@ -292,7 +301,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E004C2821750F9E0009DE1D /* LaunchScreen.storyboard in Resources */,
-				3ED5ED53219E26D100947662 /* GoogleService-Info.plist in Resources */,
 				3E004C2521750F9E0009DE1D /* Assets.xcassets in Resources */,
 				3E004C2321750F9D0009DE1D /* Main.storyboard in Resources */,
 			);
@@ -414,11 +422,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E296FCD21BE196300E43092 /* RequestAuditionViewController.swift in Sources */,
+				3E296FC721BB4B4700E43092 /* NewAuditionViewController.swift in Sources */,
 				3ED5ED5F219E333E00947662 /* LeaderboardViewController.swift in Sources */,
 				3EF4517421A0E2E300ED97C8 /* SignupViewController.swift in Sources */,
 				3E004C4C2175197C0009DE1D /* RecordViewController.swift in Sources */,
+				3E296FCB21BDC89200E43092 /* BlackKeyboardButton.swift in Sources */,
 				3E004C2021750F9D0009DE1D /* ViewController.swift in Sources */,
 				3EF4517021A08E8D00ED97C8 /* LoginViewController.swift in Sources */,
+				3E296FC921BDC43500E43092 /* KeyboardButton.swift in Sources */,
 				3ED5ED61219E334B00947662 /* ProfileViewController.swift in Sources */,
 				3E004C1E21750F9D0009DE1D /* AppDelegate.swift in Sources */,
 			);
