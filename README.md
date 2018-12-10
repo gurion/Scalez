@@ -3,6 +3,12 @@
 2. Open the XCode project in XCode and build for an iOS 12 iPhone Simulator
 3. Follow the on-screen instructions
 
+# NOTE ON ROOT DIRECTORY FILES
+While there a quite a few python files inthe root directory, this is so heroku can build
+and use them.
+
+We wanted to get this cleaned up, this will be fixed come iteration 6
+
 ## Deprecated Build Instructions
 
 <details><summary>How to build locally</summary>

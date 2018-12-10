@@ -37,56 +37,62 @@ import statistics
 import math
 import scipy.signal
 
+'''
+    To process a floating point time series (assumed to be a scale)
+    Design pattern: pipeline
+'''
 def processScale(floating_point_time_series, sr):
-    pitch_weight, dynamic_weight, duration_weight = .3, .3, .3
-
-    #floating_point_time_series = np.array(translateSwiftTrash(floating_point_time_series))
-
-    #check to make sure input makes sense
-    if (type(floating_point_time_series) != type(np.ndarray([1,2])) or type(sr) != type(2)): return 1.0
-    if (len(floating_point_time_series) < 100 or sr < 1): return 1.0
+    weights = {
+        'pitch' : .3,
+        'dynamics' : .3,
+        'duration' : .3
+    }
     
-    
-    # compute Constant-Q Transform
-    C = transform(floating_point_time_series, sr, transform_type='Q')
-    C = threshold_Q_transform(C, sr)
+    error = {
+        'pitch' : 0.0,
+        'dynamics' : 0.0,
+        'duration' : 0.0
+    }
 
-    # we just happen to get an array representing dynamics - saved for later
+    # should be deprecated, but use for parsing of swift form
+    floating_point_time_series = np.array(translateSwiftTrash(floating_point_time_series))
+
+    if bad_input(floating_point_time_series, sr): return 1
+    
+    # transform pipeline: compute a thresholded Constant-Q Transform
+    C = threshold_Q_transform(transform(floating_point_time_series, sr, transform_type='Q'), sr)
+
+    # data reduction pipeline: filter down data over blocks
     dynamics = dynamic_dimension(C)
-
-    # gets a list of just the frequencies over time (no intensity info)
-    freqs = frequency_dimension(C)
-
-    # smooth these frequencies with a median filter to remove artifacts
-    freqs = median_filter(freqs, 50)
-
-    # count the number of frequencies before pitch changes (duration of note)
+    freqs = median_filter(frequency_dimension(C), 50)
     durations = interval_length_array(freqs)
-
-    # get only the unique frequencies
     freqs = unique_array(freqs)
+    form = scale_formation(arr_differences(freqs))
 
-    # array of differences between every pitch change
-    pitch_changes = arr_differences(freqs)
+    #normalization and error computations
+    error['pitch'], error['duration'], error['dynamics'] = normalize_pitch_error(rate_pitches(freqs)), normalize_duration_error(rate_durations(durations), sr), normalize_dynamics_error(rate_dynamics(dynamics))
 
-    # form of the scale (w-w-h-w-w-w-h vs. w-h-w-w-h-w-w)
-    form = scale_formation(pitch_changes)
-
-    # get experimental scores
-    pitch_error = normalize_pitch_error(rate_pitches(freqs))
-    duration_error = normalize_duration_error(rate_durations(durations), sr)
-    dynamics_error = normalize_dynamics_error(rate_dynamics(dynamics))
-    
-    all_errors = [pitch_error, duration_error, dynamics_error]
-
-    # get and squash overall score
-    total_error = pitch_error * pitch_weight + duration_error * dynamic_weight + dynamics_error * dynamic_weight
-    score = round(float(1 - total_error) * 100, 2)
-    return score
+    return decimal_to_percentage(multiply_and_add_dictionaries(weights, error))
 
 #standard sigmoid
 def sigmoid(x):
     return 1 / (1 + math.exp(-x))
+    
+def decimal_to_percentage(n):
+    return round(float(1 - n) * 100, 2)
+    
+def multiply_and_add_dictionaries(d1, d2):
+    retval = 0
+    for k in d1:
+        if k in d2:
+            retval += d1[k] * d2[k]
+    return retval
+
+#check to make sure input makes sense
+def bad_input(input, sr):
+    if (type(input) != type(np.ndarray([1,2])) or type(sr) != type(2)): return True
+    if (len(input) < 100 or sr < 1): return True
+    return False
 
 #standard min max norm
 def min_max_normalization(upper, lower, x):
@@ -275,6 +281,6 @@ def normalize_dynamics_error(dynamics_error):
     if dynamics_error > upper:
         return 1.0
     return min_max_normalization(upper, lower, dynamics_error)
-#y, sr = librosa.load('/Users/jakesager/Desktop/Senior Fall/OOSE/scales.wav', sr=None)
-#y = y[:300000]
-#print(processScale(y, sr))
+y, sr = librosa.load('/Users/jakesager/Documents/Courses/Sr Semester 1/OOSE/scales.wav', sr=None)
+y = y[:300000]
+print(processScale(y, sr))
