@@ -15,6 +15,7 @@ class PendingAuditionsViewController : UIViewController, UITableViewDelegate, UI
     
     @IBOutlet var pendingAuditions: UITableView!
     var auditions = [[String : Any]]()
+    var auditionID: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +33,19 @@ class PendingAuditionsViewController : UIViewController, UITableViewDelegate, UI
         var dict = auditions[indexPath.row]
         cell.textLabel?.text = dict["auditioner"] as? String
         cell.detailTextLabel?.text = dict["id"] as? String
-        return cell    }
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as! UITableViewCell
+        auditionID = cell.detailTextLabel!.text!
+        self.performSegue(withIdentifier: "completeAudition", sender: self)
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let completeAuditionVC = segue.destination as! CompleteAuditionViewController
+        completeAuditionVC.auditionID = self.auditionID
+    }
     
     @IBAction func reloadButton(_ sender: Any) {
         self.getAuditions()
