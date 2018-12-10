@@ -194,8 +194,8 @@ def get_all_auditions():
 
 
 #this is to get and complete auditions
-@bp.route('/<username>/audition/<audtionID>', methods=['GET', 'PUT'])
-def audition_update( _, auditionID):
+@bp.route('/<username>/audition/<auditionID>', methods=['GET', 'PUT'])
+def audition_update( username, auditionID):
 
     data = request.get_json()
     aud = Audition.query.get(int(auditionID))
