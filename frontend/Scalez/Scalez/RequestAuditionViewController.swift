@@ -82,7 +82,7 @@ class RequestAuditionViewController : UIViewController, UIPickerViewDelegate, UI
     
     func convertIntToMajorMinor() -> String {
         let value = self.majorMinorSelector.selectedSegmentIndex
-        if (value == 1) {
+        if (value == 0) {
             return "major"
         } else {
             return "minor"
