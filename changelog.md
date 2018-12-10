@@ -31,3 +31,14 @@ flask_server (backend)
   
 Heroku Deployment (backend)
  - heroku backend deployment and Postgres is working fine
+
+PostMan Tests
+- These need to be taken with a grain of salt
+- Postman hasn't been ideal for testing our app because it cant take file uploads
+- We have some basic cases and the backend has been ironed out but there are still couple fixes that need to be made
+
+Backend bugs
+- The complete audition endpoint still needs a little bit of fine tuning
+- The get (ALL) auditions endpoint needs to be finished
+- Profile info route was changed so its different from the API
+- Tighten up response output bodies to make the front end people's lives a little easier
