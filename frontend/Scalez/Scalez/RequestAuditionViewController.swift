@@ -20,6 +20,7 @@ class RequestAuditionViewController : UIViewController, UIPickerViewDelegate, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Auditions"
         self.scaleSelector.delegate = self
         self.scaleSelector.dataSource = self
         self.possibleScales = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
