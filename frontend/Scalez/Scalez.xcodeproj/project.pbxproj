@@ -7,21 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2874FF8FD41BE4541D2FB721 /* libPods-Scalez.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5936FD8944464714ABC0DC /* libPods-Scalez.a */; };
-		382EF81A186AD95B147BDE57 /* libPods-ScalezTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F2FAE511122B4A1481A671 /* libPods-ScalezTests.a */; };
+		159713379F84FFC6E3AA6981 /* Pods_Scalez.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550A3468F728018A872F1C3B /* Pods_Scalez.framework */; };
 		3E004C1E21750F9D0009DE1D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E004C1D21750F9D0009DE1D /* AppDelegate.swift */; };
-		3E004C2021750F9D0009DE1D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E004C1F21750F9D0009DE1D /* ViewController.swift */; };
+		3E004C2021750F9D0009DE1D /* AuditionMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E004C1F21750F9D0009DE1D /* AuditionMenuViewController.swift */; };
 		3E004C2321750F9D0009DE1D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E004C2121750F9D0009DE1D /* Main.storyboard */; };
 		3E004C2521750F9E0009DE1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E004C2421750F9E0009DE1D /* Assets.xcassets */; };
 		3E004C2821750F9E0009DE1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E004C2621750F9E0009DE1D /* LaunchScreen.storyboard */; };
 		3E004C3321750F9E0009DE1D /* ScalezTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E004C3221750F9E0009DE1D /* ScalezTests.swift */; };
 		3E004C3E21750F9E0009DE1D /* ScalezUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E004C3D21750F9E0009DE1D /* ScalezUITests.swift */; };
 		3E004C4C2175197C0009DE1D /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E004C4B2175197C0009DE1D /* RecordViewController.swift */; };
-		3E47A757219E481A00BFEA5D /* StartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E47A756219E481A00BFEA5D /* StartupViewController.swift */; };
-		3ED5ED53219E26D100947662 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3ED5ED52219E26D100947662 /* GoogleService-Info.plist */; };
+		3E296FC721BB4B4700E43092 /* NewAuditionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E296FC621BB4B4700E43092 /* NewAuditionViewController.swift */; };
+		3E296FC921BDC43500E43092 /* KeyboardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E296FC821BDC43500E43092 /* KeyboardButton.swift */; };
+		3E296FCB21BDC89200E43092 /* BlackKeyboardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E296FCA21BDC89200E43092 /* BlackKeyboardButton.swift */; };
+		3E296FCD21BE196300E43092 /* RequestAuditionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E296FCC21BE196300E43092 /* RequestAuditionViewController.swift */; };
+		3E794DE621BE32B8009A543B /* PendingAuditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E794DE521BE32B8009A543B /* PendingAuditionsViewController.swift */; };
+		3E794DE821BE4EDC009A543B /* CompleteAuditionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E794DE721BE4EDC009A543B /* CompleteAuditionViewController.swift */; };
 		3ED5ED5F219E333E00947662 /* LeaderboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5ED5E219E333E00947662 /* LeaderboardViewController.swift */; };
 		3ED5ED61219E334B00947662 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5ED60219E334B00947662 /* ProfileViewController.swift */; };
-		62753CE6A2787CB051B9CFAE /* libPods-ScalezUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6EC211C6A58685A42DE0156 /* libPods-ScalezUITests.a */; };
+		3EF4517021A08E8D00ED97C8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4516F21A08E8D00ED97C8 /* LoginViewController.swift */; };
+		3EF4517421A0E2E300ED97C8 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4517321A0E2E300ED97C8 /* SignupViewController.swift */; };
+		7798869C7BA2408DEE8E3470 /* Pods_ScalezTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 085496BC0CED0868B8F69FE5 /* Pods_ScalezTests.framework */; };
+		CA91076AA4D98DE481E66708 /* Pods_ScalezUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF406CFA9CF411BE3D8D478B /* Pods_ScalezUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,11 +48,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		085496BC0CED0868B8F69FE5 /* Pods_ScalezTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ScalezTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		15D2F32A075150EF21D7021B /* Pods-ScalezTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScalezTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ScalezTests/Pods-ScalezTests.debug.xcconfig"; sourceTree = "<group>"; };
 		18AF58FFCD40FD4799281557 /* Pods-Scalez.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scalez.release.xcconfig"; path = "Pods/Target Support Files/Pods-Scalez/Pods-Scalez.release.xcconfig"; sourceTree = "<group>"; };
 		3E004C1A21750F9D0009DE1D /* Scalez.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scalez.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E004C1D21750F9D0009DE1D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3E004C1F21750F9D0009DE1D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3E004C1F21750F9D0009DE1D /* AuditionMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditionMenuViewController.swift; sourceTree = "<group>"; };
 		3E004C2221750F9D0009DE1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3E004C2421750F9E0009DE1D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3E004C2721750F9E0009DE1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -58,17 +65,22 @@
 		3E004C3D21750F9E0009DE1D /* ScalezUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScalezUITests.swift; sourceTree = "<group>"; };
 		3E004C3F21750F9E0009DE1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E004C4B2175197C0009DE1D /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
-		3E47A756219E481A00BFEA5D /* StartupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartupViewController.swift; sourceTree = "<group>"; };
-		3ED5ED52219E26D100947662 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3E296FC621BB4B4700E43092 /* NewAuditionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAuditionViewController.swift; sourceTree = "<group>"; };
+		3E296FC821BDC43500E43092 /* KeyboardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardButton.swift; sourceTree = "<group>"; };
+		3E296FCA21BDC89200E43092 /* BlackKeyboardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackKeyboardButton.swift; sourceTree = "<group>"; };
+		3E296FCC21BE196300E43092 /* RequestAuditionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestAuditionViewController.swift; sourceTree = "<group>"; };
+		3E794DE521BE32B8009A543B /* PendingAuditionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingAuditionsViewController.swift; sourceTree = "<group>"; };
+		3E794DE721BE4EDC009A543B /* CompleteAuditionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteAuditionViewController.swift; sourceTree = "<group>"; };
 		3ED5ED5E219E333E00947662 /* LeaderboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardViewController.swift; sourceTree = "<group>"; };
 		3ED5ED60219E334B00947662 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		3EF4516F21A08E8D00ED97C8 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		3EF4517321A0E2E300ED97C8 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		543BE6906C83767D0E974C6D /* Pods-ScalezUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScalezUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ScalezUITests/Pods-ScalezUITests.release.xcconfig"; sourceTree = "<group>"; };
+		550A3468F728018A872F1C3B /* Pods_Scalez.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Scalez.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DEB6366D902821EF32B8F93 /* Pods-ScalezUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScalezUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ScalezUITests/Pods-ScalezUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		82F2FAE511122B4A1481A671 /* libPods-ScalezTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ScalezTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCC2BB78B3D0A992C0C9EAAF /* Pods-Scalez.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scalez.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Scalez/Pods-Scalez.debug.xcconfig"; sourceTree = "<group>"; };
 		D649ED4E27B8D691748EEC01 /* Pods-ScalezTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScalezTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ScalezTests/Pods-ScalezTests.release.xcconfig"; sourceTree = "<group>"; };
-		EA5936FD8944464714ABC0DC /* libPods-Scalez.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Scalez.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F6EC211C6A58685A42DE0156 /* libPods-ScalezUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ScalezUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF406CFA9CF411BE3D8D478B /* Pods_ScalezUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ScalezUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,7 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2874FF8FD41BE4541D2FB721 /* libPods-Scalez.a in Frameworks */,
+				159713379F84FFC6E3AA6981 /* Pods_Scalez.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,7 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				382EF81A186AD95B147BDE57 /* libPods-ScalezTests.a in Frameworks */,
+				7798869C7BA2408DEE8E3470 /* Pods_ScalezTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,7 +104,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				62753CE6A2787CB051B9CFAE /* libPods-ScalezUITests.a in Frameworks */,
+				CA91076AA4D98DE481E66708 /* Pods_ScalezUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,16 +137,22 @@
 			isa = PBXGroup;
 			children = (
 				3E004C1D21750F9D0009DE1D /* AppDelegate.swift */,
-				3E004C1F21750F9D0009DE1D /* ViewController.swift */,
-				3E47A756219E481A00BFEA5D /* StartupViewController.swift */,
+				3EF4517321A0E2E300ED97C8 /* SignupViewController.swift */,
+				3E004C1F21750F9D0009DE1D /* AuditionMenuViewController.swift */,
 				3E004C2121750F9D0009DE1D /* Main.storyboard */,
+				3E296FC821BDC43500E43092 /* KeyboardButton.swift */,
+				3E296FCA21BDC89200E43092 /* BlackKeyboardButton.swift */,
+				3E296FC621BB4B4700E43092 /* NewAuditionViewController.swift */,
+				3E794DE521BE32B8009A543B /* PendingAuditionsViewController.swift */,
+				3E296FCC21BE196300E43092 /* RequestAuditionViewController.swift */,
 				3E004C4B2175197C0009DE1D /* RecordViewController.swift */,
+				3E794DE721BE4EDC009A543B /* CompleteAuditionViewController.swift */,
 				3ED5ED5E219E333E00947662 /* LeaderboardViewController.swift */,
 				3E004C2421750F9E0009DE1D /* Assets.xcassets */,
+				3EF4516F21A08E8D00ED97C8 /* LoginViewController.swift */,
 				3ED5ED60219E334B00947662 /* ProfileViewController.swift */,
 				3E004C2621750F9E0009DE1D /* LaunchScreen.storyboard */,
 				3E004C2921750F9E0009DE1D /* Info.plist */,
-				3ED5ED52219E26D100947662 /* GoogleService-Info.plist */,
 			);
 			path = Scalez;
 			sourceTree = "<group>";
@@ -160,9 +178,9 @@
 		AA5A4D154EE6760B63F29645 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EA5936FD8944464714ABC0DC /* libPods-Scalez.a */,
-				82F2FAE511122B4A1481A671 /* libPods-ScalezTests.a */,
-				F6EC211C6A58685A42DE0156 /* libPods-ScalezUITests.a */,
+				550A3468F728018A872F1C3B /* Pods_Scalez.framework */,
+				085496BC0CED0868B8F69FE5 /* Pods_ScalezTests.framework */,
+				DF406CFA9CF411BE3D8D478B /* Pods_ScalezUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -191,6 +209,7 @@
 				3E004C1621750F9D0009DE1D /* Sources */,
 				3E004C1721750F9D0009DE1D /* Frameworks */,
 				3E004C1821750F9D0009DE1D /* Resources */,
+				BDF60E1DBCFB957E645C0787 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -288,7 +307,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E004C2821750F9E0009DE1D /* LaunchScreen.storyboard in Resources */,
-				3ED5ED53219E26D100947662 /* GoogleService-Info.plist in Resources */,
 				3E004C2521750F9E0009DE1D /* Assets.xcassets in Resources */,
 				3E004C2321750F9D0009DE1D /* Main.storyboard in Resources */,
 			);
@@ -331,6 +349,34 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BDF60E1DBCFB957E645C0787 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Scalez/Pods-Scalez-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Scalez/Pods-Scalez-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D4287C7EC8E6897F382921CB /* [CP] Check Pods Manifest.lock */ = {
@@ -384,11 +430,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E296FCD21BE196300E43092 /* RequestAuditionViewController.swift in Sources */,
+				3E296FC721BB4B4700E43092 /* NewAuditionViewController.swift in Sources */,
 				3ED5ED5F219E333E00947662 /* LeaderboardViewController.swift in Sources */,
+				3E794DE621BE32B8009A543B /* PendingAuditionsViewController.swift in Sources */,
+				3EF4517421A0E2E300ED97C8 /* SignupViewController.swift in Sources */,
 				3E004C4C2175197C0009DE1D /* RecordViewController.swift in Sources */,
-				3E004C2021750F9D0009DE1D /* ViewController.swift in Sources */,
+				3E296FCB21BDC89200E43092 /* BlackKeyboardButton.swift in Sources */,
+				3E004C2021750F9D0009DE1D /* AuditionMenuViewController.swift in Sources */,
+				3EF4517021A08E8D00ED97C8 /* LoginViewController.swift in Sources */,
+				3E296FC921BDC43500E43092 /* KeyboardButton.swift in Sources */,
 				3ED5ED61219E334B00947662 /* ProfileViewController.swift in Sources */,
-				3E47A757219E481A00BFEA5D /* StartupViewController.swift in Sources */,
+				3E794DE821BE4EDC009A543B /* CompleteAuditionViewController.swift in Sources */,
 				3E004C1E21750F9D0009DE1D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -564,7 +617,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CCC2BB78B3D0A992C0C9EAAF /* Pods-Scalez.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Scalez/Info.plist;
@@ -583,7 +635,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 18AF58FFCD40FD4799281557 /* Pods-Scalez.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Scalez/Info.plist;
