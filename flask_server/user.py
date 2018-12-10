@@ -172,7 +172,7 @@ def new_audition(username):
             return make_error(404, 'auditionee not found')
 
         #create the audition object
-        aud = Audtion(  is_completed = False,
+        aud = Audition(  is_completed = False,
                         auditioner = username,
                         auditionee = audtionee.get_username(),
                         auditionee_id = auditioner.get_ID(),

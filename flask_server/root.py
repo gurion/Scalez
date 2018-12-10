@@ -22,5 +22,5 @@ def test():
 @bp.route('/leaderboard', methods=['GET'])
 def get_leaderboard():
 	if request.method == 'GET':
-		return jsonify({global_leaderboard.response_string()}), 200
+		return jsonify({'leaderboard': global_leaderboard.response_string()}), 200
 

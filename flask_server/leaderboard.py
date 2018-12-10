@@ -26,7 +26,7 @@ class LeaderBoard:
 
 	def response_string(self):
 		#print out the leader board as you would in a response
-		response = "leaderboard : { "
+		response = "{ "
 
 		for i in range(0,len(self.board)):
 
