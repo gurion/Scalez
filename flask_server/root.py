@@ -19,8 +19,8 @@ bp = Blueprint('root', __name__, url_prefix='/')
 def test():
     return 'this is a test'
 
-@bp.route('/leaderboard', method=['GET'])
-def get_leader_board():
-	if request.method == 'GET'
+@bp.route('/leaderboard', methods=['GET'])
+def get_leaderboard():
+	if request.method == 'GET':
 		return jsonify({global_leaderboard.response_string()}), 200
 

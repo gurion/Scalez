@@ -180,7 +180,15 @@ def new_audition(username):
         db.session.add(aud)
         db.session.commit()
 
-        return jsonify({'message':'audition created'}), 200
+        return jsonify({'message':'audition created'}), 201
+
+#get all the auditions for which the user is the auditionee
+#TODO: make sure to fix the response body of this becuase it needs to be finished
+@bp.route('/<username>/audtion', methods=['GET'])
+def get_all_auditions():
+    #assume there is a good user
+    return jsonify({'message':'reminder to finish this method'}), 400
+
 
 #this is to get and complete auditions
 @bp.route('/<username>/audition/<audtionID>', methods=['GET', 'PUT'])
@@ -208,6 +216,10 @@ def audition_update(auditionID):
         aud.complete()
         aud.score(score)
 
+        db.session.commit()
+
+        return jsonify({'message': 'audition is complete!'}), 200
+
 @bp.route('test')
 def test():
     return 'this is a test'
@@ -221,6 +233,8 @@ def get_info(username):
             return make_error(404, 'user was not found')
 
         return jsonify({user.get_info()}), 200
+
+
                 
 
 #get all auditions where the username is the auditioner
