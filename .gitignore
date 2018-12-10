@@ -5,6 +5,8 @@ venv/
 *.pyc
 __pycache__/
 
+*.txt
+.gitignore
 migration*
 instance/
 config.py
