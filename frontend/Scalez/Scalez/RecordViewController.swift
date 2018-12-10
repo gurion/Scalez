@@ -23,6 +23,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Record"
         recordingSession = AVAudioSession.sharedInstance()
         
         do {
