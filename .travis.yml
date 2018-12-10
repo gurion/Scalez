@@ -14,5 +14,5 @@ services:
   - postgresql
 script:
   - export FLASK_APP=server.py
-  - flask run  & sleep 10 && newman run 'Scalez.postman_collection.json' --environment 'Development.postman_environment.json'
+  - flask run  & sleep 10 && newman run 'misc/Scalez.postman_collection.json' --environment 'misc/Development.postman_environment.json'
 
