@@ -16,5 +16,8 @@ migrate = Migrate(app, db)
 
 #following the grinberg tutorial, I'm importing the models and blueprints
 #on the last line
-from flask_server import models, user
+from flask_server import root
+from flask_server import user
+from flask_server.models import * 
 app.register_blueprint(user.bp)
+app.register_blueprint(root.bp)

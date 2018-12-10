@@ -70,6 +70,9 @@ def sendScore(username):
         # get user from database
         user = db.session.query(User).filter_by(username=username).first()
 
+        if user is None:
+            return make_error(404, 'user not found')
+
         # score recording
         #score = processScale(audio, 12000)
         
@@ -205,4 +208,21 @@ def audition_update(auditionID):
 @bp.route('test')
 def test():
     return 'this is a test'
+
+@bp.route('/<username>/info', methods=['GET'])
+def get_info(username):
+    if request.method == 'GET':
+        user = db.session.query(User).filter_by(username=username).first()
+
+        if user is None:
+            return make_error(404, 'user was not found')
+
+        return jsonify({user.get_info()}), 200
+                
+
+#get all auditions where the username is the auditioner
+#just an easy helper method that may be more conveniant to use
+def get_auditioner_auditions(username):
+    auditions = db.session.query(Audition).filter_by(auditioner=username).all()
+    return auditions
 
