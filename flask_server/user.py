@@ -147,7 +147,7 @@ def get_leaderboard(username):
             return make_error(404,'user not found')
 
         #TODO : fix the user.get_recording to have the right format
-        return jsonify({user.get_recording()}), 200
+        return jsonify({'leaderboard':user.get_recording()}), 200
 
 #new audition
 @bp.route('/<username>/audition', methods=['POST'])
