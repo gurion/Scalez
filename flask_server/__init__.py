@@ -5,12 +5,16 @@ from flask_login import LoginManager
 from flask import Flask, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_server.leaderboard import *
 
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_URL"]
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+global_leaderboard = LeaderBoard(10) #top 10 scores
+obsv = UpdateLeaderboard() #makeing use of an observer design pattern
+obsv.add_leaderboard(global_leaderboard) #global leaderboard added to the observer
 login = LoginManager(app)
 migrate = Migrate(app, db)
 

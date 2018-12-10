@@ -10,6 +10,7 @@ from flask import jsonify
 from flask_server import app
 #from flask_login import current_user, login_user
 from flask_server.models import *
+from flask_server import global_leaderboard
 
 #this is a 'global', you can access the global leaderboard through here
 bp = Blueprint('root', __name__, url_prefix='/')
@@ -18,8 +19,8 @@ bp = Blueprint('root', __name__, url_prefix='/')
 def test():
     return 'this is a test'
 
-#@bp.route('\leaderboard', method=['GET'])
-#def get_leader_board():
-#
-#	#return the top 10 high scores
+@bp.route('/leaderboard', method=['GET'])
+def get_leader_board():
+	if request.method == 'GET'
+		return jsonify({global_leaderboard.response_string()}), 200
 

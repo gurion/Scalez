@@ -6,6 +6,7 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 from flask_server import db
+from flask_server import obsv
 from flask_json import FlaskJSON, JsonError, json_response, as_json
 from flask import jsonify
 from flask_server import app
@@ -81,6 +82,8 @@ def sendScore(username):
         record = Recording(score=score, user_id=user.get_ID())
         db.session.add(record)
         db.session.commit()
+
+        obsv.notify_leaderboards(user.get_username(), score)
 
         return jsonify({'score':score, 'message':'new recording has been created'}), 201
 
