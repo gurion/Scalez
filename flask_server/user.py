@@ -75,10 +75,8 @@ def sendScore(username):
             return make_error(404, 'user not found')
 
         # score recording
-        #score = processScale(audio, 12000)
-        
-        # make new recording
-        score = 42
+        score = processScale(audio, 12000)
+
         record = Recording(score=score, user_id=user.get_ID())
         db.session.add(record)
         db.session.commit()
