@@ -3,22 +3,25 @@ import os
 
 from flask_login import LoginManager
 from flask import Flask, session
-#from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_server.leaderboard import *
 
 
 app = Flask(__name__)
-#app.secret_key = "kill me"
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_URL"]
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-#DATABASE_URL = os.environ['DATABASE_URL']
-#conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 db = SQLAlchemy(app)
+global_leaderboard = LeaderBoard(10) #top 10 scores
+obsv = UpdateLeaderboard() #makeing use of an observer design pattern
+obsv.add_leaderboard(global_leaderboard) #global leaderboard added to the observer
 login = LoginManager(app)
 migrate = Migrate(app, db)
 
 #following the grinberg tutorial, I'm importing the models and blueprints
 #on the last line
-from flask_server import models, user
+from flask_server import root
+from flask_server import user
+from flask_server.models import * 
 app.register_blueprint(user.bp)
+app.register_blueprint(root.bp)
