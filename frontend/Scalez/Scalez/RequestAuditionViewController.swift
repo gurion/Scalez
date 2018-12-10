@@ -30,15 +30,21 @@ class RequestAuditionViewController : UIViewController, UIPickerViewDelegate, UI
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickerDataSource.count;
+        return possibleScales.count;
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickerDataSource[row] as String
+        return possibleScales[row] as String
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        // This method is triggered whenever the user makes a change to the picker selection.
+        // The parameter named row and component represents what was selected.
     }
     
     @IBAction func newAuditionButton(_ sender: Any) {
-        if (self.auditioneeNameField.isEmpty) {
+        let username = self.auditioneeNameField.text as! String
+        if (username.isEmpty) {
             DispatchQueue.main.async {
                 self.noAuditioneeAlert()
             }
@@ -58,8 +64,8 @@ class RequestAuditionViewController : UIViewController, UIPickerViewDelegate, UI
         self.present(alert, animated: true)
     }
     
-    func auditionSentAlert(username : String) {
-        self.okButtonAlert(title: "Audition request for a \(getSelectedScale()) \(convertIntToMajorMinor()) scale sent to \(username)!", message: "")
+    func auditionSentAlert() {
+        self.okButtonAlert(title: "Audition request for a \(getSelectedScale()) \(convertIntToMajorMinor()) scale sent to \(getAuditioneeUsername())!", message: "")
     }
     
     func noAuditioneeAlert() {
@@ -68,6 +74,10 @@ class RequestAuditionViewController : UIViewController, UIPickerViewDelegate, UI
     
     func generalAlert() {
         self.okButtonAlert(title: "Something went wrong!", message: "Sorry! Please try again.")
+    }
+    
+    func getAuditioneeUsername() -> String {
+        return self.auditioneeNameField.text as! String
     }
     
     func convertIntToMajorMinor() -> String {
@@ -80,12 +90,12 @@ class RequestAuditionViewController : UIViewController, UIPickerViewDelegate, UI
     }
     
     func getSelectedScale() -> String {
-        
+        return possibleScales[scaleSelector.selectedRow(inComponent: 0)] as String
     }
     
     func postNewAudition() {
         let url: String = UserDefaults.standard.string(forKey: "userUrl")!+"/audition"
-        let params:[String:String] = ["auditionee" : self.auditioneeNameField.text, "scale" : getSelectedScale(),"majorminor" : self.convertIntToMajorMinor()]
+        let params:[String:String] = ["auditionee" : getAuditioneeUsername(), "scale" : getSelectedScale(),"majorminor" : self.convertIntToMajorMinor()]
         
         print(params)
         
@@ -97,7 +107,7 @@ class RequestAuditionViewController : UIViewController, UIPickerViewDelegate, UI
                     switch(status) {
                     case 200:
                         DispatchQueue.main.async {
-                            self.auditionSentAlert(username: params["auditionee"])
+                            self.auditionSentAlert()
                         }
                     default:
                         DispatchQueue.main.async {
