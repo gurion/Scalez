@@ -4,6 +4,11 @@ Scale Rating Logic (processScales.py - core algorithm)
 
   - Added functionality to detect the sequence of half/whole steps in a scale. This will allow us to detect major/minor scale patterns
   - Added an algorithm to score a scale based on a weighted combination of pitch accuracy, dynamic consistency, and note duration 
+  - Refactored into a more pipeline-ish design pattern
+  - Added proper normalization functionality
+  - Added resilience against non scale-like input
+  - refactored comments
+  - more intuitive folder layout
   
   consistancy
   - Added a temporary way to normalize scale scores
