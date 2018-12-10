@@ -477,11 +477,11 @@
             </objects>
             <point key="canvasLocation" x="4285.507246376812" y="1553.5714285714284"/>
         </scene>
-        <!--View Controller-->
+        <!--Complete Audition View Controller-->
         <scene sceneID="Y2b-kc-Zqx">
             <objects>
-                <viewController id="jXA-eM-MYE" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="rUo-Io-IVQ">
+                <viewController id="jXA-eM-MYE" customClass="CompleteAuditionViewController" customModule="Scalez" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rUo-Io-IVQ" customClass="Comp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -527,6 +527,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="q5C-s2-qPk"/>
                     </view>
+                    <connections>
+                        <outlet property="recordButton" destination="ncr-vk-9jE" id="D6f-Zj-JtC"/>
+                        <outlet property="score" destination="IpY-L1-set" id="YRv-84-KTX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y6k-eL-Ms3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

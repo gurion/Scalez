@@ -21,6 +21,7 @@
 		3E296FCB21BDC89200E43092 /* BlackKeyboardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E296FCA21BDC89200E43092 /* BlackKeyboardButton.swift */; };
 		3E296FCD21BE196300E43092 /* RequestAuditionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E296FCC21BE196300E43092 /* RequestAuditionViewController.swift */; };
 		3E794DE621BE32B8009A543B /* PendingAuditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E794DE521BE32B8009A543B /* PendingAuditionsViewController.swift */; };
+		3E794DE821BE4EDC009A543B /* CompleteAuditionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E794DE721BE4EDC009A543B /* CompleteAuditionViewController.swift */; };
 		3ED5ED5F219E333E00947662 /* LeaderboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5ED5E219E333E00947662 /* LeaderboardViewController.swift */; };
 		3ED5ED61219E334B00947662 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5ED60219E334B00947662 /* ProfileViewController.swift */; };
 		3EF4517021A08E8D00ED97C8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4516F21A08E8D00ED97C8 /* LoginViewController.swift */; };
@@ -69,6 +70,7 @@
 		3E296FCA21BDC89200E43092 /* BlackKeyboardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackKeyboardButton.swift; sourceTree = "<group>"; };
 		3E296FCC21BE196300E43092 /* RequestAuditionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestAuditionViewController.swift; sourceTree = "<group>"; };
 		3E794DE521BE32B8009A543B /* PendingAuditionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingAuditionsViewController.swift; sourceTree = "<group>"; };
+		3E794DE721BE4EDC009A543B /* CompleteAuditionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteAuditionViewController.swift; sourceTree = "<group>"; };
 		3ED5ED5E219E333E00947662 /* LeaderboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardViewController.swift; sourceTree = "<group>"; };
 		3ED5ED60219E334B00947662 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		3EF4516F21A08E8D00ED97C8 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				3E794DE521BE32B8009A543B /* PendingAuditionsViewController.swift */,
 				3E296FCC21BE196300E43092 /* RequestAuditionViewController.swift */,
 				3E004C4B2175197C0009DE1D /* RecordViewController.swift */,
+				3E794DE721BE4EDC009A543B /* CompleteAuditionViewController.swift */,
 				3ED5ED5E219E333E00947662 /* LeaderboardViewController.swift */,
 				3E004C2421750F9E0009DE1D /* Assets.xcassets */,
 				3EF4516F21A08E8D00ED97C8 /* LoginViewController.swift */,
@@ -436,6 +439,7 @@
 				3EF4517021A08E8D00ED97C8 /* LoginViewController.swift in Sources */,
 				3E296FC921BDC43500E43092 /* KeyboardButton.swift in Sources */,
 				3ED5ED61219E334B00947662 /* ProfileViewController.swift in Sources */,
+				3E794DE821BE4EDC009A543B /* CompleteAuditionViewController.swift in Sources */,
 				3E004C1E21750F9D0009DE1D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
