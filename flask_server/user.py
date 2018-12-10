@@ -51,7 +51,7 @@ def login():
 
         check_user = db.session.query(User).filter_by(username=username).first()
 
-        if check_user is None or (check_user.check_password(password) == false):
+        if check_user is None or (check_user.check_password(password) == False):
             return make_error('404', 'bad login, username or passwrod incorrect')
 
         return jsonify({'message':'user has been logged in'}), 201
@@ -165,13 +165,16 @@ def new_audition(username):
         auditionee = db.session.query(User).filter_by(username=auditionee).first()
         auditioner = db.session.query(User).filter_by(username=username).first()
 
-        if auditionee or auditioner is None:
-            return make_error(404, 'auditionee or auditioner not found')
+        if auditioner is None:
+            return make_error(404, 'auditioner not found')
+
+        if auditionee is None:
+            return make_error(404, 'auditionee not found')
 
         #create the audition object
         aud = Audtion(  is_completed = False,
                         auditioner = username,
-                        auditionee = audtionee,
+                        auditionee = audtionee.get_username(),
                         auditionee_id = auditioner.get_ID(),
                         score = 0,
                         scale = scale
