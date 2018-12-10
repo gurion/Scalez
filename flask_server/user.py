@@ -174,7 +174,7 @@ def new_audition(username):
         #create the audition object
         aud = Audition(  is_completed = False,
                         auditioner = username,
-                        auditionee = audtionee.get_username(),
+                        auditionee = auditionee.get_username(),
                         auditionee_id = auditioner.get_ID(),
                         score = 0,
                         scale = scale
@@ -235,7 +235,7 @@ def get_info(username):
         if user is None:
             return make_error(404, 'user was not found')
 
-        return jsonify({user.get_info()}), 200
+        return jsonify({'info':user.get_info()}), 200
 
 
                 
