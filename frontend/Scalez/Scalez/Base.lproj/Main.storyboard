@@ -378,6 +378,35 @@
             </objects>
             <point key="canvasLocation" x="3682.608695652174" y="821.65178571428567"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="3AR-R9-rqh">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FOj-q9-PVT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="R8E-Zz-mWB" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="itF-Qf-nId">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Pending Auditions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ElB-2V-XVw">
+                                <rect key="frame" x="24" y="82" width="369" height="58"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="48"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9vi-9z-yG4">
+                                <rect key="frame" x="88" y="271" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Nde-Vb-Nfc"/>
+                    </view>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="4591" y="822"/>
+        </scene>
         <!--Item-->
         <scene sceneID="nR0-4h-PN5">
             <objects>
