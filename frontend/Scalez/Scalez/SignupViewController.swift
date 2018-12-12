@@ -45,9 +45,9 @@ class SignupViewController: UIViewController {
     
     func handleCreateAccount(f : String, l : String, u : String, p : String) {
         postDataToServer(f: f, l: l, u: u, p: p)
+        sleep(3)
         if (UserDefaults.standard.bool(forKey: "isLoggedIn")) {
-            let next = self.storyboard?.instantiateViewController(withIdentifier: "RecordVC") as! RecordViewController
-            present(next, animated: true, completion: nil)
+            self.performSegue(withIdentifier: "createAccountSegue", sender: self)
         }
     }
     

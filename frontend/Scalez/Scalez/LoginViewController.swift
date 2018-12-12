@@ -45,8 +45,7 @@ class LoginViewController : UIViewController {
         self.password = self.passwordHash(u : u, p : p)
         logInToServer(u : self.username, p : self.password)
         if (UserDefaults.standard.bool(forKey: "isLoggedIn")) {
-            let next = self.storyboard?.instantiateViewController(withIdentifier: "RecordVC") as! RecordViewController
-            present(next, animated: true, completion: nil)
+            self.performSegue(withIdentifier: "loginSegue", sender: self)
         }
     }
     

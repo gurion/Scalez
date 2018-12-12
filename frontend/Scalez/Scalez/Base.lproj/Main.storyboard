@@ -23,7 +23,7 @@
                         <segue destination="XvQ-bK-E8X" kind="relationship" relationship="viewControllers" id="MCa-Vz-HrR"/>
                         <segue destination="MlM-e7-vcU" kind="relationship" relationship="viewControllers" id="4AU-n7-abh"/>
                         <segue destination="EhQ-MY-qB3" kind="relationship" relationship="viewControllers" id="fkr-IB-zb5"/>
-                        <segue destination="DRD-wR-FhK" kind="relationship" relationship="viewControllers" id="YwV-kg-FNk"/>
+                        <segue destination="7qO-yl-zyI" kind="relationship" relationship="viewControllers" id="Kx0-6S-bH9"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jfE-qq-UUh" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -50,6 +50,7 @@
                                 </state>
                                 <connections>
                                     <action selector="logInButton:" destination="rwp-qA-HX0" eventType="touchUpInside" id="NHN-jV-jIO"/>
+                                    <segue destination="XvQ-bK-E8X" kind="show" identifier="loginSegue" id="YNL-jI-eOV"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TDT-hb-Xga">
@@ -156,6 +157,7 @@
                                 <state key="normal" title="Login" image="create_account"/>
                                 <connections>
                                     <action selector="createAccountButton:" destination="kAv-gU-JKM" eventType="touchUpInside" id="KzC-dd-Tvv"/>
+                                    <segue destination="XvQ-bK-E8X" kind="show" identifier="createAccountSegue" id="zHO-Km-088"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a2O-RD-8tc">
@@ -313,13 +315,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Username:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kF2-zq-V19">
-                                <rect key="frame" x="20" y="205" width="172" height="24"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="ZSL-B4-64P"/>
@@ -327,12 +322,54 @@
                     <tabBarItem key="tabBarItem" title="Item" id="zkZ-CY-lcr"/>
                     <connections>
                         <outlet property="LineChart" destination="da4-7m-rIc" id="6PY-UA-c4U"/>
-                        <outlet property="usernameLabel" destination="kF2-zq-V19" id="M5O-ro-U1n"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="noq-md-9C4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2679.7101449275365" y="821.65178571428567"/>
+        </scene>
+        <!--Auditions-->
+        <scene sceneID="lNT-4i-cuS">
+            <objects>
+                <viewController title="Auditions" id="7qO-yl-zyI" customClass="AuditionMenuViewController" customModule="Scalez" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zrv-hA-GSM">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9TR-cQ-kRt">
+                                <rect key="frame" x="72" y="348" width="292" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <state key="normal" title="Request Audition"/>
+                                <connections>
+                                    <segue destination="298-1q-cSX" kind="show" id="Ohm-5N-Kyr"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wcU-4J-zlb">
+                                <rect key="frame" x="64" y="461" width="309" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <state key="normal" title="Pending Auditions"/>
+                                <connections>
+                                    <segue destination="R8E-Zz-mWB" kind="show" id="Ma5-fS-irh"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Auditions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N7Z-t9-5TJ">
+                                <rect key="frame" x="101" y="62" width="212" height="64"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="53"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="I0C-lz-968"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="PGP-zc-Dj0"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CGp-2R-GnE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3807" y="822"/>
         </scene>
         <!--Item-->
         <scene sceneID="SdI-l4-Oah">
@@ -385,7 +422,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="44"/>
                                 <state key="normal" title="&lt;"/>
                                 <connections>
-                                    <segue destination="DRD-wR-FhK" kind="show" id="EeP-ej-MNK"/>
+                                    <segue destination="7qO-yl-zyI" kind="show" id="cga-nL-Wct"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -465,7 +502,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="44"/>
                                 <state key="normal" title="&lt;"/>
                                 <connections>
-                                    <segue destination="DRD-wR-FhK" kind="show" id="phB-X3-IYZ"/>
+                                    <segue destination="7qO-yl-zyI" kind="show" identifier="pendingToAuditions" id="xKH-6g-wH7"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OYw-4q-MIb">
@@ -497,7 +534,7 @@
         <!--Complete Audition View Controller-->
         <scene sceneID="Y2b-kc-Zqx">
             <objects>
-                <viewController id="jXA-eM-MYE" customClass="CompleteAuditionViewController" customModule="Scalez" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="completeAuditionVC" id="jXA-eM-MYE" customClass="CompleteAuditionViewController" customModule="Scalez" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rUo-Io-IVQ" customClass="Comp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -536,9 +573,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="44"/>
                                 <state key="normal" title="&lt;"/>
-                                <connections>
-                                    <segue destination="DRD-wR-FhK" kind="show" id="uX7-a7-LiV"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -727,16 +761,6 @@
             </objects>
             <point key="canvasLocation" x="4984" y="-121"/>
         </scene>
-        <!--Auditions-->
-        <scene sceneID="Zma-mC-7P1">
-            <objects>
-                <viewController title="Auditions" id="DRD-wR-FhK" customClass="AuditionMenuViewController" customModule="Scalez" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="yXU-Rl-FO3"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9yg-Hh-4mL" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3750.7246376811595" y="821.65178571428567"/>
-        </scene>
     </scenes>
     <resources>
         <image name="create_account" width="634" height="238"/>
@@ -746,6 +770,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="30l-2w-miC"/>
-        <segue reference="phB-X3-IYZ"/>
+        <segue reference="xKH-6g-wH7"/>
+        <segue reference="YNL-jI-eOV"/>
     </inferredMetricsTieBreakers>
 </document>
