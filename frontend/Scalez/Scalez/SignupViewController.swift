@@ -45,8 +45,7 @@ class SignupViewController: UIViewController {
     
     func handleCreateAccount(f : String, l : String, u : String, p : String) {
         postDataToServer(f: f, l: l, u: u, p: p)
-        sleep(3)
-        if (UserDefaults.standard.bool(forKey: "isLoggedIn")) {
+        if (!UserDefaults.standard.bool(forKey: "isLoggedIn")) {
             self.performSegue(withIdentifier: "createAccountSegue", sender: self)
         }
     }
@@ -114,6 +113,5 @@ class SignupViewController: UIViewController {
                     }
                 }
         }
-        
     }
 }
