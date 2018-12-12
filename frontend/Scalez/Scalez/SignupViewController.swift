@@ -12,25 +12,25 @@ import SwiftyJSON
 import Alamofire
 
 class SignupViewController: UIViewController {
-    
+
     @IBOutlet var firstnameField: UITextField!
     @IBOutlet var lastnameField: UITextField!
     @IBOutlet var usernameField: UITextField!
     @IBOutlet var passwordField: UITextField!
     @IBOutlet var checkPasswordField: UITextField!
     @IBOutlet var createAccountButton: UIButton!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
+
     @IBAction func createAccountButton(_ sender: Any) {
         let f = firstnameField.text!
         let l = lastnameField.text!
         let u = usernameField.text!
         let p = passwordField.text!
         let q = checkPasswordField.text!
-        
+
         if (f.isEmpty || l.isEmpty || u.isEmpty || p.isEmpty || q.isEmpty) {
             return
         } else if (self.checkIfPasswordsMatch()) {
@@ -42,44 +42,45 @@ class SignupViewController: UIViewController {
             self.handleCreateAccount(f:f, l:l, u:u, p:p)
         }
     }
-    
+
     func handleCreateAccount(f : String, l : String, u : String, p : String) {
-        postDataToServer(f: f, l: l, u: u, p: p)
-        if (!UserDefaults.standard.bool(forKey: "isLoggedIn")) {
-            self.performSegue(withIdentifier: "createAccountSegue", sender: self)
-        }
+        postDataToServer(f: f, l: l, u: u, p: p, completion: {
+            if (UserDefaults.standard.bool(forKey: "isLoggedIn")) {
+                self.performSegue(withIdentifier: "createAccountSegue", sender: self)
+            }
+        })
     }
-    
+
     func checkIfPasswordsMatch() -> Bool {
         return self.passwordField.isEqual(self.checkPasswordField)
     }
-    
+
     func passwordHash(u : String, p : String) -> String {
         return "\(p).\(u)".sha256()
     }
-    
+
     func okButtonAlert(title : String, message : String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         self.present(alert, animated: true)
     }
-    
+
     func incompleteFieldsAlert() {
         self.okButtonAlert(title: "Please fill out all fields", message: "")
     }
-    
+
     func passwordsMatchAlert() {
         self.okButtonAlert(title: "Password does not match", message: "Please re-enter you password")
     }
-    
+
     func usernameTakenAlert() {
         self.okButtonAlert(title: "Username already taken", message: "Please pick another username")
     }
-    
+
     func generalAlert() {
         self.okButtonAlert(title: "Something went wrong", message: "Sorry! Please try again")
     }
-    
+
     func setUserDefaults(u : String) {
         let defaults = UserDefaults.standard
         defaults.set(true, forKey: "isLoggedIn")
@@ -87,13 +88,13 @@ class SignupViewController: UIViewController {
         defaults.set("https://testdeployment-scalez.herokuapp.com/user/\(u)", forKey: "userUrl")
     }
 
-    func postDataToServer(f: String, l: String, u: String, p: String) {
+    func postDataToServer(f: String, l: String, u: String, p: String, completion : @escaping ()->()) {
         let url: String = "https://testdeployment-scalez.herokuapp.com/user/"
         let params:[String:String] = ["firstname": f,
                                       "lastname" : l,
                                       "username" : u,
                                       "password" : passwordHash(u: u, p: p)]
-        
+
         Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding.default)
             .responseJSON { response in
                 print(response)
@@ -112,6 +113,7 @@ class SignupViewController: UIViewController {
                         }
                     }
                 }
+                completion()
         }
     }
 }
