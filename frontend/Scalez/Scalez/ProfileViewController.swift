@@ -23,10 +23,14 @@ class ProfileViewController: UIViewController {
         let xAxis = LineChart.xAxis
         xAxis.granularity = 3600.0
         usernameLabel.text = "Username: " + UserDefaults.standard.string(forKey: "username")!
+        getUserInfo()
         getChartFromServer()
         // Do any additional setup after loading the view.
     }
     
+    func setUserInfo(data: NSDictionary) {
+        
+    }
     
     func setChartValues (data: JSON) {
         var values: [ChartDataEntry] = []
@@ -51,6 +55,26 @@ class ProfileViewController: UIViewController {
         let d = LineChartData(dataSet: set)
         
         self.LineChart.data = d
+    }
+    
+    func getUserInfo() {
+        let url:String = UserDefaults.standard.string(forKey: "userUrl")! + "/info"
+        
+        Alamofire.request(url, method: .get, encoding: JSONEncoding.default)
+            .responseJSON { response in
+                print(response)
+                if let status = response.response?.statusCode {
+                    print(status)
+                    switch(status) {
+                    case 200:
+                        self.setUserInfo(data: response.result.value as! NSDictionary)
+                    default:
+                        DispatchQueue.main.async {
+                            self.generalAlert()
+                        }
+                    }
+                }
+        }
     }
     
     func getChartFromServer() {

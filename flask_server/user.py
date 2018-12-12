@@ -10,7 +10,7 @@ from flask_server import obsv
 from flask_json import FlaskJSON, JsonError, json_response, as_json
 from flask import jsonify
 from flask_server import app
-#from flask_login import current_user, login_user
+# from flask_login import current_user, login_user
 from flask_server.models import *
 from flask_server.processScales import processScale
 from werkzeug.urls import url_parse
@@ -258,4 +258,9 @@ def get_info(username):
 # just an easy helper method that may be more conveniant to use
 def get_auditioner_auditions(username):
     auditions = db.session.query(Audition).filter_by(auditioner=username).all()
+    return auditions
+
+
+def get_auditionee_auditions(username):
+	auditions = db.session.query(Audition).filter_by(auditionee=username).all()
     return auditions

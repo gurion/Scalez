@@ -106,7 +106,7 @@ class RequestAuditionViewController : UIViewController, UIPickerViewDelegate, UI
                 if let status = response.response?.statusCode {
                     print(status)
                     switch(status) {
-                    case 200:
+                    case 201:
                         DispatchQueue.main.async {
                             self.auditionSentAlert()
                         }
