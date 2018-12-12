@@ -44,13 +44,13 @@ class SignupViewController: UIViewController {
     }
     
     func handleCreateAccount(f : String, l : String, u : String, p : String) {
-        postDataToServer(f: f, l: l, u: u, p: p)
-        sleep(3)
-        if (UserDefaults.standard.bool(forKey: "isLoggedIn")) {
-            self.performSegue(withIdentifier: "createAccountSegue", sender: self)
-        }
+        postDataToServer(f: f, l: l, u: u, p: p, completion: {
+            if (UserDefaults.standard.bool(forKey: "isLoggedIn")) {
+                self.performSegue(withIdentifier: "createAccountSegue", sender: self)
+            }
+        })
     }
-    
+
     func checkIfPasswordsMatch() -> Bool {
         return self.passwordField.isEqual(self.checkPasswordField)
     }
@@ -88,7 +88,7 @@ class SignupViewController: UIViewController {
         defaults.set("https://testdeployment-scalez.herokuapp.com/user/\(u)", forKey: "userUrl")
     }
 
-    func postDataToServer(f: String, l: String, u: String, p: String) {
+    func postDataToServer(f: String, l: String, u: String, p: String, completion : @escaping ()->()) {
         let url: String = "https://testdeployment-scalez.herokuapp.com/user/"
         let params:[String:String] = ["firstname": f,
                                       "lastname" : l,
@@ -113,6 +113,7 @@ class SignupViewController: UIViewController {
                         }
                     }
                 }
+                completion()
         }
         
     }

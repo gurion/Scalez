@@ -35,6 +35,7 @@ class LoginViewController : UIViewController {
         let p = passwordField.text!
         
         if (u.isEmpty || p.isEmpty) {
+            self.okButtonAlert(title: "Please enter username and password", message: "")
             return
         }
         self.handleLogIn(u:u, p:p)
@@ -42,11 +43,21 @@ class LoginViewController : UIViewController {
     
     func handleLogIn(u : String, p : String) {
         self.username = u
-        self.password = self.passwordHash(u : u, p : p)
+        self.password = p
         logInToServer(u : self.username, p : self.password)
         if (UserDefaults.standard.bool(forKey: "isLoggedIn")) {
             self.performSegue(withIdentifier: "loginSegue", sender: self)
         }
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+
+        if (UserDefaults.standard.bool(forKey: "isLoggedIn")) {
+            return true
+        } else if (identifier == "createAccountSegue") {
+            self.performSegue(withIdentifier: "createAccountSegue", sender: self)
+        }
+        return false
     }
     
     func passwordHash(u : String, p : String) -> String {
@@ -82,11 +93,14 @@ class LoginViewController : UIViewController {
         
         Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding.default)
             .responseJSON { response in
+                print("___________")
                 print(response)
+                print("____________")
                 if let status = response.response?.statusCode {
                     print(status)
+                    print("____________")
                     switch(status) {
-                    case 200:
+                    case 201:
                         self.setUserDefaults()
                     case 404:
                         DispatchQueue.main.async {
