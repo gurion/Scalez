@@ -32,9 +32,9 @@ class User(db.Model):
 
         return {
             'firstname':  self.firstname,
-            "lastname : " + self.lastname,
-            "avearge_score : " + str(avg),
-            "top_score : " + str(high)}
+            'lastname': self.lastname,
+            'average_score': + str(avg),
+            'top_score': + str(high)}
 
     def get_recording(self):
         recordings = self.recordings.all()

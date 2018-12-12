@@ -16,20 +16,25 @@ class ProfileViewController: UIViewController {
     
     @IBOutlet weak var LineChart: LineChartView!
     @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var highScoreLabel: UILabel!
+    @IBOutlet weak var avgScoreLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Profile"
         let xAxis = LineChart.xAxis
         xAxis.granularity = 3600.0
-        usernameLabel.text = "Username: " + UserDefaults.standard.string(forKey: "username")!
         getUserInfo()
         getChartFromServer()
         // Do any additional setup after loading the view.
     }
     
-    func setUserInfo(data: NSDictionary) {
-        
+    func setUserInfo(data: [String:String]) {
+        usernameLabel.text = "Username: " + UserDefaults.standard.string(forKey: "username")!
+        nameLabel.text = data["firstname"]! + " " + data["lastname"]!
+        highScoreLabel.text = "High Score: " + data["top_score"]!
+        avgScoreLabel.text = "Average Score: " + data["average_score"]!
     }
     
     func setChartValues (data: JSON) {
@@ -67,7 +72,10 @@ class ProfileViewController: UIViewController {
                     print(status)
                     switch(status) {
                     case 200:
-                        self.setUserInfo(data: response.result.value as! NSDictionary)
+                        if let data = response.result.value as? [String:Any] {
+                            let info = data["info"] as! [String:String]
+                            self.setUserInfo(data: info)
+                        }
                     default:
                         DispatchQueue.main.async {
                             self.generalAlert()
