@@ -28,12 +28,22 @@ class ProfileViewController: UIViewController {
     }
     
     
-    func setChartValues (data: NSDictionary) {
+    func setChartValues (data: JSON) {
         var values: [ChartDataEntry] = []
         var i = 0
-        for (_, value) in data {
-            let score = value as! Double
-            values[i] = ChartDataEntry(x: Double(i), y: score)
+        //var leaderboard = data["leaderboard"]
+        let leaderboard = [
+            "2018-12-10 19:42:09.993531" : 1.0,
+            "2018-12-11 19:42:29.237272" : 2,
+            "2018-12-12 19:42:29.237272" : 0,
+            "2018-12-13 19:42:29.237272" : 1,
+            "2018-12-14 19:42:29.237272" : 3,
+            "2018-12-15 19:42:29.237272" : 2
+        ]
+        //print(leaderboard)
+        for (_,subJson):(String, Double) in leaderboard {
+            //let score = subJson.doubleValue
+            values.append(ChartDataEntry(x: Double(i), y: Double(subJson)))
             i = i + 1
         }
         
@@ -53,7 +63,8 @@ class ProfileViewController: UIViewController {
                     print(status)
                     switch(status) {
                     case 200:
-                        self.setChartValues(data: response.result.value as! NSDictionary)
+                        let json = JSON(response.result.value!)
+                        self.setChartValues(data: json)
                     default:
                         DispatchQueue.main.async {
                             self.generalAlert()
