@@ -22,12 +22,15 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Profile"
         let xAxis = LineChart.xAxis
         xAxis.granularity = 3600.0
-        getUserInfo()
+        //getUserInfo()
         getChartFromServer()
         // Do any additional setup after loading the view.
+    }
+    
+    override func awakeFromNib() {
+        self.tabBarItem.title = "Profile"
     }
     
     func setUserInfo(data: [String:String]) {

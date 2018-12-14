@@ -20,5 +20,9 @@ class AuditionMenuViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
     
+    override func awakeFromNib() {
+        self.tabBarItem.title = "Auditions"
+    }
+    
 }
 
