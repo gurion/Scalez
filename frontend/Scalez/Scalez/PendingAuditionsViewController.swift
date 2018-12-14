@@ -26,6 +26,9 @@ class PendingAuditionsViewController : UIViewController, UITableViewDelegate, UI
         self.getAuditions()
     }
     
+    @IBAction func backButton(_ sender: Any) {
+             dismiss(animated: true, completion: nil)
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return auditions.count
     }
