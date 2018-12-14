@@ -30,10 +30,11 @@ class SignupViewController: UIViewController {
         let u = usernameField.text!
         let p = passwordField.text!
         let q = checkPasswordField.text!
+        
 
         if (f.isEmpty || l.isEmpty || u.isEmpty || p.isEmpty || q.isEmpty) {
             return
-        } else if (self.checkIfPasswordsMatch()) {
+        } else if (!self.checkIfPasswordsMatch(p: p, q: q)) {
             DispatchQueue.main.async {
                 self.passwordsMatchAlert()
             }
@@ -51,8 +52,8 @@ class SignupViewController: UIViewController {
         })
     }
 
-    func checkIfPasswordsMatch() -> Bool {
-        return self.passwordField.isEqual(self.checkPasswordField)
+    func checkIfPasswordsMatch(p: String, q: String) -> Bool {
+        return p.isEqual(q)
     }
 
     func passwordHash(u : String, p : String) -> String {

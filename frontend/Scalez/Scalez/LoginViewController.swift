@@ -44,10 +44,11 @@ class LoginViewController : UIViewController {
     func handleLogIn(u : String, p : String) {
         self.username = u
         self.password = p
-        logInToServer(u : self.username, p : self.password)
-        if (UserDefaults.standard.bool(forKey: "isLoggedIn")) {
-            self.performSegue(withIdentifier: "loginSegue", sender: self)
-        }
+        logInToServer(u : self.username, p : self.password, completion: {
+            if (UserDefaults.standard.bool(forKey: "isLoggedIn")) {
+                self.performSegue(withIdentifier: "loginSegue", sender: self)
+            }
+        })
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
@@ -85,7 +86,7 @@ class LoginViewController : UIViewController {
         self.okButtonAlert(title: "Something went wrong!", message: "Sorry! Please try again.")
     }
     
-    func logInToServer(u: String, p: String) {
+    func logInToServer(u: String, p: String, completion : @escaping ()->()) {
         let url: String = "https://testdeployment-scalez.herokuapp.com/user/login"
         let params:[String:String] = ["username" : u,
                                       "password" : passwordHash(u: u, p: p)]
@@ -112,6 +113,7 @@ class LoginViewController : UIViewController {
                         }
                     }
                 }
+                completion()
         }
         
     }

@@ -50,7 +50,6 @@
                                 </state>
                                 <connections>
                                     <action selector="logInButton:" destination="rwp-qA-HX0" eventType="touchUpInside" id="NHN-jV-jIO"/>
-                                    <segue destination="XvQ-bK-E8X" kind="show" identifier="loginSegue" id="YNL-jI-eOV"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TDT-hb-Xga">
@@ -88,6 +87,7 @@
                         <outlet property="loginButton" destination="rfQ-ic-zcd" id="CC2-Pq-qk3"/>
                         <outlet property="passwordField" destination="WMD-nW-EAq" id="ivJ-9N-eui"/>
                         <outlet property="usernameField" destination="TDT-hb-Xga" id="Lct-ft-52w"/>
+                        <segue destination="Vz9-7X-4Rc" kind="show" identifier="loginSegue" id="QGP-ZK-AWI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k4d-6I-8Mk" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -157,7 +157,6 @@
                                 <state key="normal" title="Login" image="create_account"/>
                                 <connections>
                                     <action selector="createAccountButton:" destination="kAv-gU-JKM" eventType="touchUpInside" id="KzC-dd-Tvv"/>
-                                    <segue destination="XvQ-bK-E8X" kind="show" identifier="createAccountSegue" id="zHO-Km-088"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a2O-RD-8tc">
@@ -204,6 +203,7 @@
                         <outlet property="lastnameField" destination="bhP-wC-IKa" id="dyZ-vI-HJW"/>
                         <outlet property="passwordField" destination="mwQ-q4-lFW" id="915-3c-MtK"/>
                         <outlet property="usernameField" destination="SMO-YT-b4p" id="W7W-h1-DeM"/>
+                        <segue destination="Vz9-7X-4Rc" kind="show" identifier="createAccountSegue" id="9nN-1P-YuT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4cl-wB-Pow" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -801,11 +801,7 @@
         <image name="sign_in" width="634" height="238"/>
     </resources>
     <inferredMetricsTieBreakers>
-<<<<<<< HEAD
-        <segue reference="xKH-6g-wH7"/>
-=======
-        <segue reference="Kx0-6S-bH9"/>
->>>>>>> d12ea0f0908bf5f940b649bc08cfd19765908a52
-        <segue reference="YNL-jI-eOV"/>
+        <segue reference="cga-nL-Wct"/>
+        <segue reference="QGP-ZK-AWI"/>
     </inferredMetricsTieBreakers>
 </document>
