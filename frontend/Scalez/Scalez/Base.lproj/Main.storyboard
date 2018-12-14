@@ -454,7 +454,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="44"/>
                                 <state key="normal" title="&lt;"/>
                                 <connections>
-                                    <segue destination="7qO-yl-zyI" kind="show" id="cga-nL-Wct"/>
+                                    <segue destination="Vz9-7X-4Rc" kind="show" id="Nrn-6B-PIm"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -534,7 +534,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="44"/>
                                 <state key="normal" title="&lt;"/>
                                 <connections>
-                                    <segue destination="7qO-yl-zyI" kind="show" identifier="pendingToAuditions" id="xKH-6g-wH7"/>
+                                    <segue destination="Vz9-7X-4Rc" kind="show" id="cHa-QC-ahO"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OYw-4q-MIb">
@@ -805,7 +805,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Ma5-fS-irh"/>
-        <segue reference="Kx0-6S-bH9"/>
-        <segue reference="9nN-1P-YuT"/>
+        <segue reference="Nrn-6B-PIm"/>
     </inferredMetricsTieBreakers>
 </document>

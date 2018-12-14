@@ -24,5 +24,9 @@ class AuditionMenuViewController: UIViewController {
         self.tabBarItem.title = "Auditions"
     }
     
+    @IBAction func unwindToContainerVC(segue: UIStoryboardSegue) {
+        self.performSegue(withIdentifier: "AuditionMenuViewController", sender: self)
+    }
+    
 }
 
