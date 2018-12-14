@@ -69,7 +69,6 @@ class ProfileViewController: UIViewController {
             .responseJSON { response in
                 print(response)
                 if let status = response.response?.statusCode {
-                    print(status)
                     switch(status) {
                     case 200:
                         if let data = response.result.value as? [String:Any] {
@@ -90,9 +89,7 @@ class ProfileViewController: UIViewController {
         
         Alamofire.request(url, method: .get, encoding: JSONEncoding.default)
             .responseJSON { response in
-                print(response)
                 if let status = response.response?.statusCode {
-                    print(status)
                     switch(status) {
                     case 200:
                         let json = JSON(response.result.value!)

@@ -383,7 +383,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <state key="normal" title="Pending Auditions"/>
                                 <connections>
-                                    <segue destination="R8E-Zz-mWB" kind="show" id="Ma5-fS-irh"/>
+                                    <segue destination="R8E-Zz-mWB" kind="show" identifier="auditionsToPending" id="Ma5-fS-irh"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Auditions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N7Z-t9-5TJ">
@@ -605,6 +605,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="44"/>
                                 <state key="normal" title="&lt;"/>
+                                <connections>
+                                    <segue destination="R8E-Zz-mWB" kind="show" id="wwd-Hp-kUj"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -801,7 +804,8 @@
         <image name="sign_in" width="634" height="238"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="cga-nL-Wct"/>
-        <segue reference="QGP-ZK-AWI"/>
+        <segue reference="Ma5-fS-irh"/>
+        <segue reference="xKH-6g-wH7"/>
+        <segue reference="9nN-1P-YuT"/>
     </inferredMetricsTieBreakers>
 </document>

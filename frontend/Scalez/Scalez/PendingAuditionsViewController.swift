@@ -45,8 +45,9 @@ class PendingAuditionsViewController : UIViewController, UITableViewDelegate, UI
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let completeAuditionVC = segue.destination as! CompleteAuditionViewController
-        completeAuditionVC.auditionID = self.auditionID
+        if let completeAuditionVC = segue.destination as? CompleteAuditionViewController {
+            completeAuditionVC.auditionID = self.auditionID
+        }
     }
     
     @IBAction func reloadButton(_ sender: Any) {
