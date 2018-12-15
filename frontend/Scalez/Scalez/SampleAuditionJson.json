@@ -1,0 +1,56 @@
+{
+	"auditions" : {
+		"auditionee" : [
+			{
+				"id" : "abc123",
+				"auditioner" : "auditioner1",
+				"scale" : "c",
+				"key" : "major",
+				"isComplete" : false,
+				"score" : "0"
+			},
+			{
+				"id" : "def456",
+				"auditioner" : "auditioner2",
+				"scale" : "e",
+				"key" : "minor",
+				"isComplete" : false,
+				"score" : "0"
+			},
+			{
+				"id" : "ghi789",
+				"auditioner" : "auditioner1",
+				"scale" : "g",
+				"key" : "major",
+				"isComplete" : true,
+				"score" : "70"
+			}
+		],
+		"auditioner" : [
+			{
+				"id" : "abc123",
+				"auditionee" : "auditionee1",
+				"scale" : "c",
+				"key" : "major",
+				"isComplete" : false,
+				"score" : "0"
+			},
+			{
+				"id" : "def456",
+				"auditionee" : "auditionee2",
+				"scale" : "e",
+				"key" : "minor",
+				"isComplete" : true,
+				"score" : "90"
+			},
+			{
+				"id" : "ghi789",
+				"auditionee" : "auditionee3",
+				"scale" : "g",
+				"key" : "major",
+				"isComplete" : true,
+				"score" : "70"
+			}
+		]
+	}
+}
