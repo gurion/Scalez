@@ -39,10 +39,6 @@ class CompleteAuditionViewController: UIViewController, AVAudioRecorderDelegate 
         }
     }
     
-    @IBAction func backButton(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-    }
-
     @IBAction func recordAudio(_ sender: Any) {
         if (audioRecorder != nil) {
             stopRecording(success: true)
