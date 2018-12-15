@@ -51,18 +51,21 @@ class PendingAuditionsViewController : UIViewController, UITableViewDelegate, UI
         let cell:AuditionTableCell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as! AuditionTableCell
         
         if indexPath.section == 0 {
-            cell.usernameLabel.text = auditionee[IndexPath]["auditioner"]
-            cell.scaleLabel.text = auditionee[IndexPath]["scale"]
-            cell.keyLabel.text = auditionee[IndexPath]["key"]
-            cell.scoreLabel.text = auditionee[IndexPath]["score"]
-            cell.isComplete = auditionee[IndexPath]["isComplete"]
-            cell.audtionID = auditionee[IndexPath]["id"]
+            let audition = auditionee[indexPath.row]
+            cell.usernameLabel.text = audition["auditioner"] as! String
+            cell.scaleLabel.text = audition["scale"] as! String
+            cell.keyLabel.text = audition["key"] as! String
+            cell.scoreLabel.text = audition["score"] as! String
+            cell.isComplete = audition["isComplete"] as! Bool
+            cell.audtionID = audition["id"] as! String
         } else if indexPath.section == 1 {
-            cell.usernameLabel.text = ""
-            cell.scaleLabel.text = ""
-            cell.keyLabel.text = ""
-            cell.scoreLabel.text = ""
-            cell.isComplete = false
+            let audition = auditioner[indexPath.row]
+            cell.usernameLabel.text = audition["auditionee"] as! String
+            cell.scaleLabel.text = audition["scale"] as! String
+            cell.keyLabel.text = audition["key"] as! String
+            cell.scoreLabel.text = audition["score"] as! String
+            cell.isComplete = audition["isComplete"] as! Bool
+            cell.audtionID = audition["id"] as! String
         }
         
         return cell
