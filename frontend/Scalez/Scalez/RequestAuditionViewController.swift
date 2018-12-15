@@ -96,7 +96,7 @@ class RequestAuditionViewController : UIViewController, UIPickerViewDelegate, UI
     
     func postNewAudition() {
         let url: String = UserDefaults.standard.string(forKey: "userUrl")!+"/audition"
-        let params:[String:String] = ["auditionee" : getAuditioneeUsername(), "scale" : getSelectedScale(),"majorminor" : self.convertIntToMajorMinor()]
+        let params:[String:String] = ["auditionee" : getAuditioneeUsername(), "scale" : getSelectedScale(),"key" : self.convertIntToMajorMinor()]
         
         print(params)
         
