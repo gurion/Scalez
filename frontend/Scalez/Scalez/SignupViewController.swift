@@ -23,7 +23,11 @@ class SignupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
+    
+    @IBAction func backButton(_ sender: Any) {
+         dismiss(animated: true, completion: nil)
+    }
+    
     @IBAction func createAccountButton(_ sender: Any) {
         let f = firstnameField.text!
         let l = lastnameField.text!

@@ -25,6 +25,10 @@ class CompleteAuditionViewController: UIViewController, AVAudioRecorderDelegate 
     @IBOutlet var recordButton: UIButton!
     @IBOutlet var score: UITextField!
     
+    @IBAction func backButton(_ sender: Any) {
+         dismiss(animated: true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Record"

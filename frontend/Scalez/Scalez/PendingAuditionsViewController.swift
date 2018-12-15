@@ -24,6 +24,10 @@ class PendingAuditionsViewController : UIViewController, UITableViewDelegate, UI
         })
     }
     
+    @IBAction func backButton(_ sender: Any) {
+         dismiss(animated: true, completion: nil)
+    }
+    
     let sections = ["auditionee", "auditioner"]
     var auditionee = [[String : Any]]()
     var auditioner = [[String : Any]]()
