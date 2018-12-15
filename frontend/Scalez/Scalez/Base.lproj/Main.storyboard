@@ -553,10 +553,10 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="isCompleteGUI" destination="6tM-3Y-kle" id="qeV-5K-6TM"/>
-                                            <outlet property="keyLabel" destination="P12-GX-Z5R" id="05k-Wj-zMZ"/>
-                                            <outlet property="otherUsernameLabel" destination="UfJ-OG-eAB" id="ZXE-9H-4oc"/>
-                                            <outlet property="scaleTypeLabel" destination="x0I-lS-w3B" id="MRw-6J-w7u"/>
+                                            <outlet property="keyLabel" destination="P12-GX-Z5R" id="Erh-3R-vpX"/>
+                                            <outlet property="scaleLabel" destination="x0I-lS-w3B" id="OEe-9F-0cE"/>
                                             <outlet property="scoreLabel" destination="jaH-51-rLD" id="4yO-xa-qzn"/>
+                                            <outlet property="usernameLabel" destination="UfJ-OG-eAB" id="Mdp-k1-oqT"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -862,7 +862,8 @@
         <image name="sign_in" width="634" height="238"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="BWP-gK-L34"/>
         <segue reference="wwd-Hp-kUj"/>
-        <segue reference="Nrn-6B-PIm"/>
+        <segue reference="cHa-QC-ahO"/>
     </inferredMetricsTieBreakers>
 </document>
