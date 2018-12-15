@@ -23,7 +23,11 @@ class PendingAuditionsViewController : UIViewController, UITableViewDelegate, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.getAuditions()
+        self.getAuditions(completion: {
+            if self.auditionee.count + self.auditioner.count > 0 {
+                self.pendingAuditions.reloadData()
+            }
+        })
         self.pendingAuditions.delegate   = self
         self.pendingAuditions.dataSource = self
     }
@@ -88,7 +92,11 @@ class PendingAuditionsViewController : UIViewController, UITableViewDelegate, UI
     }
     
     @IBAction func reloadButton(_ sender: Any) {
-        self.getAuditions()
+        self.getAuditions(completion: {
+            if self.auditionee.count + self.auditioner.count > 0 {
+                self.pendingAuditions.reloadData()
+            }
+        })
     }
     
     func okButtonAlert(title : String, message : String) {
@@ -101,23 +109,22 @@ class PendingAuditionsViewController : UIViewController, UITableViewDelegate, UI
         self.okButtonAlert(title: "Something went wrong!", message: "Sorry! Please try again.")
     }
     
-    func getAuditions() {
+    func getAuditions(completion : @escaping ()->()) {
         let url: String = UserDefaults.standard.string(forKey: "userUrl")!+"/audition"
         Alamofire.request(url).responseJSON { (responseData) -> Void in
             if((responseData.result.value) != nil) {
-                let swiftyJsonVar = JSON(responseData.result.value!)
+                let jsonResponse = JSON(responseData.result.value!)
                 
-                if let resData = swiftyJsonVar["auditions"].arrayObject {
-                    self.auditions = resData as! [[String:AnyObject]]
-                }
-                if self.auditions.count > 0 {
-                    self.pendingAuditions.reloadData()
+                if let array = jsonResponse["auditions"].arrayObject {
+                    self.auditionee = array[0] as! [[String : Any]]
+                    self.auditioner = array[1] as! [[String : Any]]
                 }
             } else {
                 DispatchQueue.main.async {
                     self.generalAlert()
                 }
             }
+            completion()
         }
         
     }
