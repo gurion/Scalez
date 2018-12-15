@@ -16,6 +16,7 @@
 		3E004C3321750F9E0009DE1D /* ScalezTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E004C3221750F9E0009DE1D /* ScalezTests.swift */; };
 		3E004C3E21750F9E0009DE1D /* ScalezUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E004C3D21750F9E0009DE1D /* ScalezUITests.swift */; };
 		3E004C4C2175197C0009DE1D /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E004C4B2175197C0009DE1D /* RecordViewController.swift */; };
+		3E09C53E21C477A300EFD08F /* AuditionTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09C53D21C477A300EFD08F /* AuditionTableCell.swift */; };
 		3E296FC721BB4B4700E43092 /* NewAuditionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E296FC621BB4B4700E43092 /* NewAuditionViewController.swift */; };
 		3E296FC921BDC43500E43092 /* KeyboardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E296FC821BDC43500E43092 /* KeyboardButton.swift */; };
 		3E296FCB21BDC89200E43092 /* BlackKeyboardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E296FCA21BDC89200E43092 /* BlackKeyboardButton.swift */; };
@@ -65,6 +66,7 @@
 		3E004C3D21750F9E0009DE1D /* ScalezUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScalezUITests.swift; sourceTree = "<group>"; };
 		3E004C3F21750F9E0009DE1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E004C4B2175197C0009DE1D /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
+		3E09C53D21C477A300EFD08F /* AuditionTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuditionTableCell.swift; sourceTree = "<group>"; };
 		3E296FC621BB4B4700E43092 /* NewAuditionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAuditionViewController.swift; sourceTree = "<group>"; };
 		3E296FC821BDC43500E43092 /* KeyboardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardButton.swift; sourceTree = "<group>"; };
 		3E296FCA21BDC89200E43092 /* BlackKeyboardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackKeyboardButton.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 				3E296FC621BB4B4700E43092 /* NewAuditionViewController.swift */,
 				3E794DE521BE32B8009A543B /* PendingAuditionsViewController.swift */,
 				3E296FCC21BE196300E43092 /* RequestAuditionViewController.swift */,
+				3E09C53D21C477A300EFD08F /* AuditionTableCell.swift */,
 				3E004C4B2175197C0009DE1D /* RecordViewController.swift */,
 				3E794DE721BE4EDC009A543B /* CompleteAuditionViewController.swift */,
 				3ED5ED5E219E333E00947662 /* LeaderboardViewController.swift */,
@@ -431,6 +434,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E296FCD21BE196300E43092 /* RequestAuditionViewController.swift in Sources */,
+				3E09C53E21C477A300EFD08F /* AuditionTableCell.swift in Sources */,
 				3E296FC721BB4B4700E43092 /* NewAuditionViewController.swift in Sources */,
 				3ED5ED5F219E333E00947662 /* LeaderboardViewController.swift in Sources */,
 				3E794DE621BE32B8009A543B /* PendingAuditionsViewController.swift in Sources */,

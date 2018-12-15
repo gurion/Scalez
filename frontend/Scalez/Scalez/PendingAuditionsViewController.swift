@@ -16,32 +16,66 @@ class PendingAuditionsViewController : UIViewController, UITableViewDelegate, UI
     @IBOutlet var pendingAuditions: UITableView!
     @IBOutlet var back: UIButton!
 
-    var auditions = [[String : Any]]()
-    var auditionID: String = ""
+    let sections = ["auditionee", "auditioner"]
+    var auditionee = [[String : Any]]()
+    var auditioner = [[String : Any]]()
+    let cellReuseIdentifier = "Cell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.getAuditions()
         self.pendingAuditions.delegate   = self
         self.pendingAuditions.dataSource = self
-        self.getAuditions()
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int{
+        return sections.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sections[section] as? String
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return auditions.count
+        if (section == 0) {
+            return auditionee.count
+        } else if (section == 1) {
+            return auditioner.count
+        } else {
+            return 0
+        }
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell : UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "jsonCell")!
-        var dict = auditions[indexPath.row]
-        cell.textLabel?.text = dict["auditioner"] as? String
-        cell.detailTextLabel?.text = dict["id"] as? String
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            
+        let cell:AuditionTableCell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as! AuditionTableCell
+        
+        if indexPath.section == 0 {
+            cell.usernameLabel.text = auditionee[IndexPath]["auditioner"]
+            cell.scaleLabel.text = auditionee[IndexPath]["scale"]
+            cell.keyLabel.text = auditionee[IndexPath]["key"]
+            cell.scoreLabel.text = auditionee[IndexPath]["score"]
+            cell.isComplete = auditionee[IndexPath]["isComplete"]
+            cell.audtionID = auditionee[IndexPath]["id"]
+        } else if indexPath.section == 1 {
+            cell.usernameLabel.text = ""
+            cell.scaleLabel.text = ""
+            cell.keyLabel.text = ""
+            cell.scoreLabel.text = ""
+            cell.isComplete = false
+        }
+        
         return cell
     }
     
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath) as! UITableViewCell
-        auditionID = cell.detailTextLabel!.text!
-        self.performSegue(withIdentifier: "completeAudition", sender: self)
+
+        if indexPath.section == 0 {
+            
+        } else if indexPath.section == 1 {
+            return
+        }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
