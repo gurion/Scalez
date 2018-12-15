@@ -20,12 +20,21 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var highScoreLabel: UILabel!
     @IBOutlet weak var avgScoreLabel: UILabel!
     
+    var userInfo = [String:String]()
+    var rawChartData = [String:Any]()
+    var chartData = [String:Double]()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let xAxis = LineChart.xAxis
         xAxis.granularity = 3600.0
-        //getUserInfo()
-        getChartFromServer()
+        getUserInfo(completion: {
+            self.setUserInfo()
+        })
+        getChartFromServer(completion: {
+            self.setChartValues()
+        })
         // Do any additional setup after loading the view.
     }
     
@@ -33,14 +42,14 @@ class ProfileViewController: UIViewController {
         self.tabBarItem.title = "Profile"
     }
     
-    func setUserInfo(data: [String:String]) {
+    func setUserInfo() {
         usernameLabel.text = "Username: " + UserDefaults.standard.string(forKey: "username")!
-        nameLabel.text = data["firstname"]! + " " + data["lastname"]!
-        highScoreLabel.text = "High Score: " + data["top_score"]!
-        avgScoreLabel.text = "Average Score: " + data["average_score"]!
+        nameLabel.text = userInfo["firstname"]! + " " + userInfo["lastname"]!
+        highScoreLabel.text = "High Score: " + userInfo["top_score"]!
+        avgScoreLabel.text = "Average Score: " + userInfo["average_score"]!
     }
     
-    func setChartValues (data: JSON) {
+    func setChartValues () {
         var values: [ChartDataEntry] = []
         var i = 0
         //var leaderboard = data["leaderboard"]
@@ -65,7 +74,7 @@ class ProfileViewController: UIViewController {
         self.LineChart.data = d
     }
     
-    func getUserInfo() {
+    func getUserInfo(completion : @escaping ()->()) {
         let url:String = UserDefaults.standard.string(forKey: "userUrl")! + "/info"
         
         Alamofire.request(url, method: .get, encoding: JSONEncoding.default)
@@ -75,8 +84,8 @@ class ProfileViewController: UIViewController {
                     switch(status) {
                     case 200:
                         if let data = response.result.value as? [String:Any] {
-                            let info = data["info"] as! [String:String]
-                            self.setUserInfo(data: info)
+                            self.userInfo = data["info"] as! [String:String]
+                            
                         }
                     default:
                         DispatchQueue.main.async {
@@ -84,10 +93,11 @@ class ProfileViewController: UIViewController {
                         }
                     }
                 }
+                completion()
         }
     }
     
-    func getChartFromServer() {
+    func getChartFromServer(completion : @escaping ()->()) {
         let url:String = UserDefaults.standard.string(forKey: "userUrl")! + "/leaderboard"
         
         Alamofire.request(url, method: .get, encoding: JSONEncoding.default)
@@ -95,14 +105,17 @@ class ProfileViewController: UIViewController {
                 if let status = response.response?.statusCode {
                     switch(status) {
                     case 200:
-                        let json = JSON(response.result.value!)
-                        self.setChartValues(data: json)
+                        if let data = response.result.value! as? [String:Any] {
+                            self.rawChartData = data
+                            
+                        }
                     default:
                         DispatchQueue.main.async {
                             self.generalAlert()
                         }
                     }
                 }
+                completion()
         }
     }
     
