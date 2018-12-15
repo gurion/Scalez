@@ -418,7 +418,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Auditionee's Username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="50d-QV-aI4">
-                                <rect key="frame" x="70" y="233.5" width="275" height="50"/>
+                                <rect key="frame" x="70" y="233.5" width="271" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="220" id="1fy-ev-huA"/>
                                     <constraint firstAttribute="height" constant="50" id="vMl-6a-7fL"/>
@@ -428,7 +428,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="fSq-pr-nWY">
-                                <rect key="frame" x="70" y="550" width="275" height="29"/>
+                                <rect key="frame" x="70" y="550" width="271" height="29"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <segments>
                                     <segment title="Major"/>
@@ -436,10 +436,10 @@
                                 </segments>
                             </segmentedControl>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DYD-lQ-dOF">
-                                <rect key="frame" x="0.0" y="317" width="414" height="216"/>
+                                <rect key="frame" x="0.0" y="317" width="410" height="216"/>
                             </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aQ7-KJ-chz">
-                                <rect key="frame" x="70" y="639" width="275" height="48"/>
+                                <rect key="frame" x="70" y="639" width="271" height="48"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="Send Request">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -863,6 +863,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="wwd-Hp-kUj"/>
-        <segue reference="cHa-QC-ahO"/>
+        <segue reference="QGP-ZK-AWI"/>
     </inferredMetricsTieBreakers>
 </document>
