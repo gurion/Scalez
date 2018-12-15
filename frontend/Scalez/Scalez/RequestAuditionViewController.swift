@@ -25,6 +25,9 @@ class RequestAuditionViewController : UIViewController, UIPickerViewDelegate, UI
         self.scaleSelector.dataSource = self
         self.possibleScales = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
     }
+    @IBAction func backButton(_ sender: Any) {
+             dismiss(animated: true, completion: nil)
+    }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
