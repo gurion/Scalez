@@ -15,42 +15,95 @@ class PendingAuditionsViewController : UIViewController, UITableViewDelegate, UI
     
     @IBOutlet var pendingAuditions: UITableView!
     @IBOutlet var back: UIButton!
-
-    var auditions = [[String : Any]]()
-    var auditionID: String = ""
+    
+    @IBAction func reloadButton(_ sender: Any) {
+        self.getAuditions(completion: {
+            if self.auditionee.count + self.auditioner.count > 0 {
+                self.pendingAuditions.reloadData()
+            }
+        })
+    }
+    
+    let sections = ["auditionee", "auditioner"]
+    var auditionee = [[String : Any]]()
+    var auditioner = [[String : Any]]()
+    let cellReuseIdentifier = "Cell"
+    var selectedIndex = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.getAuditions(completion: {
+            if self.auditionee.count + self.auditioner.count > 0 {
+                self.pendingAuditions.reloadData()
+            }
+        })
         self.pendingAuditions.delegate   = self
         self.pendingAuditions.dataSource = self
-        self.getAuditions()
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int{
+        return sections.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sections[section] as? String
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return auditions.count
+        if (section == 0) {
+            return auditionee.count
+        } else if (section == 1) {
+            return auditioner.count
+        } else {
+            return 0
+        }
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell : UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "jsonCell")!
-        var dict = auditions[indexPath.row]
-        cell.textLabel?.text = dict["auditioner"] as? String
-        cell.detailTextLabel?.text = dict["id"] as? String
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            
+        let cell:AuditionTableCell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as! AuditionTableCell
+        
+        if indexPath.section == 0 {
+            let audition = auditionee[indexPath.row]
+            cell.usernameLabel.text = audition["auditioner"] as! String
+            cell.scaleLabel.text = audition["scale"] as! String
+            cell.keyLabel.text = audition["key"] as! String
+            cell.scoreLabel.text = audition["score"] as! String
+            cell.isComplete = audition["isComplete"] as! Bool
+            cell.audtionID = audition["id"] as! String
+        } else if indexPath.section == 1 {
+            let audition = auditioner[indexPath.row]
+            cell.usernameLabel.text = audition["auditionee"] as! String
+            cell.scaleLabel.text = audition["scale"] as! String
+            cell.keyLabel.text = audition["key"] as! String
+            cell.scoreLabel.text = audition["score"] as! String
+            cell.isComplete = audition["isComplete"] as! Bool
+            cell.audtionID = audition["id"] as! String
+        }
+        
         return cell
     }
     
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath) as! UITableViewCell
-        auditionID = cell.detailTextLabel!.text!
-        self.performSegue(withIdentifier: "completeAudition", sender: self)
+
+        if indexPath.section == 0 {
+            selectedIndex = indexPath.row
+            performSegue(withIdentifier: "completeAudition", sender: self)
+        } else if indexPath.section == 1 {
+            return
+        }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let completeAuditionVC = segue.destination as! CompleteAuditionViewController
-        completeAuditionVC.auditionID = self.auditionID
-    }
-    
-    @IBAction func reloadButton(_ sender: Any) {
-        self.getAuditions()
+        if (segue.identifier == "completeAudition") {
+            if let completeAuditionVC = segue.destination as? CompleteAuditionViewController {
+                completeAuditionVC.auditionID = auditionee[selectedIndex]["id"] as! String
+                completeAuditionVC.auditionerUsernameLabel.text = "Auditioner: " + (auditionee[selectedIndex]["auditioner"] as! String)
+                completeAuditionVC.scaleLabel.text = "Scale: " + (auditionee[selectedIndex]["scale"] as! String)
+                completeAuditionVC.keyLabel.text = "Key: " + (auditionee[selectedIndex]["key"] as! String)
+            }
+        }
     }
     
     func okButtonAlert(title : String, message : String) {
@@ -63,23 +116,22 @@ class PendingAuditionsViewController : UIViewController, UITableViewDelegate, UI
         self.okButtonAlert(title: "Something went wrong!", message: "Sorry! Please try again.")
     }
     
-    func getAuditions() {
+    func getAuditions(completion : @escaping ()->()) {
         let url: String = UserDefaults.standard.string(forKey: "userUrl")!+"/audition"
         Alamofire.request(url).responseJSON { (responseData) -> Void in
             if((responseData.result.value) != nil) {
-                let swiftyJsonVar = JSON(responseData.result.value!)
+                let jsonResponse = JSON(responseData.result.value!)
                 
-                if let resData = swiftyJsonVar["auditions"].arrayObject {
-                    self.auditions = resData as! [[String:AnyObject]]
-                }
-                if self.auditions.count > 0 {
-                    self.pendingAuditions.reloadData()
+                if let array = jsonResponse["auditions"].arrayObject {
+                    self.auditionee = array[0] as! [[String : Any]]
+                    self.auditioner = array[1] as! [[String : Any]]
                 }
             } else {
                 DispatchQueue.main.async {
                     self.generalAlert()
                 }
             }
+            completion()
         }
         
     }

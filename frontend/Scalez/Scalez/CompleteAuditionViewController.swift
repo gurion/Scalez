@@ -19,6 +19,9 @@ class CompleteAuditionViewController: UIViewController, AVAudioRecorderDelegate 
     var recording: Bool = false
     var auditionID: String = ""
     
+    @IBOutlet var auditionerUsernameLabel: UILabel!
+    @IBOutlet var scaleLabel: UILabel!
+    @IBOutlet var keyLabel: UILabel!
     @IBOutlet var recordButton: UIButton!
     @IBOutlet var score: UITextField!
     

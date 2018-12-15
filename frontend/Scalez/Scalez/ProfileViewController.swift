@@ -16,24 +16,46 @@ class ProfileViewController: UIViewController {
     
     @IBOutlet weak var LineChart: LineChartView!
     @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var highScoreLabel: UILabel!
+    @IBOutlet weak var avgScoreLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Profile"
         let xAxis = LineChart.xAxis
         xAxis.granularity = 3600.0
-        usernameLabel.text = "Username: " + UserDefaults.standard.string(forKey: "username")!
+        //getUserInfo()
         getChartFromServer()
         // Do any additional setup after loading the view.
     }
     
+    override func awakeFromNib() {
+        self.tabBarItem.title = "Profile"
+    }
     
-    func setChartValues (data: NSDictionary) {
+    func setUserInfo(data: [String:String]) {
+        usernameLabel.text = "Username: " + UserDefaults.standard.string(forKey: "username")!
+        nameLabel.text = data["firstname"]! + " " + data["lastname"]!
+        highScoreLabel.text = "High Score: " + data["top_score"]!
+        avgScoreLabel.text = "Average Score: " + data["average_score"]!
+    }
+    
+    func setChartValues (data: JSON) {
         var values: [ChartDataEntry] = []
         var i = 0
-        for (_, value) in data {
-            let score = value as! Double
-            values[i] = ChartDataEntry(x: Double(i), y: score)
+        //var leaderboard = data["leaderboard"]
+        let leaderboard = [
+            "2018-12-10 19:42:09.993531" : 1.0,
+            "2018-12-11 19:42:29.237272" : 2,
+            "2018-12-12 19:42:29.237272" : 0,
+            "2018-12-13 19:42:29.237272" : 1,
+            "2018-12-14 19:42:29.237272" : 3,
+            "2018-12-15 19:42:29.237272" : 2
+        ]
+        //print(leaderboard)
+        for (_,subJson):(String, Double) in leaderboard {
+            //let score = subJson.doubleValue
+            values.append(ChartDataEntry(x: Double(i), y: Double(subJson)))
             i = i + 1
         }
         
@@ -43,17 +65,38 @@ class ProfileViewController: UIViewController {
         self.LineChart.data = d
     }
     
-    func getChartFromServer() {
-        let url:String = UserDefaults.standard.string(forKey: "userUrl")! + "/leaderboard"
+    func getUserInfo() {
+        let url:String = UserDefaults.standard.string(forKey: "userUrl")! + "/info"
         
         Alamofire.request(url, method: .get, encoding: JSONEncoding.default)
             .responseJSON { response in
                 print(response)
                 if let status = response.response?.statusCode {
-                    print(status)
                     switch(status) {
                     case 200:
-                        self.setChartValues(data: response.result.value as! NSDictionary)
+                        if let data = response.result.value as? [String:Any] {
+                            let info = data["info"] as! [String:String]
+                            self.setUserInfo(data: info)
+                        }
+                    default:
+                        DispatchQueue.main.async {
+                            self.generalAlert()
+                        }
+                    }
+                }
+        }
+    }
+    
+    func getChartFromServer() {
+        let url:String = UserDefaults.standard.string(forKey: "userUrl")! + "/leaderboard"
+        
+        Alamofire.request(url, method: .get, encoding: JSONEncoding.default)
+            .responseJSON { response in
+                if let status = response.response?.statusCode {
+                    switch(status) {
+                    case 200:
+                        let json = JSON(response.result.value!)
+                        self.setChartValues(data: json)
                     default:
                         DispatchQueue.main.async {
                             self.generalAlert()

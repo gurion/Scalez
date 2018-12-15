@@ -9,13 +9,15 @@
 import Foundation
 import AVFoundation
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
     var audioFilename: URL!
-    var scoreData: String = ""
+    var scoreData: Double = -1
     var recording: Bool = false
     
     @IBOutlet var recordButton: UIButton!
@@ -46,8 +48,8 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     }
     
     func setScoreLabel() {
-        if (self.scoreData != "") {
-            self.score.text = scoreData
+        if (self.scoreData != -1) {
+            self.score.text = String(scoreData)
         } else {
             self.score.text = "_____"
         }
@@ -64,7 +66,6 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     
     func startRecording() {
         self.recording = true
-        self.scoreData = ""
         setScoreLabel()
         self.audioFilename = getDocumentsDirectory().appendingPathComponent("recording.m4a")
         print(audioFilename)
@@ -96,9 +97,11 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         
         if success {
             setRecordButtonImage()
-            postAudioFile()
-            sleep(2)
-            setScoreLabel()
+            postAudioFile(completion: {
+                self.setScoreLabel()
+            })
+            //sleep(2)
+            //setScoreLabel()
         } else {
             setRecordButtonImage()
             // recording failed :(
@@ -113,6 +116,16 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         }
     }
     
+    func okButtonAlert(title : String, message : String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
+    func generalAlert() {
+        self.okButtonAlert(title: "Something went wrong!", message: "Sorry! Please try again.")
+    }
+    
     func loadAudioSignal(audioURL: URL) -> (signal: [Float], rate: Double, frameCount: Int) {
         let file = try! AVAudioFile(forReading: audioURL)
         let format = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: file.fileFormat.sampleRate, channels: file.fileFormat.channelCount, interleaved: false)
@@ -122,9 +135,43 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         return (signal: floatArray, rate: file.fileFormat.sampleRate, frameCount: Int(file.length))
     }
     
+    
+    func postAudioFile(completion: @escaping ()->()) {
+        let audioFileData = loadAudioSignal(audioURL: self.audioFilename)
+        let audioFloatArray = audioFileData.signal
+        let sampleRate = String(audioFileData.rate)
+        let frameCount = String(audioFileData.frameCount)
+        let strarr = audioFloatArray.map { String($0) }
+        let str = strarr.joined(separator: ",")
+        let username = UserDefaults.standard.string(forKey: "username")
+        
+        let parameters = ["username": username, "file": str, "rate": sampleRate, "frameCount": frameCount]
+        let url:String = UserDefaults.standard.string(forKey: "userUrl")! + "/recording"
+
+        Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+            .responseJSON { response in
+                print(response)
+                if let status = response.response?.statusCode {
+                    switch(status) {
+                    case 201:
+                        let json = JSON(response.result.value!)
+                        self.scoreData = json["score"].doubleValue
+                    case 400:
+                        DispatchQueue.main.async {
+                            self.generalAlert()
+                        }
+                    default:
+                        DispatchQueue.main.async {
+                            self.generalAlert()
+                        }
+                    }
+                }
+                completion()
+        }
+    }
     //posting something to a server
     //this code came from https://github.com/Kilo-Loco
-    func postAudioFile() {
+    /*func postAudioFile() {
         let audioFileData = loadAudioSignal(audioURL: self.audioFilename)
         let audioFloatArray = audioFileData.signal
         let sampleRate = String(audioFileData.rate)
@@ -158,6 +205,6 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
                 }
             }
         }.resume()
-    }
+    }*/
 
 }
