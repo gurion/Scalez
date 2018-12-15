@@ -76,7 +76,7 @@
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="kAv-gU-JKM" kind="show" identifier="createAccountSegue" id="30l-2w-miC"/>
+                                    <segue destination="kAv-gU-JKM" kind="presentation" identifier="createAccountSegue" id="30l-2w-miC"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -165,7 +165,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="44"/>
                                 <state key="normal" title="&lt;"/>
                                 <connections>
-                                    <segue destination="rwp-qA-HX0" kind="show" id="7S5-3B-rlJ"/>
+                                    <action selector="backButton:" destination="kAv-gU-JKM" eventType="touchUpInside" id="sWx-dj-DaA"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -374,7 +374,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <state key="normal" title="Request Audition"/>
                                 <connections>
-                                    <segue destination="298-1q-cSX" kind="show" id="Ohm-5N-Kyr"/>
+                                    <segue destination="298-1q-cSX" kind="presentation" id="Ohm-5N-Kyr"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wcU-4J-zlb">
@@ -383,7 +383,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <state key="normal" title="Pending Auditions"/>
                                 <connections>
-                                    <segue destination="R8E-Zz-mWB" kind="show" identifier="auditionsToPending" id="Ma5-fS-irh"/>
+                                    <segue destination="R8E-Zz-mWB" kind="presentation" identifier="auditionsToPending" id="Ma5-fS-irh"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Auditions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N7Z-t9-5TJ">
@@ -454,7 +454,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="44"/>
                                 <state key="normal" title="&lt;"/>
                                 <connections>
-                                    <segue destination="Vz9-7X-4Rc" kind="show" id="Nrn-6B-PIm"/>
+                                    <action selector="backButton:" destination="298-1q-cSX" eventType="touchUpInside" id="eNd-Ms-Htr"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -568,7 +568,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="44"/>
                                 <state key="normal" title="&lt;"/>
                                 <connections>
-                                    <segue destination="Vz9-7X-4Rc" kind="show" id="cHa-QC-ahO"/>
+                                    <action selector="backButton:" destination="R8E-Zz-mWB" eventType="touchUpInside" id="9IB-tC-o20"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OYw-4q-MIb">
@@ -640,7 +640,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="44"/>
                                 <state key="normal" title="&lt;"/>
                                 <connections>
-                                    <segue destination="R8E-Zz-mWB" kind="show" id="wwd-Hp-kUj"/>
+                                    <action selector="backButton:" destination="jXA-eM-MYE" eventType="touchUpInside" id="gHn-gy-TpH"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Auditioner: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HgL-bw-Ob4">
