@@ -21,7 +21,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var avgScoreLabel: UILabel!
     
     var userInfo = [String:String]()
-    var rawChartData = [String:Any]()
+    var rawChartData = [[String:String]]()
     var chartData = [String:Double]()
     
     
@@ -85,7 +85,6 @@ class ProfileViewController: UIViewController {
                     case 200:
                         if let data = response.result.value as? [String:Any] {
                             self.userInfo = data["info"] as! [String:String]
-                            
                         }
                     default:
                         DispatchQueue.main.async {
@@ -106,8 +105,13 @@ class ProfileViewController: UIViewController {
                     switch(status) {
                     case 200:
                         if let data = response.result.value! as? [String:Any] {
-                            self.rawChartData = data
-                            
+                            self.rawChartData = data["history"] as! [[String : String]]
+                            let rawData = self.rawChartData
+                            for index in 0..<rawData.count {
+                                var timestamp = rawData[index]["timestamp"] as! String
+                                var score = rawData[index]["score"] as! Double
+                                
+                            }
                         }
                     default:
                         DispatchQueue.main.async {
