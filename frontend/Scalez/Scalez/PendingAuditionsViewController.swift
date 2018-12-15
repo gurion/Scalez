@@ -20,6 +20,7 @@ class PendingAuditionsViewController : UIViewController, UITableViewDelegate, UI
     var auditionee = [[String : Any]]()
     var auditioner = [[String : Any]]()
     let cellReuseIdentifier = "Cell"
+    var selectedIndex = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,15 +80,22 @@ class PendingAuditionsViewController : UIViewController, UITableViewDelegate, UI
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         if indexPath.section == 0 {
-            
+            selectedIndex = indexPath.row
+            performSegue(withIdentifier: "completeAudition", sender: self)
         } else if indexPath.section == 1 {
             return
         }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let completeAuditionVC = segue.destination as? CompleteAuditionViewController {
-            completeAuditionVC.auditionID = self.auditionID
+        if (segue.identifier == "completeAudition") {
+            if let completeAuditionVC = segue.destination as? CompleteAuditionViewController {
+                completeAuditionVC.auditionID = auditionee[selectedIndex]["id"] as! String
+                completeAuditionVC.auditionerUsernameLabel.text = "Auditioner: " + (auditionee[selectedIndex]["auditioner"] as! String)
+                completeAuditionVC.scaleLabel.text = "Scale: " + (auditionee[selectedIndex]["scale"] as! String)
+                completeAuditionVC.keyLabel.text = "Key: " + (auditionee[selectedIndex]["key"] as! String)
+        }
+        
         }
     }
     
