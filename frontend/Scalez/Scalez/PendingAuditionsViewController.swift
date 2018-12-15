@@ -105,6 +105,18 @@ class PendingAuditionsViewController : UIViewController, UITableViewDelegate, UI
                 completeAuditionVC.auditionerUsernameLabel.text = "Auditioner: " + (auditionee[selectedIndex]["auditioner"] as! String)
                 completeAuditionVC.scaleLabel.text = "Scale: " + (auditionee[selectedIndex]["scale"] as! String)
                 completeAuditionVC.keyLabel.text = "Key: " + (auditionee[selectedIndex]["key"] as! String)
+<<<<<<< HEAD
+=======
+        }
+        
+        }
+    }
+    
+    @IBAction func reloadButton(_ sender: Any) {
+        self.getAuditions(completion: {
+            if self.auditionee.count + self.auditioner.count > 0 {
+                self.pendingAuditions.reloadData()
+>>>>>>> 06bdf39... add functionality to push data over complete audition segue
             }
         }
     }
