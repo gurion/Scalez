@@ -15,7 +15,15 @@ class PendingAuditionsViewController : UIViewController, UITableViewDelegate, UI
     
     @IBOutlet var pendingAuditions: UITableView!
     @IBOutlet var back: UIButton!
-
+    
+    @IBAction func reloadButton(_ sender: Any) {
+        self.getAuditions(completion: {
+            if self.auditionee.count + self.auditioner.count > 0 {
+                self.pendingAuditions.reloadData()
+            }
+        })
+    }
+    
     let sections = ["auditionee", "auditioner"]
     var auditionee = [[String : Any]]()
     var auditioner = [[String : Any]]()
@@ -94,17 +102,8 @@ class PendingAuditionsViewController : UIViewController, UITableViewDelegate, UI
                 completeAuditionVC.auditionerUsernameLabel.text = "Auditioner: " + (auditionee[selectedIndex]["auditioner"] as! String)
                 completeAuditionVC.scaleLabel.text = "Scale: " + (auditionee[selectedIndex]["scale"] as! String)
                 completeAuditionVC.keyLabel.text = "Key: " + (auditionee[selectedIndex]["key"] as! String)
-        }
-        
-        }
-    }
-    
-    @IBAction func reloadButton(_ sender: Any) {
-        self.getAuditions(completion: {
-            if self.auditionee.count + self.auditioner.count > 0 {
-                self.pendingAuditions.reloadData()
             }
-        })
+        }
     }
     
     func okButtonAlert(title : String, message : String) {

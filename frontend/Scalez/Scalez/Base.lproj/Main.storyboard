@@ -669,7 +669,10 @@
                         <viewLayoutGuide key="safeArea" id="q5C-s2-qPk"/>
                     </view>
                     <connections>
+                        <outlet property="auditionerUsernameLabel" destination="HgL-bw-Ob4" id="ueS-TV-NrJ"/>
+                        <outlet property="keyLabel" destination="GhS-Ud-aGK" id="Hnf-an-4zK"/>
                         <outlet property="recordButton" destination="ncr-vk-9jE" id="D6f-Zj-JtC"/>
+                        <outlet property="scaleLabel" destination="qiC-gm-D59" id="DVU-Kc-7xg"/>
                         <outlet property="score" destination="IpY-L1-set" id="YRv-84-KTX"/>
                     </connections>
                 </viewController>
@@ -859,7 +862,7 @@
         <image name="sign_in" width="634" height="238"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Ma5-fS-irh"/>
+        <segue reference="wwd-Hp-kUj"/>
         <segue reference="cHa-QC-ahO"/>
     </inferredMetricsTieBreakers>
 </document>
