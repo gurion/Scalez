@@ -65,6 +65,8 @@ def sendScore(username):
         
         try:
             audio = data['file']
+            scale = data['scale']
+            key = data['key']
         except KeyError:
             return make_error(400,'Bad Request')
 
@@ -77,7 +79,8 @@ def sendScore(username):
         # score recording
         score = processScale(audio, 12000)
 
-        record = Recording(score=score, user_id=user.get_ID())
+        record = Recording(score=score, user_id=user.get_ID(), scale=scale,
+            key=key)
         db.session.add(record)
         db.session.commit()
 
@@ -145,7 +148,16 @@ def get_leaderboard(username):
             return make_error(404,'user not found')
 
         #TODO : fix the user.get_recording to have the right format
-        return jsonify({'leaderboard':user.get_recording()}), 200
+        recordings = user.get_recording()
+        history = []
+
+        for index in range(len(recordings))
+            entry = {'timestamp' : recordings[index][0], 
+                'score': recordings[index][1] }
+
+            history.append(entry)
+
+        return jsonify({'history': history}), 200
 
 #new audition
 @bp.route('/<username>/audition', methods=['POST'])
@@ -157,6 +169,7 @@ def new_audition(username):
         try:
             auditionee = data['auditionee']
             scale = data['scale']
+            key = data['key']
         except KeyError:
             return make_error(400, 'bad json')
 
@@ -175,7 +188,8 @@ def new_audition(username):
                         auditionee = auditionee.get_username(),
                         auditionee_id = auditioner.get_ID(),
                         score = 0,
-                        scale = scale
+                        scale = scale,
+                        key = key
                      )
         
         db.session.add(aud)
@@ -187,8 +201,32 @@ def new_audition(username):
 #TODO: make sure to fix the response body of this becuase it needs to be finished
 @bp.route('/<username>/audtion', methods=['GET'])
 def get_all_auditions():
-    #assume there is a good user
-    return jsonify({'message':'reminder to finish this method'}), 400
+
+    user = db.session.query(User).filter_by(username=username).first()
+    audee = user.get_auditionee()
+    auder = user.get_all_auditions(username)
+
+    #get auditions where the user is the auditionee
+    auditionee = []
+    auditioner = []
+
+    for a in audee
+        entry = {'id': a.get_ID(), 'auditioner': a.get_auditioner(),
+            'scale': a.get_scale(), 'key': a.get_key(),
+            'isComplete': a.get_complete(), 'score': a.get_score() }
+
+        auditionee.append(entry)
+
+    #get auditions where the user is the auditioner
+    for a in auder
+        entry = {'id': a.get_ID(), 'auditionee': a.get_auditionee(),
+            'scale': a.get_scale(), 'key': a.get_key(),
+            'isComplete': a.get_complete(), 'score': a.get_score() }
+
+        auditioner.append(entry)
+
+    return jsonify({'auditions': {'auditionee': auditionees , 
+        'auditioner': auditioners}}), 200
 
 
 #this is to get and complete auditions

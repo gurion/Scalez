@@ -22,5 +22,14 @@ def test():
 @bp.route('/leaderboard', methods=['GET'])
 def get_leaderboard():
 	if request.method == 'GET':
-		return jsonify({'leaderboard': global_leaderboard.response_string()}), 200
+
+		scores = global_leaderboard.get_scores()
+		history = []
+
+		for index in range(len(scores))
+			entry = {'username' : scores[index][0], 'scale': scores[index][1], 
+					'key': scores[index][2], 'score': scores[index][3] }
+			history.append(entry)
+
+		return jsonify({'leaderboard': history}), 200
 

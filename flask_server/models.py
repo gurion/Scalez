@@ -40,9 +40,11 @@ class User(db.Model):
         data = []
 
         for r in recordings:
-            data.append(r.response_string())
+            data.append(r.info())
 
         return data
+    def get_auditionee(self):
+        return self.auditionee().all()
 
     def change_username(self, name):
         self.username = name
@@ -71,6 +73,8 @@ class Recording(db.Model):
     score = db.Column(db.Float)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    scale = db.Column(db.String(64), index=False, unique=False)
+    key = db.Column(db.String(64), index=False, unique=False)
 
     def get_score(self):
         return self.score
@@ -78,8 +82,14 @@ class Recording(db.Model):
     def __repr__(self):
         return '<Post {}>'.format(self.score)
     
-    def response_string(self):
-        return (str(self.timestamp) + ' : ' + str(self.score))
+    def info(self):
+        return (str(self.timestamp), str(self.score))
+
+    def get_scale(self):
+        return str(scale)
+
+    def get_key(self):
+        return str(key)
 
 class Audition(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -97,6 +107,24 @@ class Audition(db.Model):
     def score(self, score):
         self.score = score
         db.session.commit()
+
+    def get_score(self):
+        return self.score
+
+    def get_scale(self):
+        return self.scale
+
+    def get_complete(self):
+        return self.is_completed
+
+    def get_auditioner(self):
+        return self.auditioner
+
+    def get_auditionee(self):
+        return self.auditionee
+
+    def get_ID(self):
+        return self.id
 
 
 
