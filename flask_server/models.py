@@ -94,9 +94,7 @@ class Audition(db.Model):
     auditionee_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     scale = db.Column(db.String(64), index=True, unique=False)
     key = db.Column(db.String(64), index=True, unique=False)
-
-    def __init__(self):
-        score = 0.0
+    score = 0.0
 
     def complete(self):
         self.is_completed = True
