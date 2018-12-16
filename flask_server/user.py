@@ -77,7 +77,7 @@ def sendScore(username):
             return make_error(404, 'user not found')
 
         # score recording
-        score = float(processScale(audio))
+        score = float(processScale(audio,12000))
 
         record = Recording(score=score, user_id=user.get_ID(), scale=scale,
             key=key)
