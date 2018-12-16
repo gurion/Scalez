@@ -94,12 +94,8 @@ class LoginViewController : UIViewController {
         
         Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding.default)
             .responseJSON { response in
-                print("___________")
                 print(response)
-                print("____________")
                 if let status = response.response?.statusCode {
-                    print(status)
-                    print("____________")
                     switch(status) {
                     case 201:
                         self.setUserDefaults()

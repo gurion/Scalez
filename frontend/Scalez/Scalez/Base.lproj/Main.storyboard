@@ -401,6 +401,17 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fli-i7-7Ry">
+                                <rect key="frame" x="20" y="756" width="374" height="51"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="Logout">
+                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="logoutButton:" destination="EhQ-MY-qB3" eventType="touchUpInside" id="nTg-Uv-OgR"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="ZSL-B4-64P"/>
@@ -412,6 +423,7 @@
                         <outlet property="highScoreLabel" destination="pYT-Zi-22k" id="cCS-Nu-aUv"/>
                         <outlet property="nameLabel" destination="aOU-jX-yVk" id="v5i-d8-bc1"/>
                         <outlet property="usernameLabel" destination="tCr-NR-Lrq" id="x5I-eY-t7d"/>
+                        <segue destination="rwp-qA-HX0" kind="show" identifier="backToLoginSegue" id="FME-Cy-ceU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="noq-md-9C4" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -28,6 +28,7 @@
 		3EF4517021A08E8D00ED97C8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4516F21A08E8D00ED97C8 /* LoginViewController.swift */; };
 		3EF4517421A0E2E300ED97C8 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4517321A0E2E300ED97C8 /* SignupViewController.swift */; };
 		7798869C7BA2408DEE8E3470 /* Pods_ScalezTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 085496BC0CED0868B8F69FE5 /* Pods_ScalezTests.framework */; };
+		BDCD5ED121C600DE00294A33 /* LeaderboardTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCD5ED021C600DD00294A33 /* LeaderboardTableCell.swift */; };
 		CA91076AA4D98DE481E66708 /* Pods_ScalezUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF406CFA9CF411BE3D8D478B /* Pods_ScalezUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -80,6 +81,7 @@
 		543BE6906C83767D0E974C6D /* Pods-ScalezUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScalezUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ScalezUITests/Pods-ScalezUITests.release.xcconfig"; sourceTree = "<group>"; };
 		550A3468F728018A872F1C3B /* Pods_Scalez.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Scalez.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DEB6366D902821EF32B8F93 /* Pods-ScalezUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScalezUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ScalezUITests/Pods-ScalezUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		BDCD5ED021C600DD00294A33 /* LeaderboardTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardTableCell.swift; sourceTree = "<group>"; };
 		CCC2BB78B3D0A992C0C9EAAF /* Pods-Scalez.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scalez.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Scalez/Pods-Scalez.debug.xcconfig"; sourceTree = "<group>"; };
 		D649ED4E27B8D691748EEC01 /* Pods-ScalezTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScalezTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ScalezTests/Pods-ScalezTests.release.xcconfig"; sourceTree = "<group>"; };
 		DF406CFA9CF411BE3D8D478B /* Pods_ScalezUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ScalezUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -138,6 +140,7 @@
 		3E004C1C21750F9D0009DE1D /* Scalez */ = {
 			isa = PBXGroup;
 			children = (
+				BDCD5ED021C600DD00294A33 /* LeaderboardTableCell.swift */,
 				3E004C1D21750F9D0009DE1D /* AppDelegate.swift */,
 				3EF4517321A0E2E300ED97C8 /* SignupViewController.swift */,
 				3E004C1F21750F9D0009DE1D /* AuditionMenuViewController.swift */,
@@ -438,6 +441,7 @@
 				3E296FC721BB4B4700E43092 /* NewAuditionViewController.swift in Sources */,
 				3ED5ED5F219E333E00947662 /* LeaderboardViewController.swift in Sources */,
 				3E794DE621BE32B8009A543B /* PendingAuditionsViewController.swift in Sources */,
+				BDCD5ED121C600DE00294A33 /* LeaderboardTableCell.swift in Sources */,
 				3EF4517421A0E2E300ED97C8 /* SignupViewController.swift in Sources */,
 				3E004C4C2175197C0009DE1D /* RecordViewController.swift in Sources */,
 				3E296FCB21BDC89200E43092 /* BlackKeyboardButton.swift in Sources */,

@@ -21,9 +21,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var avgScoreLabel: UILabel!
     
     var userInfo = [String:String]()
-    var rawChartData = [[String:String]]()
-    var chartData = [String:Double]()
-    
+    var chartData = [JSON]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +34,14 @@ class ProfileViewController: UIViewController {
             self.setChartValues()
         })
         // Do any additional setup after loading the view.
+    }
+    
+    @IBAction func logoutButton(_ sender: Any) {
+        let defaults = UserDefaults.standard
+        defaults.set(false, forKey: "isLoggedIn")
+        defaults.set("", forKey: "username")
+        defaults.set("", forKey: "userUrl")
+        self.performSegue(withIdentifier: "backToLoginSegue", sender: self)
     }
     
     override func awakeFromNib() {
@@ -52,19 +58,10 @@ class ProfileViewController: UIViewController {
     func setChartValues () {
         var values: [ChartDataEntry] = []
         var i = 0
-        //var leaderboard = data["leaderboard"]
-        let leaderboard = [
-            "2018-12-10 19:42:09.993531" : 1.0,
-            "2018-12-11 19:42:29.237272" : 2,
-            "2018-12-12 19:42:29.237272" : 0,
-            "2018-12-13 19:42:29.237272" : 1,
-            "2018-12-14 19:42:29.237272" : 3,
-            "2018-12-15 19:42:29.237272" : 2
-        ]
-        //print(leaderboard)
-        for (_,subJson):(String, Double) in leaderboard {
-            //let score = subJson.doubleValue
-            values.append(ChartDataEntry(x: Double(i), y: Double(subJson)))
+        
+        for entry in chartData {
+            let score = entry["score"].doubleValue
+            values.append(ChartDataEntry(x: Double(i), y: score))
             i = i + 1
         }
         
@@ -104,15 +101,8 @@ class ProfileViewController: UIViewController {
                 if let status = response.response?.statusCode {
                     switch(status) {
                     case 200:
-                        if let data = response.result.value! as? [String:Any] {
-                            self.rawChartData = data["history"] as! [[String : String]]
-                            let rawData = self.rawChartData
-                            for index in 0..<rawData.count {
-                                var timestamp = rawData[index]["timestamp"] as! String
-                                var score = rawData[index]["score"] as! Double
-                                
-                            }
-                        }
+                        let json = JSON(response.result.value!)
+                        self.chartData = json["history"].arrayValue
                     default:
                         DispatchQueue.main.async {
                             self.generalAlert()
