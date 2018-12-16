@@ -204,7 +204,7 @@ def new_audition(username):
         for a in audee:
             entry = {'id': a.get_ID(), 'auditioner': a.get_auditioner(),
                 'scale': a.get_scale(), 'key': a.get_key(),
-                'isComplete': a.get_complete(), 'score': a.get_score() }
+                'isComplete': a.get_complete(), 'score': a.score }
 
             auditioneelist.append(entry)
 
@@ -212,7 +212,7 @@ def new_audition(username):
         for a in auder:
             entry = {'id': a.get_ID(), 'auditionee': a.get_auditionee(),
                 'scale': a.get_scale(), 'key': a.get_key(),
-                'isComplete': a.get_complete(), 'score': a.get_score() }
+                'isComplete': a.get_complete(), 'score': a.score }
 
             auditionerlist.append(entry)
 
@@ -274,13 +274,11 @@ def audition_update( username, auditionID):
     if request.method == 'PUT':
         
         try:
-            audio = data['file']
-            rate = data['rate']
             frame_count = data['frameCount']
         except KeyError:
             return make_error(400, 'no file in request body')
         
-        score = float(processScale(audio))
+        score = float(processScale(audio,12000))
         aud.complete()
         aud.score(score)
 
