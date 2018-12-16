@@ -199,8 +199,8 @@ def new_audition(username):
 
     if request.method == 'GET':
         user = db.session.query(User).filter_by(username=username).first()
-        audee = user.get_auditionee()
-        auder = user.get_all_auditions(username)
+        audee = user.get_all_auditionee(username)
+        auder = user.get_all_auditioner(username)
 
         #get auditions where the user is the auditionee
         auditionee = []
@@ -306,7 +306,10 @@ def get_info(username):
 
 #get all auditions where the username is the auditioner
 #just an easy helper method that may be more conveniant to use
-def get_auditioner_auditions(username):
+def get_all_auditioner(username):
     auditions = db.session.query(Audition).filter_by(auditioner=username).all()
     return auditions
 
+def get_all_auditionee(username):
+    auditions = db.session.query(Audition).filter_by(auditionee=username).all()
+    return auditions

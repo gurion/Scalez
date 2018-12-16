@@ -13,7 +13,6 @@ class User(db.Model):
     lastname = db.Column(db.String(64), index=True, unique=False)
     password_hash = db.Column(db.String(128))
     recordings = db.relationship('Recording', backref='author', lazy='dynamic')
-    auditionee = db.relationship('Audition')
 
 
     def get_info(self):
