@@ -29,8 +29,8 @@ class PendingAuditionsViewController : UIViewController, UITableViewDelegate, UI
     }
     
     let sections = ["auditionee", "auditioner"]
-    var auditionee = [[String : Any]]()
-    var auditioner = [[String : Any]]()
+    var auditionee = [JSON]()
+    var auditioner = [JSON]()
     let cellReuseIdentifier = "Cell"
     var selectedIndex = 0
     
@@ -69,20 +69,21 @@ class PendingAuditionsViewController : UIViewController, UITableViewDelegate, UI
         
         if indexPath.section == 0 {
             let audition = auditionee[indexPath.row]
-            cell.usernameLabel.text = audition["auditioner"] as! String
-            cell.scaleLabel.text = audition["scale"] as! String
-            cell.keyLabel.text = audition["key"] as! String
-            cell.scoreLabel.text = audition["score"] as! String
-            cell.isComplete = audition["isComplete"] as! Bool
-            cell.audtionID = audition["id"] as! String
+            cell.usernameLabel.text = "Auditioner: " + audition["auditioner"].stringValue
+            cell.scaleLabel.text = "Scale: " + audition["scale"].stringValue
+            cell.keyLabel.text = "Key: " + audition["key"].stringValue
+            cell.scoreLabel.text = "Score: " + audition["score"].stringValue
+            cell.isComplete = audition["isComplete"].boolValue
+            cell.audtionID = audition["id"].stringValue
         } else if indexPath.section == 1 {
             let audition = auditioner[indexPath.row]
-            cell.usernameLabel.text = audition["auditionee"] as! String
-            cell.scaleLabel.text = audition["scale"] as! String
-            cell.keyLabel.text = audition["key"] as! String
-            cell.scoreLabel.text = audition["score"] as! String
-            cell.isComplete = audition["isComplete"] as! Bool
-            cell.audtionID = audition["id"] as! String
+            cell.usernameLabel.text = "Auditionee: " + audition["auditionee"].stringValue
+            cell.scaleLabel.text = "Scale: " + audition["scale"].stringValue
+            cell.keyLabel.text = "Key: " + audition["key"].stringValue
+            cell.scoreLabel.text = "Score: " + audition["score"].stringValue
+            cell.isComplete = audition["isComplete"].boolValue
+            cell.audtionID = audition["id"].stringValue
+
         }
         
         return cell
@@ -102,10 +103,10 @@ class PendingAuditionsViewController : UIViewController, UITableViewDelegate, UI
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "completeAudition") {
             if let completeAuditionVC = segue.destination as? CompleteAuditionViewController {
-                completeAuditionVC.auditionID = auditionee[selectedIndex]["id"] as! String
-                completeAuditionVC.auditionerUsernameLabel.text = "Auditioner: " + (auditionee[selectedIndex]["auditioner"] as! String)
-                completeAuditionVC.scaleLabel.text = "Scale: " + (auditionee[selectedIndex]["scale"] as! String)
-                completeAuditionVC.keyLabel.text = "Key: " + (auditionee[selectedIndex]["key"] as! String)
+                completeAuditionVC.auditionID = auditionee[selectedIndex]["id"].stringValue
+                completeAuditionVC.auditionerUsernameLabel.text = "Auditioner: " + auditionee[selectedIndex]["auditioner"].stringValue
+                completeAuditionVC.scaleLabel.text = "Scale: " + auditionee[selectedIndex]["scale"].stringValue
+                completeAuditionVC.keyLabel.text = "Key: " + auditionee[selectedIndex]["key"].stringValue
             }
         }
     }
@@ -125,11 +126,8 @@ class PendingAuditionsViewController : UIViewController, UITableViewDelegate, UI
         Alamofire.request(url).responseJSON { (responseData) -> Void in
             if((responseData.result.value) != nil) {
                 let jsonResponse = JSON(responseData.result.value!)
-                
-                if let array = jsonResponse["auditions"].arrayObject {
-                    self.auditionee = array[0] as! [[String : Any]]
-                    self.auditioner = array[1] as! [[String : Any]]
-                }
+                self.auditionee = jsonResponse["auditions"]["auditionee"].arrayValue
+                self.auditioner = jsonResponse["auditions"]["auditionee"].arrayValue
             } else {
                 DispatchQueue.main.async {
                     self.generalAlert()

@@ -20,7 +20,7 @@ class LeaderboardViewController : UIViewController, UITableViewDelegate, UITable
     @IBOutlet var leaderboardTable: UITableView!
     
     @IBAction func reloadButton(_ sender: Any) {
-        self.getAuditions(completion: {
+        self.getLeaderboard(completion: {
             if self.leaderboard.count > 0 {
                 self.leaderboardTable.reloadData()
             }
@@ -33,7 +33,7 @@ class LeaderboardViewController : UIViewController, UITableViewDelegate, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.getAuditions(completion: {
+        self.getLeaderboard(completion: {
             if self.leaderboard.count > 0 {
                 self.leaderboardTable.reloadData()
             }
@@ -81,7 +81,7 @@ class LeaderboardViewController : UIViewController, UITableViewDelegate, UITable
         self.okButtonAlert(title: "Something went wrong!", message: "Sorry! Please try again.")
     }
     
-    func getAuditions(completion : @escaping ()->()) {
+    func getLeaderboard(completion : @escaping ()->()) {
         let url: String = "https://testdeployment-scalez.herokuapp.com/leaderboard"
         Alamofire.request(url).responseJSON { (responseData) -> Void in
             if((responseData.result.value) != nil) {
