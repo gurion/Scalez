@@ -121,6 +121,9 @@ class Audition(db.Model):
 
     def get_ID(self):
         return self.id
+    
+    def get_key(self):
+        return self.key
 
 
 
