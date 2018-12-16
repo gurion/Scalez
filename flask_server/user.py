@@ -203,8 +203,8 @@ def new_audition(username):
         auder = get_all_auditioner(username)
 
         #get auditions where the user is the auditionee
-        auditionee = []
-        auditioner = []
+        auditioneelist = []
+        auditionerlist = []
 
         for a in audee:
             entry = {'id': a.get_ID(), 'auditioner': a.get_auditioner(),
@@ -221,7 +221,7 @@ def new_audition(username):
 
             auditioner.append(entry)
 
-        return jsonify({'auditionee': auditionee, 'auditioner': auditioner}), 200
+        return jsonify({{'auditionee': auditioneelist}, {'auditioner': auditionerlist}}), 200
 
 #get all the auditions for which the user is the auditionee
 #TODO: make sure to fix the response body of this becuase it needs to be finished
