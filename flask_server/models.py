@@ -40,8 +40,6 @@ class User(db.Model):
             data.append(r.info())
 
         return data
-    def get_auditionee(self):
-        return self.auditionee().all()
 
     def change_username(self, name):
         self.username = name
