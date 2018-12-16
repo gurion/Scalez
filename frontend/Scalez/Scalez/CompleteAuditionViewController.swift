@@ -9,6 +9,8 @@
 import Foundation
 import AVFoundation
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class CompleteAuditionViewController: UIViewController, AVAudioRecorderDelegate {
     
@@ -18,6 +20,7 @@ class CompleteAuditionViewController: UIViewController, AVAudioRecorderDelegate 
     var scoreData: String = ""
     var recording: Bool = false
     var auditionID: String = ""
+    var isComplete: Bool = false
     
     @IBOutlet var auditionerUsernameLabel: UILabel!
     @IBOutlet var scaleLabel: UILabel!
@@ -32,6 +35,7 @@ class CompleteAuditionViewController: UIViewController, AVAudioRecorderDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Record"
+        isComplete = false
         recordingSession = AVAudioSession.sharedInstance()
         
         do {
@@ -55,7 +59,7 @@ class CompleteAuditionViewController: UIViewController, AVAudioRecorderDelegate 
     
     func setScoreLabel() {
         if (self.scoreData != "") {
-            self.score.text = scoreData
+            self.score.text = "Score: " + scoreData
         } else {
             self.score.text = "_____"
         }
@@ -104,9 +108,14 @@ class CompleteAuditionViewController: UIViewController, AVAudioRecorderDelegate 
         
         if success {
             setRecordButtonImage()
-            postAudioFile()
-            sleep(2)
-            setScoreLabel()
+            postAudioFile(completion: {
+                self.setScoreLabel()
+                if (self.isComplete) {
+                    DispatchQueue.main.async {
+                        self.okButtonAlert(title: "You completed this audition with a score of: \(self.scoreData)!", message: "Nicely Done!")
+                    }
+                }
+            })
         } else {
             setRecordButtonImage()
             // recording failed :(
@@ -130,41 +139,79 @@ class CompleteAuditionViewController: UIViewController, AVAudioRecorderDelegate 
         return (signal: floatArray, rate: file.fileFormat.sampleRate, frameCount: Int(file.length))
     }
     
-    //posting something to a server
-    //this code came from https://github.com/Kilo-Loco
-    func postAudioFile() {
+    func okButtonAlert(title : String, message : String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
+    func generalAlert() {
+        self.okButtonAlert(title: "Something went wrong!", message: "Sorry! Please try again.")
+    }
+    
+    func postAudioFile(completion: @escaping ()->()) {
         let audioFileData = loadAudioSignal(audioURL: self.audioFilename)
         let audioFloatArray = audioFileData.signal
-        let sampleRate = String(audioFileData.rate)
-        let frameCount = String(audioFileData.frameCount)
         let strarr = audioFloatArray.map { String($0) }
         let str = strarr.joined(separator: ",")
         
-        let parameters = ["id": auditionID, "file": str, "rate": sampleRate, "frameCount": frameCount]
+        let parameters:[String:String] = ["file": str]
+        let url:String = UserDefaults.standard.string(forKey: "userUrl")!+"/audition/\(auditionID)"
         
-        guard let url = URL(string: UserDefaults.standard.string(forKey: "userUrl")!+"/audition/\(auditionID)") else { return }
-        var request = URLRequest(url: url)
-        request.httpMethod = "PUT"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else { return }
-        request.httpBody = httpBody
+        print(parameters)
         
-        let session = URLSession.shared
-        session.dataTask(with: request) { (data, response, error) in
-            if let response = response {
+        Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+            .responseJSON { response in
                 print(response)
-            }
-            if let data = data {
-                do {
-                    //let json = try JSONSerialization.jsonObject(with: data, options: [])
-                    //try print(String(data: data, encoding: .utf8)!)
-                    //self.score.text = String(data: data, encoding: .utf8)!
-                    self.scoreData = String(data: data, encoding: .utf8)!
-                } catch {
-                    print("This is the error being printed error")
+                if let status = response.response?.statusCode {
+                    switch(status) {
+                    case 200:
+                        let json = JSON(response.result.value!)
+                        self.scoreData = json["score"].stringValue
+                        self.isComplete = true
+                    default:
+                        DispatchQueue.main.async {
+                            self.generalAlert()
+                        }
+                    }
                 }
-            }
-            }.resume()
+                completion()
+        }
     }
+
+//    func postAudioFile() {
+//        let audioFileData = loadAudioSignal(audioURL: self.audioFilename)
+//        let audioFloatArray = audioFileData.signal
+//        let sampleRate = String(audioFileData.rate)
+//        let frameCount = String(audioFileData.frameCount)
+//        let strarr = audioFloatArray.map { String($0) }
+//        let str = strarr.joined(separator: ",")
+//
+//        let parameters = ["id": auditionID, "file": str, "rate": sampleRate, "frameCount": frameCount]
+//
+//        guard let url = URL(string: UserDefaults.standard.string(forKey: "userUrl")!+"/audition/\(auditionID)") else { return }
+//        var request = URLRequest(url: url)
+//        request.httpMethod = "PUT"
+//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else { return }
+//        request.httpBody = httpBody
+//
+//        let session = URLSession.shared
+//        session.dataTask(with: request) { (data, response, error) in
+//            if let response = response {
+//                print(response)
+//            }
+//            if let data = data {
+//                do {
+//                    //let json = try JSONSerialization.jsonObject(with: data, options: [])
+//                    //try print(String(data: data, encoding: .utf8)!)
+//                    //self.score.text = String(data: data, encoding: .utf8)!
+//                    self.scoreData = String(data: data, encoding: .utf8)!
+//                } catch {
+//                    print("This is the error being printed error")
+//                }
+//            }
+//            }.resume()
+//    }
     
 }
