@@ -12,7 +12,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class RecordViewController: UIViewController, AVAudioRecorderDelegate {
+class RecordViewController: UIViewController, AVAudioRecorderDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
@@ -30,8 +30,8 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         super.viewDidLoad()
         title = "Record"
         
-        self.scaleSelector.delegate = self as? UIPickerViewDelegate
-        self.scaleSelector.dataSource = self as? UIPickerViewDataSource
+        self.scaleSelector.delegate = self
+        self.scaleSelector.dataSource = self
         self.possibleScales = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
         
         recordingSession = AVAudioSession.sharedInstance()
@@ -182,7 +182,9 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         
         let parameters:[String:String] = ["file": str, "key" : convertIntToKey(), "scale" : getSelectedScale()]
         let url:String = UserDefaults.standard.string(forKey: "userUrl")! + "/recording"
-
+        
+        print(parameters)
+        
         Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
             .responseJSON { response in
                 print(response)
