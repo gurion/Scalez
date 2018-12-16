@@ -75,7 +75,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate, UIPickerV
         let bounds = UIScreen.main.bounds
         
         waveformView = SCSiriWaveformView(frame: CGRect(0, 0, bounds.width, bounds.height/4))
-        waveformView.waveColor = UIColor.white
+        waveformView.waveColor = UIColor.magenta
         waveformView.primaryWaveLineWidth = 3.0
         waveformView.secondaryWaveLineWidth = 1.0
         self.view.addSubview(waveformView)
