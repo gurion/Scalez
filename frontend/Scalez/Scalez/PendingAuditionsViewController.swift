@@ -83,7 +83,6 @@ class PendingAuditionsViewController : UIViewController, UITableViewDelegate, UI
             cell.scoreLabel.text = "Score: " + audition["score"].stringValue
             cell.isComplete = audition["isComplete"].boolValue
             cell.audtionID = audition["id"].stringValue
-
         }
         
         return cell
@@ -123,14 +122,17 @@ class PendingAuditionsViewController : UIViewController, UITableViewDelegate, UI
     
     func getAuditions(completion : @escaping ()->()) {
         let url: String = UserDefaults.standard.string(forKey: "userUrl")!+"/audition"
-        Alamofire.request(url).responseJSON { (responseData) -> Void in
-            if((responseData.result.value) != nil) {
-                let jsonResponse = JSON(responseData.result.value!)
-                self.auditionee = jsonResponse["auditions"]["auditionee"].arrayValue
-                self.auditioner = jsonResponse["auditions"]["auditionee"].arrayValue
-            } else {
-                DispatchQueue.main.async {
+        Alamofire.request(url).responseJSON { response in
+            if let status = response.response?.statusCode {
+                switch(status) {
+                case 200:
+                    let jsonResponse = JSON(response.result.value!)
+                    self.auditionee = jsonResponse["auditions"]["auditionee"].arrayValue
+                    self.auditioner = jsonResponse["auditions"]["auditionee"].arrayValue
+                default:
+                    DispatchQueue.main.async {
                     self.generalAlert()
+                    }
                 }
             }
             completion()

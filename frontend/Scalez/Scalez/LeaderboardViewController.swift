@@ -83,13 +83,16 @@ class LeaderboardViewController : UIViewController, UITableViewDelegate, UITable
     
     func getLeaderboard(completion : @escaping ()->()) {
         let url: String = "https://testdeployment-scalez.herokuapp.com/leaderboard"
-        Alamofire.request(url).responseJSON { (responseData) -> Void in
-            if((responseData.result.value) != nil) {
-                let jsonResponse = JSON(responseData.result.value!)
-                self.leaderboard = jsonResponse["leaderboard"].arrayValue
-            } else {
-                DispatchQueue.main.async {
-                    self.generalAlert()
+        Alamofire.request(url).responseJSON { response in
+            if let status = response.response?.statusCode {
+                switch(status) {
+                case 200:
+                    let jsonResponse = JSON(response.result.value!)
+                    self.leaderboard = jsonResponse["leaderboard"].arrayValue
+                default:
+                    DispatchQueue.main.async {
+                        self.generalAlert()
+                    }
                 }
             }
             completion()
