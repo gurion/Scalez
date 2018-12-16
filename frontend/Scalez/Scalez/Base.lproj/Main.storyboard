@@ -226,14 +226,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Score" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="R8G-BI-ttt">
-                                <rect key="frame" x="109" y="654" width="197" height="40"/>
+                                <rect key="frame" x="109" y="479" width="197" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kHm-af-Vkp" userLabel="recordButton">
-                                <rect key="frame" x="28" y="267" width="359" height="363"/>
+                                <rect key="frame" x="82" y="221" width="250" height="250"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="play_button">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -247,19 +247,35 @@
                                     <action selector="recordAudio:" destination="XvQ-bK-E8X" eventType="touchUpInside" id="Hdp-4Q-whL"/>
                                 </connections>
                             </button>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="giv-2g-asN">
+                                <rect key="frame" x="0.0" y="585" width="414" height="96"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="emw-Th-JsH">
+                                <rect key="frame" x="107" y="689" width="200" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <segments>
+                                    <segment title="Major"/>
+                                    <segment title="Minor"/>
+                                </segments>
+                                <color key="tintColor" red="0.81671357154846191" green="0.15667140483856201" blue="0.20945751667022705" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="6fz-5q-841"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="hPT-VA-e8g"/>
                     <connections>
+                        <outlet property="keySelector" destination="emw-Th-JsH" id="b3b-qr-spZ"/>
                         <outlet property="recordButton" destination="kHm-af-Vkp" id="5la-f8-xjt"/>
+                        <outlet property="scaleSelector" destination="giv-2g-asN" id="8Gg-tx-SkW"/>
                         <outlet property="score" destination="R8G-BI-ttt" id="a8v-sX-rzw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="diU-fx-w20" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="603" y="822"/>
+            <point key="canvasLocation" x="602.89855072463774" y="821.65178571428567"/>
         </scene>
         <!--Leaderboard-->
         <scene sceneID="w0V-We-twa">
@@ -487,26 +503,17 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Auditionee's Username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="50d-QV-aI4">
-                                <rect key="frame" x="70" y="233.5" width="271" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="220" id="1fy-ev-huA"/>
-                                    <constraint firstAttribute="height" constant="50" id="vMl-6a-7fL"/>
-                                </constraints>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="fSq-pr-nWY">
-                                <rect key="frame" x="70" y="550" width="271" height="29"/>
-                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="fSq-pr-nWY">
+                                <rect key="frame" x="70" y="568" width="271" height="29"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <segments>
                                     <segment title="Major"/>
                                     <segment title="Minor"/>
                                 </segments>
+                                <color key="tintColor" red="0.81671357150000001" green="0.1566714048" blue="0.20945751670000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </segmentedControl>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DYD-lQ-dOF">
-                                <rect key="frame" x="0.0" y="317" width="410" height="216"/>
+                            <pickerView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DYD-lQ-dOF">
+                                <rect key="frame" x="0.0" y="380" width="410" height="137"/>
                             </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aQ7-KJ-chz">
                                 <rect key="frame" x="70" y="639" width="271" height="48"/>
@@ -527,6 +534,17 @@
                                     <action selector="backButton:" destination="298-1q-cSX" eventType="touchUpInside" id="Aa2-d2-aGc"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Auditionee's Username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="50d-QV-aI4">
+                                <rect key="frame" x="70" y="290" width="275" height="50"/>
+                                <color key="tintColor" red="0.81671357150000001" green="0.1566714048" blue="0.20945751670000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="220" id="1fy-ev-huA"/>
+                                    <constraint firstAttribute="height" constant="50" id="vMl-6a-7fL"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>

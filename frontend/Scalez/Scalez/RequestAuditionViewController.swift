@@ -14,7 +14,7 @@ import Alamofire
 class RequestAuditionViewController : UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     @IBOutlet var auditioneeNameField: UITextField!
-    @IBOutlet var majorMinorSelector: UISegmentedControl!
+    @IBOutlet var keySelector: UISegmentedControl!
     @IBOutlet var scaleSelector: UIPickerView!
     var possibleScales: [String] = [String]()
     
@@ -70,7 +70,7 @@ class RequestAuditionViewController : UIViewController, UIPickerViewDelegate, UI
     }
     
     func auditionSentAlert() {
-        self.okButtonAlert(title: "Audition request for a \(getSelectedScale()) \(convertIntToMajorMinor()) scale sent to \(getAuditioneeUsername())!", message: "")
+        self.okButtonAlert(title: "Audition request for a \(getSelectedScale()) \(convertIntToKey()) scale sent to \(getAuditioneeUsername())!", message: "")
     }
     
     func noAuditioneeAlert() {
@@ -85,8 +85,8 @@ class RequestAuditionViewController : UIViewController, UIPickerViewDelegate, UI
         return self.auditioneeNameField.text as! String
     }
     
-    func convertIntToMajorMinor() -> String {
-        let value = self.majorMinorSelector.selectedSegmentIndex
+    func convertIntToKey() -> String {
+        let value = self.keySelector.selectedSegmentIndex
         if (value == 0) {
             return "major"
         } else {
@@ -100,7 +100,7 @@ class RequestAuditionViewController : UIViewController, UIPickerViewDelegate, UI
     
     func postNewAudition() {
         let url: String = UserDefaults.standard.string(forKey: "userUrl")!+"/audition"
-        let params:[String:String] = ["auditionee" : getAuditioneeUsername(), "scale" : getSelectedScale(),"key" : self.convertIntToMajorMinor()]
+        let params:[String:String] = ["auditionee" : getAuditioneeUsername(), "scale" : getSelectedScale(),"key" : self.convertIntToKey()]
         
         print(params)
         

@@ -19,13 +19,21 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     var audioFilename: URL!
     var scoreData: Double = -1
     var recording: Bool = false
+    var possibleScales: [String] = [String]()
     
+    @IBOutlet var keySelector: UISegmentedControl!
+    @IBOutlet var scaleSelector: UIPickerView!
     @IBOutlet var recordButton: UIButton!
     @IBOutlet var score: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Record"
+        
+        self.scaleSelector.delegate = self as? UIPickerViewDelegate
+        self.scaleSelector.dataSource = self as? UIPickerViewDataSource
+        self.possibleScales = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+        
         recordingSession = AVAudioSession.sharedInstance()
         
         do {
@@ -35,6 +43,36 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
         } catch {
             print("catching error")
         }
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return possibleScales.count;
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return possibleScales[row] as String
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        // This method is triggered whenever the user makes a change to the picker selection.
+        // The parameter named row and component represents what was selected.
+    }
+    
+    func convertIntToKey() -> String {
+        let value = self.keySelector.selectedSegmentIndex
+        if (value == 0) {
+            return "major"
+        } else {
+            return "minor"
+        }
+    }
+    
+    func getSelectedScale() -> String {
+        return possibleScales[scaleSelector.selectedRow(inComponent: 0)] as String
     }
     
     @IBAction func recordAudio(_ sender: Any) {
@@ -139,13 +177,10 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate {
     func postAudioFile(completion: @escaping ()->()) {
         let audioFileData = loadAudioSignal(audioURL: self.audioFilename)
         let audioFloatArray = audioFileData.signal
-        let sampleRate = String(audioFileData.rate)
-        let frameCount = String(audioFileData.frameCount)
         let strarr = audioFloatArray.map { String($0) }
         let str = strarr.joined(separator: ",")
-        let username = UserDefaults.standard.string(forKey: "username")
         
-        let parameters = ["username": username, "file": str, "rate": sampleRate, "frameCount": frameCount]
+        let parameters:[String:String] = ["file": str, "key" : convertIntToKey(), "scale" : getSelectedScale()]
         let url:String = UserDefaults.standard.string(forKey: "userUrl")! + "/recording"
 
         Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
