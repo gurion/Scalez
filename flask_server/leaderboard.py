@@ -12,6 +12,7 @@ class LeaderBoard:
 
 	def notify(self, name, scale, key, score):
 		#update the leaderboard
+		print(score)
 		if score >= self.lowest:
 			self.board.append((name, scale, key, score))
 
@@ -44,8 +45,10 @@ class UpdateLeaderboard:
 
 	def notify_leaderboards(self, name, scale, key, score):
 		for board in self.leaderboards:
-			board.notify(name, scale, key, score)
+			print(score)
 			print(score+5)
+			board.notify(name, scale, key, score)
+
 
 
 
