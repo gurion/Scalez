@@ -24,6 +24,13 @@ extension UIViewController {
     }
 }
 
+extension CGRect{
+    init(_ x:CGFloat,_ y:CGFloat,_ width:CGFloat,_ height:CGFloat) {
+        self.init(x:x,y:y,width:width,height:height)
+    }
+    
+}
+
 class RecordViewController: UIViewController, AVAudioRecorderDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
     var recordingSession: AVAudioSession!
@@ -32,11 +39,20 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate, UIPickerV
     var scoreData: Double = -1
     var recording: Bool = false
     var possibleScales: [String] = [String]()
+    var waveformView:SCSiriWaveformView!
     
     @IBOutlet var keySelector: UISegmentedControl!
     @IBOutlet var scaleSelector: UIPickerView!
     @IBOutlet var recordButton: UIButton!
     @IBOutlet var score: UITextField!
+    
+    @objc func updateMeters() {
+        if let audioRecorder = audioRecorder {
+            audioRecorder.updateMeters()
+            let normalizedValue:CGFloat = pow(10, CGFloat(audioRecorder.averagePower(forChannel: 0))/20)
+            waveformView.update(withLevel: normalizedValue)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +71,14 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate, UIPickerV
         } catch {
             print("catching error")
         }
+
+        let bounds = UIScreen.main.bounds
+        
+        waveformView = SCSiriWaveformView(frame: CGRect(0, 0, bounds.width, bounds.height/4))
+        waveformView.waveColor = UIColor.white
+        waveformView.primaryWaveLineWidth = 3.0
+        waveformView.secondaryWaveLineWidth = 1.0
+        self.view.addSubview(waveformView)
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -129,7 +153,12 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate, UIPickerV
         do {
             self.audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
             self.audioRecorder.delegate = self
+            self.audioRecorder.isMeteringEnabled = true
             self.audioRecorder.record()
+            
+            let displayLink = CADisplayLink(target: self, selector: #selector(updateMeters))
+            displayLink.add(to: RunLoop.current, forMode: RunLoop.Mode.common)
+
         } catch {
             stopRecording(success: false)
         }
