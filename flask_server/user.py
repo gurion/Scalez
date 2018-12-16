@@ -151,7 +151,7 @@ def get_leaderboard(username):
         recordings = user.get_recording()
         history = []
 
-        for index in range(len(recordings))
+        for index in range(len(recordings)):
             entry = {'timestamp' : recordings[index][0], 
                 'score': recordings[index][1] }
 
@@ -210,7 +210,7 @@ def get_all_auditions():
     auditionee = []
     auditioner = []
 
-    for a in audee
+    for a in audee:
         entry = {'id': a.get_ID(), 'auditioner': a.get_auditioner(),
             'scale': a.get_scale(), 'key': a.get_key(),
             'isComplete': a.get_complete(), 'score': a.get_score() }
@@ -218,7 +218,7 @@ def get_all_auditions():
         auditionee.append(entry)
 
     #get auditions where the user is the auditioner
-    for a in auder
+    for a in auder:
         entry = {'id': a.get_ID(), 'auditionee': a.get_auditionee(),
             'scale': a.get_scale(), 'key': a.get_key(),
             'isComplete': a.get_complete(), 'score': a.get_score() }
