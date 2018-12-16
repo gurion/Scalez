@@ -58,8 +58,8 @@ def processScale(floating_point_time_series, sr):
     floating_point_time_series = np.array(translateSwiftTrash(floating_point_time_series))
 
     if bad_input(floating_point_time_series, sr): return 1
-    print(type(translateSwiftTrash('4,5,3,2,4,5,3')))
-    print(type(np.ndarray([1,2])))
+    #print(type(translateSwiftTrash('4,5,3,2,4,5,3')))
+    #print(type(np.ndarray([1,2])))
     
     # transform pipeline: compute a thresholded Constant-Q Transform
     C = threshold_Q_transform(transform(floating_point_time_series, sr, transform_type='Q'), sr)
