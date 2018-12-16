@@ -6,8 +6,8 @@ class LeaderBoard:
 
 	def __init__(self, length):
 		self.length = length
-		self.highest = 0
-		self.lowest = 0
+		self.highest = 0.0
+		self.lowest = 0.0
 		self.board = []
 
 	def notify(self, name, scale, key, score):
@@ -44,7 +44,8 @@ class UpdateLeaderboard:
 
 	def notify_leaderboards(self, name, scale, key, score):
 		for board in self.leaderboards:
-			board.notify(name, scale, key, float(score))
+			board.notify(name, scale, key, score)
+			print(score+5)
 
 
 

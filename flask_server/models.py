@@ -30,7 +30,7 @@ class User(db.Model):
             avg = np.mean(scores)
             high = np.amax(scores)
 
-        return {"firstname": slef.firstname, "lastname": self.lastname,
+        return {"firstname": self.firstname, "lastname": self.lastname,
             "top_score": str(self.top), "average_score": str(self.avg)}
 
     def get_recording(self):

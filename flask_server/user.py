@@ -202,31 +202,32 @@ def new_audition(username):
 @bp.route('/<username>/audtion', methods=['GET'])
 def get_all_auditions():
 
-    user = db.session.query(User).filter_by(username=username).first()
-    audee = user.get_auditionee()
-    auder = user.get_all_auditions(username)
+    if request.method == 'GET'
+        user = db.session.query(User).filter_by(username=username).first()
+        audee = user.get_auditionee()
+        auder = user.get_all_auditions(username)
 
-    #get auditions where the user is the auditionee
-    auditionee = []
-    auditioner = []
+        #get auditions where the user is the auditionee
+        auditionee = []
+        auditioner = []
 
-    for a in audee:
-        entry = {'id': a.get_ID(), 'auditioner': a.get_auditioner(),
-            'scale': a.get_scale(), 'key': a.get_key(),
-            'isComplete': a.get_complete(), 'score': a.get_score() }
+        for a in audee:
+            entry = {'id': a.get_ID(), 'auditioner': a.get_auditioner(),
+                'scale': a.get_scale(), 'key': a.get_key(),
+                'isComplete': a.get_complete(), 'score': a.get_score() }
 
-        auditionee.append(entry)
+            auditionee.append(entry)
 
-    #get auditions where the user is the auditioner
-    for a in auder:
-        entry = {'id': a.get_ID(), 'auditionee': a.get_auditionee(),
-            'scale': a.get_scale(), 'key': a.get_key(),
-            'isComplete': a.get_complete(), 'score': a.get_score() }
+        #get auditions where the user is the auditioner
+        for a in auder:
+            entry = {'id': a.get_ID(), 'auditionee': a.get_auditionee(),
+                'scale': a.get_scale(), 'key': a.get_key(),
+                'isComplete': a.get_complete(), 'score': a.get_score() }
 
-        auditioner.append(entry)
+            auditioner.append(entry)
 
-    return jsonify({'auditions': {'auditionee': auditionees , 
-        'auditioner': auditioners}}), 200
+        return jsonify({'auditions': {'auditionee': auditionees , 
+            'auditioner': auditioners}}), 200
 
 
 #this is to get and complete auditions
