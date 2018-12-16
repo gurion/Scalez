@@ -22,7 +22,7 @@ class User(db.Model):
         for r in recordings:
             scores.append(r.get_score())
 
-        if recordings is None:
+        if scores[0] is None:
             avg = 0
             high = 0
         else:
