@@ -104,9 +104,6 @@ class Audition(db.Model):
         self.score = score
         db.session.commit()
 
-    def get_score(self):
-        return self.score
-
     def get_scale(self):
         return self.scale
 
@@ -124,6 +121,9 @@ class Audition(db.Model):
     
     def get_key(self):
         return self.key
+
+    def get_score(self):
+        return self.score
 
 
 
