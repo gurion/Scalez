@@ -202,7 +202,7 @@ def new_audition(username):
 @bp.route('/<username>/audtion', methods=['GET'])
 def get_all_auditions():
 
-    if request.method == 'GET'
+    if request.method == 'GET':
         user = db.session.query(User).filter_by(username=username).first()
         audee = user.get_auditionee()
         auder = user.get_all_auditions(username)
