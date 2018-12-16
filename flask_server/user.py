@@ -84,7 +84,7 @@ def sendScore(username):
         db.session.add(record)
         db.session.commit()
 
-        obsv.notify_leaderboards(user.get_username(), score)
+        obsv.notify_leaderboards(user.get_username(),scale, key, score)
 
         return jsonify({'score':score, 'message':'new recording has been created'}), 201
 
