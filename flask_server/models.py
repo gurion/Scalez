@@ -123,7 +123,7 @@ class Audition(db.Model):
         return self.key
 
     def get_score_audition(self):
-        return self.score
+        return self.score()
 
 
 
