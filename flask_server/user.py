@@ -221,7 +221,7 @@ def new_audition(username):
 
             auditionerlist.append(entry)
 
-        return jsonify({{'auditionee': auditioneelist}, {'auditioner': auditionerlist}}), 200
+        return jsonify({'auditionee': auditioneelist}), 200
 
 #get all the auditions for which the user is the auditionee
 #TODO: make sure to fix the response body of this becuase it needs to be finished
