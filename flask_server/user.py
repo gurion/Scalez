@@ -77,7 +77,7 @@ def sendScore(username):
             return make_error(404, 'user not found')
 
         # score recording
-        score = processScale(audio, 12000)
+        score = float(processScale(audio))
 
         record = Recording(score=score, user_id=user.get_ID(), scale=scale,
             key=key)
@@ -100,15 +100,10 @@ def del_user(username):
             return response
 
         recordings = user.recordings.all()
-        auditions = user.auditions.all()
 
         #delete recordings here
         for r in recordings:
             db.session.delete(r)
-
-        #delet auditions here
-        for a in aditions:
-            db.session.delete(a)
 
         db.session.delete(user)
         db.session.commit()
@@ -221,6 +216,13 @@ def new_audition(username):
 
             auditionerlist.append(entry)
 
+
+        print("test1")
+        print(audee)
+        print(auder)
+        print("testing!!")
+        print(auditioneelist)
+        print(auditionerlist)
         return jsonify({'auditionee': auditioneelist}), 200
 
 #get all the auditions for which the user is the auditionee
@@ -278,7 +280,7 @@ def audition_update( username, auditionID):
         except KeyError:
             return make_error(400, 'no file in request body')
         
-        score = processScales(audio, 12000)
+        score = float(processScale(audio))
         aud.complete()
         aud.score(score)
 
