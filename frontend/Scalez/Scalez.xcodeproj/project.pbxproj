@@ -626,14 +626,18 @@
 			baseConfigurationReference = CCC2BB78B3D0A992C0C9EAAF /* Pods-Scalez.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
+				"CODE_SIGN_STYLE[sdk=iphoneos*]" = Automatic;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=*]" = K9WP2GHHTR;
 				INFOPLIST_FILE = Scalez/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = group21.Scalez;
+				PRODUCT_BUNDLE_IDENTIFIER = group21.Scalez.ericf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -644,14 +648,17 @@
 			baseConfigurationReference = 18AF58FFCD40FD4799281557 /* Pods-Scalez.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
+				"CODE_SIGN_STYLE[sdk=iphoneos*]" = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Scalez/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = group21.Scalez;
+				PRODUCT_BUNDLE_IDENTIFIER = group21.Scalez.ericf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

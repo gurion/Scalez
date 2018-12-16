@@ -53,7 +53,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TDT-hb-Xga">
-                                <rect key="frame" x="97" y="402" width="220" height="50"/>
+                                <rect key="frame" x="95.675317232040015" y="402" width="220" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
@@ -951,6 +951,6 @@
         <image name="sign_in" width="634" height="238"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="9nN-1P-YuT"/>
+        <segue reference="QGP-ZK-AWI"/>
     </inferredMetricsTieBreakers>
 </document>

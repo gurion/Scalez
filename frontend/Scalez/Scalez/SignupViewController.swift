@@ -22,6 +22,7 @@ class SignupViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround() 
     }
     
     @IBAction func backButton(_ sender: Any) {

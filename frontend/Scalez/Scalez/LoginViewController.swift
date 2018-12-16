@@ -26,6 +26,7 @@ class LoginViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround() 
         loginButton.setImage(UIImage(named: "sign_in"), for: .normal)
         UserDefaults.standard.set(false, forKey: "isLoggedIn")
     }
