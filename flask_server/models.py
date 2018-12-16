@@ -123,7 +123,11 @@ class Audition(db.Model):
         return self.key
 
     def get_score_audition(self):
-        return self.score()
+        temp = self.score()
+        temp2 = self.score
+        if type(temp) == type('5.0'):
+            return temp
+        return temp2
 
 
 
