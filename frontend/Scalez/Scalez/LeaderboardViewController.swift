@@ -13,8 +13,8 @@ import Alamofire
 
 class LeaderboardViewController : UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    var leaderboard = [JSON]()
     let sections = ["Top Scores"]
-    var leaderboard = [[String : Any]]()
     let cellReuseIdentifier = "Cell"
     
     @IBOutlet var leaderboardTable: UITableView!
@@ -59,9 +59,9 @@ class LeaderboardViewController : UIViewController, UITableViewDelegate, UITable
         let cell:LeaderboardTableCell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as! LeaderboardTableCell
         let recording = leaderboard[indexPath.row]
         
-        cell.usernameLabel.text = "User: " + (recording["auditioner"] as! String)
-        cell.scaleLabel.text = "Scale: " + (recording["scale"] as! String) + " " + (recording["key"] as! String)
-        cell.scoreLabel.text = "Score: " + (recording["score"] as! String)
+        cell.usernameLabel.text = "User: " + (recording["username"].stringValue)
+        cell.scaleLabel.text = "Scale: " + (recording["scale"].stringValue) + " " + (recording["key"].stringValue)
+        cell.scoreLabel.text = "Score: " + (recording["score"].stringValue)
         
         return cell
     }
@@ -86,10 +86,7 @@ class LeaderboardViewController : UIViewController, UITableViewDelegate, UITable
         Alamofire.request(url).responseJSON { (responseData) -> Void in
             if((responseData.result.value) != nil) {
                 let jsonResponse = JSON(responseData.result.value!)
-                
-                if let array = jsonResponse["leaderboard"].arrayObject {
-                    self.leaderboard = array[0] as! [[String : Any]]
-                }
+                self.leaderboard = jsonResponse["leaderboard"].arrayValue
             } else {
                 DispatchQueue.main.async {
                     self.generalAlert()
