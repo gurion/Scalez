@@ -22,7 +22,7 @@ class User(db.Model):
         for r in recordings:
             scores.append(r.get_score())
 
-        if scores[0] is None:
+        if (len(scores) == 0):
             avg = 0
             high = 0
         else:
@@ -88,13 +88,14 @@ class Recording(db.Model):
 
 class Audition(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    score = db.Column(db.Float)
     is_completed = db.Column(db.Boolean, default=False)
     auditioner = db.Column(db.String(64), index=False, unique=False)
     auditionee = db.Column(db.String(64), index=False, unique=False)
     auditionee_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     scale = db.Column(db.String(64), index=True, unique=False)
     key = db.Column(db.String(64), index=True, unique=False)
-    score = db.Column(db.Float, index=False, unique=False)
+
 
     def complete(self):
         self.is_completed = True
@@ -123,11 +124,7 @@ class Audition(db.Model):
         return self.key
 
     def get_score_audition(self):
-        temp = self.score()
-        temp2 = self.score
-        if type(temp) == type('5.0'):
-            return temp
-        return temp2
+        return self.score
 
 
 
