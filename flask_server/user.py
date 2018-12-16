@@ -211,7 +211,7 @@ def new_audition(username):
                 'scale': a.get_scale(), 'key': a.get_key(),
                 'isComplete': a.get_complete(), 'score': a.get_score() }
 
-            auditionee.append(entry)
+            auditioneelist.append(entry)
 
         #get auditions where the user is the auditioner
         for a in auder:
@@ -219,7 +219,7 @@ def new_audition(username):
                 'scale': a.get_scale(), 'key': a.get_key(),
                 'isComplete': a.get_complete(), 'score': a.get_score() }
 
-            auditioner.append(entry)
+            auditionerlist.append(entry)
 
         return jsonify({{'auditionee': auditioneelist}, {'auditioner': auditionerlist}}), 200
 
