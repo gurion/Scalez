@@ -26,7 +26,7 @@ def get_leaderboard():
 		scores = global_leaderboard.get_scores()
 		history = []
 
-		for index in range(len(scores)):
+		for index in range(0,len(scores)):
 			entry = {'username' : scores[index][0], 'scale': scores[index][1], 
 					'key': scores[index][2], 'score': scores[index][3] }
 			history.append(entry)
