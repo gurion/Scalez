@@ -125,7 +125,7 @@ def change_name(username):
         #search of user in database
         user = db.session.query(User).filter_by(username=username).first()  
         if user is None:
-            return make_error(404,'user not found')
+            return make_kierror(404,'user not found')
         
         try:
             user.change_username(user.data['username'])
@@ -221,8 +221,7 @@ def new_audition(username):
 
             auditioner.append(entry)
 
-        return jsonify({'auditionee': auditionee , 
-            'auditioner': auditioner}), 200
+        return jsonify({'auditionee': auditionee, 'auditioner': auditioner}), 200
 
 #get all the auditions for which the user is the auditionee
 #TODO: make sure to fix the response body of this becuase it needs to be finished
