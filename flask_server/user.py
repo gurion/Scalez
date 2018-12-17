@@ -231,7 +231,6 @@ def audition_update( username, auditionID):
         
         try:
             audio = data['file']
-            frame_count = data['frameCount']
         except KeyError:
             return make_error(400, 'no file in request body')
         
