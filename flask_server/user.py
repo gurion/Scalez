@@ -202,19 +202,17 @@ def new_audition(username):
         auditionerlist = []
 
         for a in audee:
-            temp = a.get_score_audition() #this to fix a small bug
             entry = {'id': a.get_ID(), 'auditioner': a.get_auditioner(),
                 'scale': a.get_scale(), 'key': a.get_key(),
-                'isComplete': a.get_complete(), 'score': temp}
+                'isComplete': a.get_complete(), 'score': aud.get_score()}
 
             auditioneelist.append(entry)
 
         #get auditions where the user is the auditioner
         for a in auder:
-            temp = a.get_score_audition() #this is to fix a small but strange bug
             entry = {'id': a.get_ID(), 'auditionee': a.get_auditionee(),
                 'scale': a.get_scale(), 'key': a.get_key(),
-                'isComplete': a.get_complete(), 'score': temp }
+                'isComplete': a.get_complete(), 'score': aud.get_score() }
 
             auditionerlist.append(entry)
 
