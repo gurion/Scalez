@@ -12,8 +12,7 @@ class LeaderBoard:
 
 	def notify(self, name, scale, key, score):
 		#update the leaderboard
-		if score >= self.lowest:
-			self.board.append((name, scale, key, score))
+		self.board.append((name, scale, key, score))
 
 		self.board = sorted(self.board, key=itemgetter(3), reverse=True)
 		if len(self.board) > self.length:
@@ -21,9 +20,6 @@ class LeaderBoard:
 
 		self.highest = self.board[0][3]
 		self.lowest = self.board[(len(self.board))-1][3]
-
-		print("here is what is in the leaderboard right now:")
-		print(self.board)
 
 
 	#returns the names and scores in rank order  highest to lowest
