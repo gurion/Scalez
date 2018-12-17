@@ -277,5 +277,5 @@ def get_all_auditionee(username):
 def auditione_JSON(aud):
     return {'id': aud.get_ID(), 'auditionee': aud.get_auditionee(),
                 'scale': aud.get_scale(), 'key': aud.get_key(),
-                'auditioner'. aud.get_auditioner(),
+                'auditioner': aud.get_auditioner(),
                 'isComplete': aud.get_complete(), 'score': aud.get_score() }
