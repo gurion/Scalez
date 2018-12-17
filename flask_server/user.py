@@ -274,7 +274,7 @@ def get_all_auditionee(username):
     return auditions
 
 #get the JSON of the audition
-def auditione_JSON(aud):
+def audition_JSON(aud):
     return {'id': aud.get_ID(), 'auditionee': aud.get_auditionee(),
                 'scale': aud.get_scale(), 'key': aud.get_key(),
                 'auditioner': aud.get_auditioner(),
