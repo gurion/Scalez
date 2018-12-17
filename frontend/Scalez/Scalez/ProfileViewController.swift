@@ -30,10 +30,15 @@ class ProfileViewController: UIViewController {
         getUserInfo(completion: {
             self.setUserInfo()
         })
+
+        // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         getChartFromServer(completion: {
             self.setChartValues()
         })
-        // Do any additional setup after loading the view.
     }
     
     @IBAction func logoutButton(_ sender: Any) {

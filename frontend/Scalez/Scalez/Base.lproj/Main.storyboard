@@ -18,6 +18,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
+                                <color key="value" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="unselectedItemTintColor">
+                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </tabBar>
                     <connections>
                         <segue destination="XvQ-bK-E8X" kind="relationship" relationship="viewControllers" id="MCa-Vz-HrR"/>
@@ -233,7 +241,7 @@
             </objects>
             <point key="canvasLocation" x="-332" y="399.7536945812808"/>
         </scene>
-        <!--Item-->
+        <!--Record View Controller-->
         <scene sceneID="B2y-cL-dCd">
             <objects>
                 <viewController storyboardIdentifier="RecordVC" id="XvQ-bK-E8X" customClass="RecordViewController" customModule="Scalez" customModuleProvider="target" sceneMemberID="viewController">
@@ -312,7 +320,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6fz-5q-841"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="hPT-VA-e8g"/>
+                    <tabBarItem key="tabBarItem" image="circled_play" id="hPT-VA-e8g"/>
                     <connections>
                         <outlet property="keySelector" destination="emw-Th-JsH" id="b3b-qr-spZ"/>
                         <outlet property="recordButton" destination="kHm-af-Vkp" id="5la-f8-xjt"/>
@@ -354,9 +362,9 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Score: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6xw-1J-ckZ">
-                                                    <rect key="frame" x="189" y="0.0" width="132" height="55.666666666666664"/>
+                                                    <rect key="frame" x="189" y="0.0" width="171" height="56"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -416,14 +424,14 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="N0E-HX-Ccv"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="pqY-PL-dW3"/>
+                    <tabBarItem key="tabBarItem" title="Item" image="globe" id="pqY-PL-dW3"/>
                     <connections>
                         <outlet property="leaderboardTable" destination="Ttp-Ij-Yus" id="9NI-bC-ZfN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hVh-Lz-SD3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1618.840579710145" y="821.65178571428567"/>
+            <point key="canvasLocation" x="1618.4000000000001" y="820.93596059113304"/>
         </scene>
         <!--Profile-->
         <scene sceneID="n3g-FS-Kjm">
@@ -524,7 +532,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ZSL-B4-64P"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="zkZ-CY-lcr"/>
+                    <tabBarItem key="tabBarItem" title="Item" image="combo_chart" id="zkZ-CY-lcr"/>
                     <connections>
                         <outlet property="LineChart" destination="da4-7m-rIc" id="6PY-UA-c4U"/>
                         <outlet property="avgScoreLabel" destination="GOf-C1-KtZ" id="cGa-1s-6CH"/>
@@ -580,7 +588,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="I0C-lz-968"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="PGP-zc-Dj0"/>
+                    <tabBarItem key="tabBarItem" title="Item" image="add_user_male" id="PGP-zc-Dj0"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CGp-2R-GnE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -639,15 +647,15 @@
                                     <action selector="backButton:" destination="298-1q-cSX" eventType="touchUpInside" id="Aa2-d2-aGc"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Auditionee's Username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="50d-QV-aI4">
-                                <rect key="frame" x="77" y="256" width="220" height="50"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Auditionee's Username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="50d-QV-aI4">
+                                <rect key="frame" x="62.666666666666657" y="257" width="249.99999999999997" height="50"/>
                                 <color key="tintColor" red="0.81671357150000001" green="0.1566714048" blue="0.20945751670000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="220" id="1fy-ev-huA"/>
+                                    <constraint firstAttribute="width" constant="250" id="1fy-ev-huA"/>
                                     <constraint firstAttribute="height" constant="50" id="vMl-6a-7fL"/>
                                 </constraints>
                                 <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                         </subviews>
@@ -677,7 +685,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LpK-eV-e62" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3215.9420289855075" y="1553.5714285714284"/>
+            <point key="canvasLocation" x="3215.1999999999998" y="1553.2019704433499"/>
         </scene>
         <!--Item-->
         <scene sceneID="3AR-R9-rqh">
@@ -824,7 +832,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Complete Audition" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AUj-qI-2jf" userLabel="label">
-                                <rect key="frame" x="29.333333333333343" y="109" width="316.66666666666663" height="48"/>
+                                <rect key="frame" x="29" y="109" width="317" height="48"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1093,12 +1101,17 @@
         </scene>
     </scenes>
     <resources>
+        <image name="add_user_male" width="30" height="30"/>
+        <image name="circled_play" width="30" height="30"/>
+        <image name="combo_chart" width="30" height="30"/>
         <image name="create_account" width="634" height="238"/>
-        <image name="logo" width="129" height="43"/>
+        <image name="globe" width="30" height="30"/>
+        <image name="logo" width="368.5" height="92.5"/>
         <image name="play_button" width="359" height="363"/>
         <image name="sign_in" width="634" height="238"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="9nN-1P-YuT"/>
+        <segue reference="QGP-ZK-AWI"/>
     </inferredMetricsTieBreakers>
+    <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
