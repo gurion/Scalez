@@ -201,21 +201,18 @@ def new_audition(username):
         auditionerlist = []
 
         for a in audee:
-            entry = {'id': a.get_ID(), 'auditioner': a.get_auditioner(),
-                'scale': a.get_scale(), 'key': a.get_key(),
-                'isComplete': a.get_complete(), 'score': a.get_score()}
+            entry = audition_JSON(aud)
 
             auditioneelist.append(entry)
 
         #get auditions where the user is the auditioner
         for a in auder:
-            entry = {'id': a.get_ID(), 'auditionee': a.get_auditionee(),
-                'scale': a.get_scale(), 'key': a.get_key(),
-                'isComplete': a.get_complete(), 'score': a.get_score() }
+            entry = audition_JSON(aud)
 
             auditionerlist.append(entry)
 
-        return jsonify({"auditions" : {'auditionee': auditioneelist, 'auditioner': auditionerlist}}), 200
+        return jsonify({"auditions" : {'auditionee': auditioneelist, 
+            'auditioner': auditionerlist}}), 200
 
 #this is to get and complete auditions
 @bp.route('/<username>/audition/<auditionID>', methods=['GET', 'PUT'])
@@ -228,7 +225,7 @@ def audition_update( username, auditionID):
         return make_error(400, 'Bad auditionID')
 
     if request.method == 'GET':
-        return jsonify({'message':'found audition'}), 200
+        return jsonify(audition_JSON(aud)), 200
 
     if request.method == 'PUT':
         
@@ -244,7 +241,7 @@ def audition_update( username, auditionID):
 
         db.session.commit()
 
-        return jsonify({'message': 'audition is complete!'}), 200
+        return jsonify(audition_JSON(aud)), 200
 
 @bp.route('test')
 def test():
@@ -260,6 +257,11 @@ def get_info(username):
 
         return jsonify({'info':user.get_info()}), 200
 
+
+'''
+want to keep all JSON processing inthe routes
+'''
+
 #get all auditions where the username is the auditioner
 #just an easy helper method that may be more conveniant to use
 def get_all_auditioner(username):
@@ -269,3 +271,9 @@ def get_all_auditioner(username):
 def get_all_auditionee(username):
     auditions = db.session.query(Audition).filter_by(auditionee=username).all()
     return auditions
+
+#get the JSON of the audition
+def audition_JSON(aud):
+    return {'id': aud.get_ID(), 'auditionee': aud.get_auditionee(),
+                'scale': aud.get_scale(), 'key': aud.get_key(),
+                'isComplete': aud.get_complete(), 'score': aud.get_score() }
