@@ -82,7 +82,9 @@ class LeaderBoardTestCase(unittest.TestCase):
 
     def test_notify(self):
         u1 = User(username='test10', lastname='last1', firstname='first1')
+        u2 = User(username='test20', lastname='last2', firstname='first2')
         db.session.add(u1)
+        db.session.add(u2)
         db.session.commit()
 
         recordings = []
@@ -107,6 +109,13 @@ class LeaderBoardTestCase(unittest.TestCase):
 
         #print out the result
         print(board.get_scores())
+
+        obsv.notify_leaderboards(u2.get_username(),"scale", "key", 3)
+        obsv.notify_leaderboards(u2.get_username(),"scale", "key", 4)
+        obsv.notify_leaderboards(u2.get_username(),"scale", "key", 100)
+
+        print(board.get_scores())
+
         self.assertTrue(True)
 
     def tearDown(self):

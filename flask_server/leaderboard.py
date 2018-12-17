@@ -22,6 +22,9 @@ class LeaderBoard:
 		self.highest = self.board[0][3]
 		self.lowest = self.board[(len(self.board))-1][3]
 
+		print("here is what is in the leaderboard right now:")
+		print(self.leaderboard)
+
 
 	#returns the names and scores in rank order  highest to lowest
 	def get_scores(self):
