@@ -250,7 +250,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recording" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k97-Ze-ksL" userLabel="label">
-                                <rect key="frame" x="100.66666666666669" y="58" width="174" height="61"/>
+                                <rect key="frame" x="100.66666666666669" y="84" width="174" height="61"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="61" id="ELG-w8-8TA"/>
                                 </constraints>
@@ -314,7 +314,7 @@
                             <constraint firstAttribute="trailing" secondItem="giv-2g-asN" secondAttribute="trailing" id="cFm-kM-sWh"/>
                             <constraint firstItem="kHm-af-Vkp" firstAttribute="centerX" secondItem="R8G-BI-ttt" secondAttribute="centerX" id="cnG-87-tH3"/>
                             <constraint firstItem="R8G-BI-ttt" firstAttribute="top" secondItem="kHm-af-Vkp" secondAttribute="bottom" constant="10" id="dwu-1h-mWj"/>
-                            <constraint firstItem="k97-Ze-ksL" firstAttribute="top" secondItem="6fz-5q-841" secondAttribute="top" constant="14" id="gWW-kO-bm4"/>
+                            <constraint firstItem="k97-Ze-ksL" firstAttribute="top" secondItem="6fz-5q-841" secondAttribute="top" constant="40" id="gWW-kO-bm4"/>
                             <constraint firstItem="giv-2g-asN" firstAttribute="centerX" secondItem="emw-Th-JsH" secondAttribute="centerX" id="kn9-22-EdB"/>
                             <constraint firstItem="emw-Th-JsH" firstAttribute="top" secondItem="giv-2g-asN" secondAttribute="bottom" constant="10" id="u0R-af-qLg"/>
                         </constraints>
@@ -330,7 +330,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="diU-fx-w20" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="602.89855072463774" y="821.65178571428567"/>
+            <point key="canvasLocation" x="602.39999999999998" y="820.93596059113304"/>
         </scene>
         <!--Leaderboard-->
         <scene sceneID="w0V-We-twa">
@@ -452,11 +452,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="da4-7m-rIc" customClass="LineChartView" customModule="Charts">
-                                <rect key="frame" x="16" y="423" width="343" height="186"/>
+                                <rect key="frame" x="16" y="314" width="343" height="295"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Personal History" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ocy-8E-VXf">
-                                <rect key="frame" x="16" y="387" width="183" height="28"/>
+                                <rect key="frame" x="16" y="278" width="183" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="R9Y-Xt-b5m"/>
                                 </constraints>
@@ -506,7 +506,6 @@
                         <constraints>
                             <constraint firstItem="ocy-8E-VXf" firstAttribute="leading" secondItem="da4-7m-rIc" secondAttribute="leading" id="4ZH-xu-p8U"/>
                             <constraint firstItem="GOf-C1-KtZ" firstAttribute="top" secondItem="tCr-NR-Lrq" secondAttribute="bottom" constant="8" symbolic="YES" id="5de-JH-JHd"/>
-                            <constraint firstItem="ocy-8E-VXf" firstAttribute="top" secondItem="f9n-mP-kk8" secondAttribute="top" constant="387" id="7Xv-tF-TN5"/>
                             <constraint firstItem="aOU-jX-yVk" firstAttribute="leading" secondItem="tCr-NR-Lrq" secondAttribute="leading" id="8p9-3u-ANQ"/>
                             <constraint firstItem="lTT-E9-6ZK" firstAttribute="top" secondItem="ZSL-B4-64P" secondAttribute="top" constant="33" id="C6O-e4-nPT"/>
                             <constraint firstItem="aOU-jX-yVk" firstAttribute="leading" secondItem="f9n-mP-kk8" secondAttribute="leadingMargin" id="I3C-rl-fMA"/>
@@ -527,6 +526,7 @@
                             <constraint firstItem="pYT-Zi-22k" firstAttribute="trailing" secondItem="da4-7m-rIc" secondAttribute="trailing" id="nEG-cs-Tk9"/>
                             <constraint firstItem="da4-7m-rIc" firstAttribute="leading" secondItem="Fli-i7-7Ry" secondAttribute="leading" id="oMz-I4-ljS"/>
                             <constraint firstItem="aOU-jX-yVk" firstAttribute="top" secondItem="lTT-E9-6ZK" secondAttribute="bottom" constant="14" id="ocW-OD-uIR"/>
+                            <constraint firstItem="ocy-8E-VXf" firstAttribute="top" secondItem="pYT-Zi-22k" secondAttribute="bottom" constant="10" id="okc-EO-1vO"/>
                             <constraint firstItem="tCr-NR-Lrq" firstAttribute="leading" secondItem="GOf-C1-KtZ" secondAttribute="leading" id="qSC-Yw-s5a"/>
                             <constraint firstItem="Fli-i7-7Ry" firstAttribute="top" secondItem="da4-7m-rIc" secondAttribute="bottom" constant="63" id="wP1-WN-ggC"/>
                         </constraints>
@@ -890,7 +890,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="recordAudio:" destination="XvQ-bK-E8X" eventType="touchUpInside" id="21p-eB-d8g"/>
+                                    <action selector="recordAudio:" destination="jXA-eM-MYE" eventType="touchUpInside" id="ekD-n9-hB2"/>
                                 </connections>
                             </button>
                         </subviews>

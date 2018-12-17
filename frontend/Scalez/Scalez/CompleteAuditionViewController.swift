@@ -181,9 +181,7 @@ class CompleteAuditionViewController: UIViewController, AVAudioRecorderDelegate 
         let parameters:[String:String] = ["file": str]
         let url:String = UserDefaults.standard.string(forKey: "userUrl")!+"/audition/\(auditionID)"
         
-        print(parameters)
-        
-        Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+        Alamofire.request(url, method: .put, parameters: parameters, encoding: JSONEncoding.default)
             .responseJSON { response in
                 print(response)
                 if let status = response.response?.statusCode {

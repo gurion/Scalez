@@ -36,14 +36,18 @@ class PendingAuditionsViewController : UIViewController, UITableViewDelegate, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.hideKeyboardWhenTappedAround() 
+        self.hideKeyboardWhenTappedAround()
+        self.pendingAuditions.delegate   = self
+        self.pendingAuditions.dataSource = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.getAuditions(completion: {
             if self.auditionee.count + self.auditioner.count > 0 {
                 self.pendingAuditions.reloadData()
             }
         })
-        self.pendingAuditions.delegate   = self
-        self.pendingAuditions.dataSource = self
     }
     
     func numberOfSections(in tableView: UITableView) -> Int{

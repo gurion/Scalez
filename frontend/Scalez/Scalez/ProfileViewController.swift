@@ -27,6 +27,11 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         let xAxis = LineChart.xAxis
         xAxis.granularity = 3600.0
+        xAxis.labelPosition = XAxis.LabelPosition.bottom
+        
+        LineChart.legend.enabled = false
+        LineChart.rightAxis.enabled = false
+        
         getUserInfo(completion: {
             self.setUserInfo()
         })
@@ -71,6 +76,12 @@ class ProfileViewController: UIViewController {
         }
         
         let set = LineChartDataSet(values: values, label: "dataset")
+        
+        set.setColor(UIColor.red)
+        set.circleRadius = 3
+        set.setCircleColor(UIColor.black)
+        set.drawFilledEnabled = false
+        
         let d = LineChartData(dataSet: set)
         
         self.LineChart.data = d
