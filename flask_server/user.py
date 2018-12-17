@@ -201,13 +201,13 @@ def new_audition(username):
         auditionerlist = []
 
         for a in audee:
-            entry = audition_JSON(aud)
+            entry = audition_JSON(a)
 
             auditioneelist.append(entry)
 
         #get auditions where the user is the auditioner
         for a in auder:
-            entry = audition_JSON(aud)
+            entry = audition_JSON(a)
 
             auditionerlist.append(entry)
 
