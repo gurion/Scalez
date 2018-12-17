@@ -93,7 +93,7 @@ def multiply_and_add_dictionaries(d1, d2):
 #check to make sure input makes sense
 def bad_input(input, sr):
     #if (type(input) != type(np.ndarray([1,2])) or type(sr) != type(2)): return True
-    if (len(input) < 100 or sr < 1): return True
+    if (len(input) < 36000 or sr < 1): return True
     return False
 
 #standard min max norm
