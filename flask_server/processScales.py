@@ -236,7 +236,7 @@ def rate_pitches(frequency_array):
             if error_distance < best_guess_err:
                 best_guess_err = error_distance
 
-        if best_guess_err < 70:
+        if best_guess_err < 200:
             total_error_distance += best_guess_err
     return total_error_distance
 
