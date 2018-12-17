@@ -74,11 +74,13 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate, UIPickerV
 
         let bounds = UIScreen.main.bounds
         
-        waveformView = SCSiriWaveformView(frame: CGRect(0, 0, bounds.width, bounds.height/4))
-        waveformView.waveColor = UIColor.magenta
+        waveformView = SCSiriWaveformView(frame: CGRect(0, 90, bounds.width, bounds.height/4))
+        waveformView.waveColor = UIColor.red
         waveformView.primaryWaveLineWidth = 3.0
         waveformView.secondaryWaveLineWidth = 1.0
+        waveformView.backgroundColor = UIColor.white
         self.view.addSubview(waveformView)
+        self.view.sendSubviewToBack(waveformView)
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -223,9 +225,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate, UIPickerV
         
         let parameters:[String:String] = ["file": str, "key" : convertIntToKey(), "scale" : getSelectedScale()]
         let url:String = UserDefaults.standard.string(forKey: "userUrl")! + "/recording"
-        
-        print(parameters)
-        
+                
         Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
             .responseJSON { response in
                 print(response)

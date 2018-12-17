@@ -131,7 +131,7 @@ class PendingAuditionsViewController : UIViewController, UITableViewDelegate, UI
                     self.auditioner = jsonResponse["auditions"]["auditionee"].arrayValue
                 default:
                     DispatchQueue.main.async {
-                    self.generalAlert()
+                        self.generalAlert()
                     }
                 }
             }

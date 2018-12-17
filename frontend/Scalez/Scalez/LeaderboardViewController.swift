@@ -84,6 +84,7 @@ class LeaderboardViewController : UIViewController, UITableViewDelegate, UITable
     func getLeaderboard(completion : @escaping ()->()) {
         let url: String = "https://testdeployment-scalez.herokuapp.com/leaderboard"
         Alamofire.request(url).responseJSON { response in
+            print(response)
             if let status = response.response?.statusCode {
                 switch(status) {
                 case 200:
