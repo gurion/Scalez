@@ -181,7 +181,6 @@ def new_audition(username):
         aud = Audition(  is_completed = False,
                         auditioner = username,
                         auditionee = auditionee.get_username(),
-                        #auditionee_id = auditioner.get_ID(),
                         score = 0,
                         scale = scale,
                         key = key
@@ -218,39 +217,6 @@ def new_audition(username):
 
         return jsonify({"auditions" : {'auditionee': auditioneelist, 'auditioner': auditionerlist}}), 200
 
-#get all the auditions for which the user is the auditionee
-#TODO: make sure to fix the response body of this becuase it needs to be finished
-# @bp.route('/<username>/audtion', methods=['GET'])
-# def get_all_auditions():
-
-#     if request.method == 'GET':
-#         user = db.session.query(User).filter_by(username=username).first()
-#         audee = user.get_auditionee()
-#         auder = user.get_all_auditions(username)
-
-#         #get auditions where the user is the auditionee
-#         auditionee = []
-#         auditioner = []
-
-#         for a in audee:
-#             entry = {'id': a.get_ID(), 'auditioner': a.get_auditioner(),
-#                 'scale': a.get_scale(), 'key': a.get_key(),
-#                 'isComplete': a.get_complete(), 'score': a.get_score() }
-
-#             auditionee.append(entry)
-
-#         #get auditions where the user is the auditioner
-#         for a in auder:
-#             entry = {'id': a.get_ID(), 'auditionee': a.get_auditionee(),
-#                 'scale': a.get_scale(), 'key': a.get_key(),
-#                 'isComplete': a.get_complete(), 'score': a.get_score() }
-
-#             auditioner.append(entry)
-
-#         return jsonify({'auditions': {'auditionee': auditionees , 
-#             'auditioner': auditioners}}), 200
-
-
 #this is to get and complete auditions
 @bp.route('/<username>/audition/<auditionID>', methods=['GET', 'PUT'])
 def audition_update( username, auditionID):
@@ -267,6 +233,7 @@ def audition_update( username, auditionID):
     if request.method == 'PUT':
         
         try:
+            audio = data['file']
             frame_count = data['frameCount']
         except KeyError:
             return make_error(400, 'no file in request body')
@@ -292,9 +259,6 @@ def get_info(username):
             return make_error(404, 'user was not found')
 
         return jsonify({'info':user.get_info()}), 200
-
-
-                
 
 #get all auditions where the username is the auditioner
 #just an easy helper method that may be more conveniant to use
