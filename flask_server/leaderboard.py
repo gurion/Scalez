@@ -16,7 +16,6 @@ class LeaderBoard:
 			self.board.append((name, scale, key, score))
 
 		self.board = sorted(self.board, key=itemgetter(3), reverse=True)
-		print(self.board)
 		if len(self.board) > self.length:
 			self.board = self.board[:(self.length)]
 

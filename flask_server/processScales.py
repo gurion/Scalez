@@ -55,7 +55,7 @@ def processScale(floating_point_time_series, sr):
     }
 
     # should be deprecated, but use for parsing of swift form
-    #floating_point_time_series = np.array(translateSwiftTrash(floating_point_time_series))
+    floating_point_time_series = np.array(translateSwiftTrash(floating_point_time_series))
 
     if bad_input(floating_point_time_series, sr): return 1
     #print(type(translateSwiftTrash('4,5,3,2,4,5,3')))

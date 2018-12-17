@@ -88,40 +88,6 @@ class Recording(db.Model):
         return str(key)
 
 class Audition(db.Model):
-    # id = db.Column(db.Integer, primary_key=True)
-    # score = db.Column(db.Float)
-    # #auditionee_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    # scale = db.Column(db.String(64), index=True, unique=False)
-    # key = db.Column(db.String(64), index=True, unique=False)
-
-    # def complete(self):
-    #     self.is_completed = True
-    #     db.session.commit()
-
-    # def score(self, score):
-    #     self.score = score
-    #     db.session.commit()
-
-    # def get_scale(self):
-    #     return self.scale
-
-    # def get_complete(self):
-    #     return self.is_completed
-
-    # def get_auditioner(self):
-    #     return self.auditioner
-
-    # def get_auditionee(self):
-    #     return self.auditionee
-
-    # def get_ID(self):
-    #     return self.id
-    
-    # def get_key(self):
-    #     return self.key
-
-    # def get_score_audition(self):
-    #     return self.score
     
     id = db.Column(db.Integer, primary_key=True)
     score = db.Column(db.Float)
