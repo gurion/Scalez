@@ -204,7 +204,7 @@ def new_audition(username):
         for a in audee:
             entry = {'id': a.get_ID(), 'auditioner': a.get_auditioner(),
                 'scale': a.get_scale(), 'key': a.get_key(),
-                'isComplete': a.get_complete(), 'score': aud.get_score()}
+                'isComplete': a.get_complete(), 'score': a.get_score()}
 
             auditioneelist.append(entry)
 
@@ -212,7 +212,7 @@ def new_audition(username):
         for a in auder:
             entry = {'id': a.get_ID(), 'auditionee': a.get_auditionee(),
                 'scale': a.get_scale(), 'key': a.get_key(),
-                'isComplete': a.get_complete(), 'score': aud.get_score() }
+                'isComplete': a.get_complete(), 'score': a.get_score() }
 
             auditionerlist.append(entry)
 
