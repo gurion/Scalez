@@ -31,7 +31,7 @@ class User(db.Model):
             high = np.amax(scores)
 
         return {"firstname": self.firstname, "lastname": self.lastname,
-            "top_score": str(round(high,2)), "average_score": str(avg)}
+            "top_score": str(round(high,2)), "average_score": str(round(avg,2))}
 
     def get_recording(self):
         recordings =  self.recordings.all()
