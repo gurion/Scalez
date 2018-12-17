@@ -143,10 +143,10 @@ class Audition(db.Model):
         return self.score
 
     def get_scale(self):
-        return str(scale)
+        return self.scale
 
     def get_key(self):
-        return str(key)
+        return self.key
 
     def get_auditioner(self):
         return self.auditioner

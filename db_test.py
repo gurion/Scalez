@@ -144,7 +144,6 @@ class AuditionTestCase(unittest.TestCase):
         aud = Audition(  is_completed = False,
                     auditioner = "test",
                     auditionee = "test",
-                    #auditionee_id = u.get_ID(),
                     score = 42.0,
                     scale = "C",
                     key ="major") 
@@ -161,16 +160,7 @@ class AuditionTestCase(unittest.TestCase):
     def test_getters(self):
         r = Recording.query.first()
         aud = Audition.query.first()
-        temp1 = aud.get_score()
-        aud.complete()
-        db.session.commit()
-        print(aud.get_complete())
-        print("score from queried audition:")
-        print(temp1)
-        print("score from recording get_score()")
-        temp = r.get_score()
-        print(temp)
-        self.assertEqual(int(aud.score), 42)
+        self.assertEqual(int(aud.get_score()), 42)
 
     def tearDown(self):
         aud = Audition.query.all()
