@@ -34,7 +34,8 @@ class CompleteAuditionViewController: UIViewController, AVAudioRecorderDelegate 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.hideKeyboardWhenTappedAround() 
+        self.hideKeyboardWhenTappedAround()
+        self.getAuditionInfo(completion: {})
         title = "Record"
         isComplete = false
         recordingSession = AVAudioSession.sharedInstance()
@@ -150,6 +151,27 @@ class CompleteAuditionViewController: UIViewController, AVAudioRecorderDelegate 
         self.okButtonAlert(title: "Something went wrong!", message: "Sorry! Please try again.")
     }
     
+    func getAuditionInfo(completion : @escaping ()->()) {
+        let url: String = UserDefaults.standard.string(forKey: "userUrl")!+"/audition/\(auditionID)"
+        Alamofire.request(url).responseJSON { response in
+            if let status = response.response?.statusCode {
+                switch(status) {
+                case 200:
+                    let jsonResponse = JSON(response.result.value!)
+                    self.auditionerUsernameLabel.text = "Auditioner:  " + jsonResponse["auditioner"].stringValue
+                    self.scaleLabel.text = "Scale: " + jsonResponse["scale"].stringValue
+                    self.keyLabel.text = "Key: " + jsonResponse["key"].stringValue
+                default:
+                    DispatchQueue.main.async {
+                        self.generalAlert()
+                    }
+                }
+            }
+            completion()
+        }
+        
+    }
+    
     func postAudioFile(completion: @escaping ()->()) {
         let audioFileData = loadAudioSignal(audioURL: self.audioFilename)
         let audioFloatArray = audioFileData.signal
@@ -179,40 +201,5 @@ class CompleteAuditionViewController: UIViewController, AVAudioRecorderDelegate 
                 completion()
         }
     }
-
-//    func postAudioFile() {
-//        let audioFileData = loadAudioSignal(audioURL: self.audioFilename)
-//        let audioFloatArray = audioFileData.signal
-//        let sampleRate = String(audioFileData.rate)
-//        let frameCount = String(audioFileData.frameCount)
-//        let strarr = audioFloatArray.map { String($0) }
-//        let str = strarr.joined(separator: ",")
-//
-//        let parameters = ["id": auditionID, "file": str, "rate": sampleRate, "frameCount": frameCount]
-//
-//        guard let url = URL(string: UserDefaults.standard.string(forKey: "userUrl")!+"/audition/\(auditionID)") else { return }
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "PUT"
-//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-//        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else { return }
-//        request.httpBody = httpBody
-//
-//        let session = URLSession.shared
-//        session.dataTask(with: request) { (data, response, error) in
-//            if let response = response {
-//                print(response)
-//            }
-//            if let data = data {
-//                do {
-//                    //let json = try JSONSerialization.jsonObject(with: data, options: [])
-//                    //try print(String(data: data, encoding: .utf8)!)
-//                    //self.score.text = String(data: data, encoding: .utf8)!
-//                    self.scoreData = String(data: data, encoding: .utf8)!
-//                } catch {
-//                    print("This is the error being printed error")
-//                }
-//            }
-//            }.resume()
-//    }
     
 }

@@ -104,9 +104,6 @@ class PendingAuditionsViewController : UIViewController, UITableViewDelegate, UI
         if (segue.identifier == "completeAudition") {
             if let completeAuditionVC = segue.destination as? CompleteAuditionViewController {
                 completeAuditionVC.auditionID = auditionee[selectedIndex]["id"].stringValue
-                completeAuditionVC.auditionerUsernameLabel.text = "Auditioner: " + auditionee[selectedIndex]["auditioner"].stringValue
-                completeAuditionVC.scaleLabel.text = "Scale: " + auditionee[selectedIndex]["scale"].stringValue
-                completeAuditionVC.keyLabel.text = "Key: " + auditionee[selectedIndex]["key"].stringValue
             }
         }
     }

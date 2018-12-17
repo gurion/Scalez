@@ -639,8 +639,8 @@
                                     <action selector="backButton:" destination="298-1q-cSX" eventType="touchUpInside" id="Aa2-d2-aGc"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Auditionee's Username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="50d-QV-aI4">
-                                <rect key="frame" x="77.666666666666686" y="257" width="220" height="50"/>
+                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Auditionee's Username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="50d-QV-aI4">
+                                <rect key="frame" x="77" y="256" width="220" height="50"/>
                                 <color key="tintColor" red="0.81671357150000001" green="0.1566714048" blue="0.20945751670000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="220" id="1fy-ev-huA"/>
@@ -760,9 +760,7 @@
                                         <connections>
                                             <outlet property="isCompleteGUI" destination="6tM-3Y-kle" id="qeV-5K-6TM"/>
                                             <outlet property="keyLabel" destination="P12-GX-Z5R" id="05k-Wj-zMZ"/>
-                                            <outlet property="otherUsernameLabel" destination="UfJ-OG-eAB" id="ZXE-9H-4oc"/>
                                             <outlet property="scaleLabel" destination="x0I-lS-w3B" id="e4d-jt-cV4"/>
-                                            <outlet property="scaleTypeLabel" destination="x0I-lS-w3B" id="MRw-6J-w7u"/>
                                             <outlet property="scoreLabel" destination="jaH-51-rLD" id="4yO-xa-qzn"/>
                                             <outlet property="usernameLabel" destination="UfJ-OG-eAB" id="0Sm-9V-kHV"/>
                                         </connections>
