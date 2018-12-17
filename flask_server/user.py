@@ -7,6 +7,7 @@ from flask import (
 )
 from flask_server import db
 from flask_server import obsv
+from flask_server import global_leaderboard
 from flask_json import FlaskJSON, JsonError, json_response, as_json
 from flask import jsonify
 from flask_server import app

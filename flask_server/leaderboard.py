@@ -40,6 +40,8 @@ class UpdateLeaderboard:
 		self.leaderboards.remove(leaderboard)
 
 	def notify_leaderboards(self, name, scale, key, score):
+		print("length of leaderboard update:")
+		print(len(self.leaderboards))
 		for board in self.leaderboards:
 			board.notify(name, scale, key, score)
 

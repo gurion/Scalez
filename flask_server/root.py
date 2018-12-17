@@ -8,6 +8,7 @@ from flask import (
 from flask_server import db
 from flask import jsonify
 from flask_server import app
+from flask_server import obsv
 #from flask_login import current_user, login_user
 from flask_server.models import *
 from flask_server import global_leaderboard
