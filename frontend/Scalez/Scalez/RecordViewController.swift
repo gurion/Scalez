@@ -126,6 +126,11 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate, UIPickerV
     func setScoreLabel() {
         if (self.scoreData != -1) {
             self.score.text = String(scoreData)
+            if (self.scoreData >= 65) {
+                self.score.textColor = UIColor(red: 0.0, green: 150.0/255.0, blue: 0.0, alpha: 1.0)
+            } else {
+                self.score.textColor = UIColor(red: 225.0/255.0, green: 0, blue: 0.0, alpha: 1.0)
+            }
         } else {
             self.score.text = "_____"
         }
