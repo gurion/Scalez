@@ -43,9 +43,9 @@ import scipy.signal
 '''
 def processScale(floating_point_time_series, sr):
     weights = {
-        'pitch' : .3,
-        'dynamics' : .3,
-        'duration' : .3
+        'pitch' : .5,
+        'dynamics' : .25,
+        'duration' : .25
     }
     
     error = {
@@ -57,7 +57,7 @@ def processScale(floating_point_time_series, sr):
     # should be deprecated, but use for parsing of swift form
     floating_point_time_series = np.array(translateSwiftTrash(floating_point_time_series))
 
-    if bad_input(floating_point_time_series, sr): return 1
+    if bad_input(floating_point_time_series, sr): return 0.0
     #print(type(translateSwiftTrash('4,5,3,2,4,5,3')))
     #print(type(np.ndarray([1,2])))
     
