@@ -148,7 +148,7 @@ class Audition(db.Model):
     def get_key(self):
         return str(key)
 
-    def get_auditoner(self):
+    def get_auditioner(self):
         return self.auditioner
 
     def get_ID(self):
