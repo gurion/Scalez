@@ -20,6 +20,7 @@ class RequestAuditionViewController : UIViewController, UIPickerViewDelegate, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround() 
         title = "Auditions"
         self.scaleSelector.delegate = self
         self.scaleSelector.dataSource = self
