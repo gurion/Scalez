@@ -1,15 +1,15 @@
 '''
 OOSE Group 21
 
-Prototype to extract meaningful information from a .wav file input assumed to be a scale.
+Extract meaningful information from a .wav file input assumed to be a scale.
 Call processScale()
 
 To-Do:
-	Better smoothing____________________ X
-	Scale formation recognition ________ X
-	Scale dynamic recognition __________ X
-	Better Normalization _______________ X
-    Resilient to test cases ____________ O
+	Better smoothing____________________ done
+	Scale formation recognition ________ done
+	Scale dynamic recognition __________ done
+	Better Normalization _______________ done
+   	Resilient to test cases ____________ done
 
 External Library Requirements (pip install _____):
 	matplotlib
