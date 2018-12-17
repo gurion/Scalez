@@ -40,6 +40,7 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate, UIPickerV
     var recording: Bool = false
     var possibleScales: [String] = [String]()
     var waveformView:SCSiriWaveformView!
+    var hasRun = false
     
     @IBOutlet var keySelector: UISegmentedControl!
     @IBOutlet var scaleSelector: UIPickerView!
@@ -163,8 +164,11 @@ class RecordViewController: UIViewController, AVAudioRecorderDelegate, UIPickerV
             self.audioRecorder.isMeteringEnabled = true
             self.audioRecorder.record()
             
-            let displayLink = CADisplayLink(target: self, selector: #selector(updateMeters))
-            displayLink.add(to: RunLoop.current, forMode: RunLoop.Mode.common)
+            if (hasRun == false) {
+                let displayLink = CADisplayLink(target: self, selector: #selector(updateMeters))
+                displayLink.add(to: RunLoop.current, forMode: RunLoop.Mode.common)
+                hasRun = true
+            }
 
         } catch {
             stopRecording(success: false)
