@@ -34,6 +34,7 @@ class CompleteAuditionViewController: UIViewController, AVAudioRecorderDelegate 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround() 
         title = "Record"
         isComplete = false
         recordingSession = AVAudioSession.sharedInstance()

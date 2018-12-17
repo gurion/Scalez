@@ -36,6 +36,7 @@ class PendingAuditionsViewController : UIViewController, UITableViewDelegate, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround() 
         self.getAuditions(completion: {
             if self.auditionee.count + self.auditioner.count > 0 {
                 self.pendingAuditions.reloadData()
