@@ -216,14 +216,7 @@ def new_audition(username):
 
             auditionerlist.append(entry)
 
-
-        print("test1")
-        print(audee)
-        print(auder)
-        print("testing!!")
-        print(auditioneelist)
-        print(auditionerlist)
-        return jsonify({'auditionee': auditioneelist}), 200
+        return jsonify({"auditions" : {'auditionee': auditioneelist, 'auditioner': auditionerlist}}), 200
 
 #get all the auditions for which the user is the auditionee
 #TODO: make sure to fix the response body of this becuase it needs to be finished
@@ -280,7 +273,7 @@ def audition_update( username, auditionID):
         
         score = float(processScale(audio,12000))
         aud.complete()
-        aud.score(score)
+        aud.set_score(score)
 
         db.session.commit()
 
