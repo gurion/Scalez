@@ -132,7 +132,7 @@ class Audition(db.Model):
     auditionee = db.Column(db.String(64), index=False, unique=False)
 
     def complete(self):
-        self.is_completed
+        self.is_completed = True
         db.session.commit()
 
     def set_score(self, score):

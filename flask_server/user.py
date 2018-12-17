@@ -236,6 +236,7 @@ def audition_update( username, auditionID):
             return make_error(400, 'no file in request body')
         
         score = float(processScale(audio,12000))
+        
         aud.complete()
         aud.set_score(score)
 
