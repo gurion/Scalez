@@ -181,7 +181,7 @@ def new_audition(username):
         aud = Audition(  is_completed = False,
                         auditioner = username,
                         auditionee = auditionee.get_username(),
-                        auditionee_id = auditioner.get_ID(),
+                        #auditionee_id = auditioner.get_ID(),
                         score = 0,
                         scale = scale,
                         key = key

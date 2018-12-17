@@ -144,7 +144,7 @@ class AuditionTestCase(unittest.TestCase):
         aud = Audition(  is_completed = False,
                     auditioner = "test",
                     auditionee = "test",
-                    auditionee_id = u.get_ID(),
+                    #auditionee_id = u.get_ID(),
                     score = 42.0,
                     scale = "C",
                     key ="major") 
@@ -152,15 +152,22 @@ class AuditionTestCase(unittest.TestCase):
         db.session.add(aud)    
         db.session.commit()
 
-        r1 = Recording(score=42, user_id=u.id)
+        print("score from audition I just made:")
+        print(aud.get_score())
+        r1 = Recording(score=24, user_id=u.id)
         db.session.add(r1)
         db.session.commit()
 
     def test_getters(self):
         r = Recording.query.first()
         aud = Audition.query.first()
-        temp1 = aud.get_score_audition()
+        temp1 = aud.get_score()
+        aud.complete()
+        db.session.commit()
+        print(aud.get_complete())
+        print("score from queried audition:")
         print(temp1)
+        print("score from recording get_score()")
         temp = r.get_score()
         print(temp)
         self.assertEqual(int(aud.score), 42)
