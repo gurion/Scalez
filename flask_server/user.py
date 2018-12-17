@@ -236,7 +236,7 @@ def audition_update( username, auditionID):
             return make_error(400, 'no file in request body')
         
         score = float(processScale(audio,12000))
-        
+
         aud.complete()
         aud.set_score(score)
 
@@ -274,7 +274,8 @@ def get_all_auditionee(username):
     return auditions
 
 #get the JSON of the audition
-def audition_JSON(aud):
+def auditione_JSON(aud):
     return {'id': aud.get_ID(), 'auditionee': aud.get_auditionee(),
                 'scale': aud.get_scale(), 'key': aud.get_key(),
+                'auditioner'. aud.get_auditioner(),
                 'isComplete': aud.get_complete(), 'score': aud.get_score() }
