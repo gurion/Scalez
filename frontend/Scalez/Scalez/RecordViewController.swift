@@ -5,6 +5,7 @@
 //  Created by Gurion on 10/15/18.
 //  Copyright © 2018 OOSE. All rights reserved.
 //
+//Live Audio viewing: code from https://github.com/stefanceriu/SCSiriWaveformView
 
 import Foundation
 import AVFoundation
