@@ -7,6 +7,7 @@
 		<li> Open the XCode project - `/frontend/Scalez/Scalez/` - in XCode and build for an iOS 12 iPhone Simulator
 		<li> Follow the on-screen instructions
 	</ol>
+	NOTE: The current build is connected to the Heroku build. If you'd like to implement your own backend, change it manually in the requests. Likewise, if you'd like to build your own frontend, you can implement our API found at `/API/Scalez.postman_collection.json`
 
 <details><summary>How to build locally</summary>
 	<ol>
@@ -15,7 +16,7 @@
 		enviornment variable to match your newly created database
 		<li> From the root folder run `python db_create.py` this will generate the tables in the database
 		<li> Set the `FLASK_APP` enviornment variable to `server.py`
-		<li> Make sure that all the requirments that are found in requirments.txt are
+		<li> Make sure that all the requirements that are found in requirments.txt are
 		installed
 		<li> Finally enter `flask run` in the command line, this should start the server
 	</ol>
