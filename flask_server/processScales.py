@@ -57,7 +57,7 @@ def processScale(floating_point_time_series, sr):
     # should be deprecated, but use for parsing of swift form
     floating_point_time_series = np.array(translateSwiftTrash(floating_point_time_series))
 
-    if bad_input(floating_point_time_series, sr): return 1
+    if bad_input(floating_point_time_series, sr): return 0
     
     # transform pipeline: compute a thresholded Constant-Q Transform
     C = threshold_Q_transform(transform(floating_point_time_series, sr, transform_type='Q'), sr)
@@ -91,7 +91,9 @@ def multiply_and_add_dictionaries(d1, d2):
 #check to make sure input makes sense
 def bad_input(input, sr):
     if (type(input) != type(np.ndarray([1,2])) or type(sr) != type(2)): return True
-    if (len(input) < 100 or sr < 1): return True
+
+    if (len(input) < 36000 or sr < 1): return True
+
     return False
 
 #standard min max norm
@@ -202,7 +204,6 @@ def scale_formation(unique_freq_differences_arr):
             formation += ['w']
         elif 0 < dif < 60:
             formation += ['h']
-
     return formation
 
 # param: int (a frequency) -> int (ideal next half-step up frequency)
@@ -223,6 +224,8 @@ def get_ideal_steps(current_note):
 def rate_pitches(frequency_array):
     # remove first and last pitch (needs to be deprecated)
     frequency_array = frequency_array[1:-1]
+    frequency_array = list(set(frequency_array))
+    frequency_array.sort()
     total_error_distance = 0
 
     for i in range(len(frequency_array) - 1):
@@ -235,7 +238,8 @@ def rate_pitches(frequency_array):
             if error_distance < best_guess_err:
                 best_guess_err = error_distance
 
-        total_error_distance += best_guess_err
+        if best_guess_err < 200:
+            total_error_distance += best_guess_err
     return total_error_distance
 
 # param: list (of amplitudes) -> int (variance in max 16 amplitudes)
@@ -261,7 +265,7 @@ def translateSwiftTrash(swift_trash):
 #group of functions to normalize scores
 def normalize_pitch_error(pitch_error):
     #a whole step is roughly 53 Hz, half a scale is 8 notes
-    upper = 53 * 8
+    upper = 53 * 2
     lower = 0
     if pitch_error > upper:
         return 1.0
@@ -281,6 +285,3 @@ def normalize_dynamics_error(dynamics_error):
     if dynamics_error > upper:
         return 1.0
     return min_max_normalization(upper, lower, dynamics_error)
-y, sr = librosa.load('/Users/jakesager/Documents/Courses/Sr Semester 1/OOSE/scales.wav', sr=None)
-y = y[:300000]
-print(processScale(y, sr))

@@ -6,39 +6,24 @@ class LeaderBoard:
 
 	def __init__(self, length):
 		self.length = length
-		self.highest = 0
-		self.lowest = 0
+		self.highest = 0.0
+		self.lowest = 0.0
 		self.board = []
 
-	def notify(self, name, score):
+	def notify(self, name, scale, key, score):
 		#update the leaderboard
-		if score >= self.lowest:
-			self.board.append((name,score))
+		self.board.append((name, scale, key, score))
 
-		self.board = sorted(self.board, key=itemgetter(1), reverse=True)
-		print(self.board)
+		self.board = sorted(self.board, key=itemgetter(3), reverse=True)
 		if len(self.board) > self.length:
 			self.board = self.board[:(self.length)]
 
-		self.highest = self.board[0][1]
-		self.lowest = self.board[(len(self.board))-1][1]
+		self.highest = self.board[0][3]
+		self.lowest = self.board[(len(self.board))-1][3]
 
-
-	def response_string(self):
-		#print out the leader board as you would in a response
-		response = "{ "
-
-		for i in range(0,len(self.board)):
-
-			if (i == (len(self.board)-1)):
-				response = (response + str(self.board[i][0]) + " : " +
-					str(self.board[i][1]) + " }") 
-
-			else:
-				response = (response + str(self.board[i][0]) + " : " +
-					str(self.board[i][1]) + ", ")  
-
-		return response
+	#returns the names and scores in rank order  highest to lowest
+	def get_scores(self):
+		return self.board
 
 #this is a little forced but I wanted to try to implement an Observer pattern
 #this may come in handy if we create more leaderboards but it might be a bit overkill
@@ -54,9 +39,12 @@ class UpdateLeaderboard:
 	def remove_leaderboard(self, leaderboard):
 		self.leaderboards.remove(leaderboard)
 
-	def notify_leaderboards(self, name, score):
+	def notify_leaderboards(self, name, scale, key, score):
+		print("length of leaderboard update:")
+		print(len(self.leaderboards))
 		for board in self.leaderboards:
-			board.notify(name, score)
+			board.notify(name, scale, key, score)
+
 
 
 
