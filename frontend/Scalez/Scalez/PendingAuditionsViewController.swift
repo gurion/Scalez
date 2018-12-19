@@ -130,7 +130,7 @@ class PendingAuditionsViewController : UIViewController, UITableViewDelegate, UI
                 case 200:
                     let jsonResponse = JSON(response.result.value!)
                     self.auditionee = jsonResponse["auditions"]["auditionee"].arrayValue
-                    self.auditioner = jsonResponse["auditions"]["auditionee"].arrayValue
+                    self.auditioner = jsonResponse["auditions"]["auditioner"].arrayValue
                 default:
                     DispatchQueue.main.async {
                         self.generalAlert()
