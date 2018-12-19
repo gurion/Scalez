@@ -22,5 +22,6 @@ An app to standardize scale practice
 		<li> Finally enter `flask run` in the command line, this should start the server
 	</ol>
 </details>
+
 ## Root Directory Files
 While there a quite a few python files in the root directory, this is so heroku can build and use them. We want to get this cleaned up, this will be fixed come iteration 6
