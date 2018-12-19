@@ -22,20 +22,20 @@ class SignupViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.hideKeyboardWhenTappedAround() 
+        self.hideKeyboardWhenTappedAround()
     }
-    
+
     @IBAction func backButton(_ sender: Any) {
          dismiss(animated: true, completion: nil)
     }
-    
+
     @IBAction func createAccountButton(_ sender: Any) {
         let f = firstnameField.text!
         let l = lastnameField.text!
         let u = usernameField.text!
         let p = passwordField.text!
         let q = checkPasswordField.text!
-        
+
 
         if (f.isEmpty || l.isEmpty || u.isEmpty || p.isEmpty || q.isEmpty) {
             return
@@ -103,9 +103,7 @@ class SignupViewController: UIViewController {
 
         Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding.default)
             .responseJSON { response in
-                print(response)
                 if let status = response.response?.statusCode {
-                    print(status)
                     switch(status) {
                     case 201:
                         self.setUserDefaults(u: u)
