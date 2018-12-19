@@ -1,4 +1,5 @@
 # Scalez
+An app to standardize scale practice
 
 ## Build Instructions
 <details><summary>Current Build</summary>
@@ -7,7 +8,7 @@
 		<li> Open the XCode project - `/frontend/Scalez/Scalez/` - in XCode and build for an iOS 12 iPhone Simulator
 		<li> Follow the on-screen instructions
 	</ol>
-	NOTE: The current build is connected to the Heroku build. If you'd like to implement your own backend, change it manually in the requests. Likewise, if you'd like to build your own frontend, you can implement our API found at `/API/Scalez.postman_collection.json`
+	 __NOTE:__ This build is connected to our Heroku deployment. If you'd like to implement your own backend, change the host used by the login and create account pages. Likewise, if you'd like to build your own frontend, you can use our API found at `/API/Scalez.postman_collection.json`, and host <a href="https://testdeployment-scalez.herokuapp.com">here</a>
 
 <details><summary>How to build locally</summary>
 	<ol>
@@ -22,16 +23,4 @@
 	</ol>
 
 ## Root Directory Files
-While there a quite a few python files inthe root directory, this is so heroku can build
-and use them.
-
-We wanted to get this cleaned up, this will be fixed come iteration 6
-
-
-
-NOTE: AS OF NOW THE FRONT END IS CONNECTED TO THE HEROKU BUILD. YOU WOULD
-	HAVE TO GO IN MANUALLY AND CHANGE THE HOST IN SWIFT IF YOU SET UP
-	YOUR OWN BACKEDN
-
-
-#to try on deployed app
+While there a quite a few python files in the root directory, this is so heroku can build and use them. We want to get this cleaned up, this will be fixed come iteration 6
