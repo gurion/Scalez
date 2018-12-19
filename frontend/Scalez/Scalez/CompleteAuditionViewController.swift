@@ -75,7 +75,6 @@ class CompleteAuditionViewController: UIViewController, AVAudioRecorderDelegate 
         }
     }
     
-    
     func startRecording() {
         self.recording = true
         self.scoreData = ""
@@ -120,10 +119,7 @@ class CompleteAuditionViewController: UIViewController, AVAudioRecorderDelegate 
             })
         } else {
             setRecordButtonImage()
-            // recording failed :(
         }
-        
-        //print(loadAudioSignal(audioURL: self.audioFilename))
     }
     
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
@@ -136,7 +132,7 @@ class CompleteAuditionViewController: UIViewController, AVAudioRecorderDelegate 
         let file = try! AVAudioFile(forReading: audioURL)
         let format = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: file.fileFormat.sampleRate, channels: file.fileFormat.channelCount, interleaved: false)
         let buf = AVAudioPCMBuffer(pcmFormat: format!, frameCapacity: UInt32(file.length))
-        try! file.read(into: buf!) // You probably want better error handling
+        try! file.read(into: buf!)
         let floatArray = Array(UnsafeBufferPointer(start: buf!.floatChannelData![0], count:Int(buf!.frameLength)))
         return (signal: floatArray, rate: file.fileFormat.sampleRate, frameCount: Int(file.length))
     }
