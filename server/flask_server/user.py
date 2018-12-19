@@ -154,8 +154,6 @@ def get_leaderboard(username):
         if user is None:
             return make_error(404, 'user not found')
 
-        # TODO : fix the user.get_recording to have the right format
-        return jsonify({'leaderboard': user.get_recording()}), 200
 
 # new audition
 
@@ -164,7 +162,7 @@ def get_leaderboard(username):
         history = []
 
         for index in range(len(recordings)):
-            entry = {'timestamp' : recordings[index][0], 
+            entry = {'timestamp' : recordings[index][0],
                 'score': recordings[index][1] }
 
             history.append(entry)
@@ -202,7 +200,7 @@ def new_audition(username):
                         scale = scale,
                         key = key
                      )
-        
+
         db.session.add(aud)
         db.session.commit()
 
@@ -233,7 +231,7 @@ def new_audition(username):
 
             auditionerlist.append(entry)
 
-        return jsonify({"auditions" : {'auditionee': auditioneelist, 
+        return jsonify({"auditions" : {'auditionee': auditioneelist,
             'auditioner': auditionerlist}}), 200
 
 # this is to get and complete auditions
@@ -257,7 +255,7 @@ def audition_update(username, auditionID):
             audio = data['file']
         except KeyError:
             return make_error(400, 'no file in request body')
-        
+
         score = float(processScale(audio,12000))
 
         aud.complete()
@@ -303,4 +301,3 @@ def audition_JSON(aud):
                 'scale': aud.get_scale(), 'key': aud.get_key(),
                 'auditioner': aud.get_auditioner(),
                 'isComplete': aud.get_complete(), 'score': aud.get_score() }
-
