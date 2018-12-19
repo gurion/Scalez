@@ -1,0 +1,34 @@
+{
+	"leaderboard" : [
+		{
+			"username" : "username1",
+			"scale" : "c",
+			"key" : "major",
+			"score" : "99"
+		},
+		{
+			"username" : "username2",
+			"scale" : "e",
+			"key" : "major",
+			"score" : "96"
+		},
+		{
+			"username" : "username1",
+			"scale" : "g",
+			"key" : "major",
+			"score" : "95"
+		},
+		{
+			"username" : "username3",
+			"scale" : "c",
+			"key" : "major",
+			"score" : "70"
+		},
+		{
+			"username" : "username2",
+			"scale" : "c",
+			"key" : "major",
+			"score" : "60"
+		}
+	]
+}

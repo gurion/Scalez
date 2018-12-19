@@ -6,6 +6,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from flask_login import UserMixin
 import numpy as np
 
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
@@ -14,7 +15,6 @@ class User(db.Model):
     password_hash = db.Column(db.String(128))
     recordings = db.relationship('Recording', backref='author', lazy='dynamic')
     #auditionee = db.relationship('Audition', backref='auditionee', lazy='dynamic')
-
 
     def get_info(self):
         recordings = self.recordings.all()
@@ -30,11 +30,13 @@ class User(db.Model):
             avg = np.mean(scores)
             high = np.amax(scores)
 
+
         return {"firstname": self.firstname, "lastname": self.lastname,
             "top_score": str(round(high,2)), "average_score": str(round(avg,2))}
 
+
     def get_recording(self):
-        recordings =  self.recordings.all()
+        recordings = self.recordings.all()
         data = []
 
         for r in recordings:
@@ -48,9 +50,9 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
-    
+
     def set_password(self, password):
-        self.password_hash=generate_password_hash(password)
+        self.password_hash = generate_password_hash(password)
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
@@ -61,9 +63,11 @@ class User(db.Model):
     def get_username(self):
         return self.username
 
-#the Recording is able to update the leaderboard
-#this is following the Observer design pattern
-#this is a little forced but I wanted to practice this
+# the Recording is able to update the leaderboard
+# this is following the Observer design pattern
+# this is a little forced but I wanted to practice this
+
+
 class Recording(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     score = db.Column(db.Float)
@@ -76,6 +80,7 @@ class Recording(db.Model):
         return self.score
 
     def __repr__(self):
+
         return '<recording {}>'.format(self.score)
     
     def info(self):
@@ -86,6 +91,7 @@ class Recording(db.Model):
 
     def get_key(self):
         return str(key)
+
 
 class Audition(db.Model):
     
@@ -125,7 +131,4 @@ class Audition(db.Model):
 
     def get_complete(self):
         return self.is_completed
-
-
-
-
+    

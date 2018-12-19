@@ -14,16 +14,21 @@ import Alamofire
 class RequestAuditionViewController : UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     @IBOutlet var auditioneeNameField: UITextField!
-    @IBOutlet var majorMinorSelector: UISegmentedControl!
+    @IBOutlet var keySelector: UISegmentedControl!
     @IBOutlet var scaleSelector: UIPickerView!
     var possibleScales: [String] = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround() 
         title = "Auditions"
         self.scaleSelector.delegate = self
         self.scaleSelector.dataSource = self
         self.possibleScales = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+    }
+    
+    @IBAction func backButton(_ sender: Any) {
+         dismiss(animated: true, completion: nil)
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -66,7 +71,7 @@ class RequestAuditionViewController : UIViewController, UIPickerViewDelegate, UI
     }
     
     func auditionSentAlert() {
-        self.okButtonAlert(title: "Audition request for a \(getSelectedScale()) \(convertIntToMajorMinor()) scale sent to \(getAuditioneeUsername())!", message: "")
+        self.okButtonAlert(title: "Audition request for a \(getSelectedScale()) \(convertIntToKey()) scale sent to \(getAuditioneeUsername())!", message: "")
     }
     
     func noAuditioneeAlert() {
@@ -81,8 +86,8 @@ class RequestAuditionViewController : UIViewController, UIPickerViewDelegate, UI
         return self.auditioneeNameField.text as! String
     }
     
-    func convertIntToMajorMinor() -> String {
-        let value = self.majorMinorSelector.selectedSegmentIndex
+    func convertIntToKey() -> String {
+        let value = self.keySelector.selectedSegmentIndex
         if (value == 0) {
             return "major"
         } else {
@@ -96,7 +101,7 @@ class RequestAuditionViewController : UIViewController, UIPickerViewDelegate, UI
     
     func postNewAudition() {
         let url: String = UserDefaults.standard.string(forKey: "userUrl")!+"/audition"
-        let params:[String:String] = ["auditionee" : getAuditioneeUsername(), "scale" : getSelectedScale(),"majorminor" : self.convertIntToMajorMinor()]
+        let params:[String:String] = ["auditionee" : getAuditioneeUsername(), "scale" : getSelectedScale(),"key" : self.convertIntToKey()]
         
         print(params)
         
@@ -106,7 +111,7 @@ class RequestAuditionViewController : UIViewController, UIPickerViewDelegate, UI
                 if let status = response.response?.statusCode {
                     print(status)
                     switch(status) {
-                    case 200:
+                    case 201:
                         DispatchQueue.main.async {
                             self.auditionSentAlert()
                         }

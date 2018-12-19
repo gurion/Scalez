@@ -9,6 +9,8 @@
 import Foundation
 import AVFoundation
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class CompleteAuditionViewController: UIViewController, AVAudioRecorderDelegate {
     
@@ -18,13 +20,24 @@ class CompleteAuditionViewController: UIViewController, AVAudioRecorderDelegate 
     var scoreData: String = ""
     var recording: Bool = false
     var auditionID: String = ""
+    var isComplete: Bool = false
     
+    @IBOutlet var auditionerUsernameLabel: UILabel!
+    @IBOutlet var scaleLabel: UILabel!
+    @IBOutlet var keyLabel: UILabel!
     @IBOutlet var recordButton: UIButton!
     @IBOutlet var score: UITextField!
     
+    @IBAction func backButton(_ sender: Any) {
+         dismiss(animated: true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
+        self.getAuditionInfo(completion: {})
         title = "Record"
+        isComplete = false
         recordingSession = AVAudioSession.sharedInstance()
         
         do {
@@ -48,7 +61,7 @@ class CompleteAuditionViewController: UIViewController, AVAudioRecorderDelegate 
     
     func setScoreLabel() {
         if (self.scoreData != "") {
-            self.score.text = scoreData
+            self.score.text = "Score: " + scoreData
         } else {
             self.score.text = "_____"
         }
@@ -97,9 +110,14 @@ class CompleteAuditionViewController: UIViewController, AVAudioRecorderDelegate 
         
         if success {
             setRecordButtonImage()
-            postAudioFile()
-            sleep(2)
-            setScoreLabel()
+            postAudioFile(completion: {
+                self.setScoreLabel()
+                if (self.isComplete) {
+                    DispatchQueue.main.async {
+                        self.okButtonAlert(title: "You completed this audition with a score of: \(self.scoreData)!", message: "Nicely Done!")
+                    }
+                }
+            })
         } else {
             setRecordButtonImage()
             // recording failed :(
@@ -123,41 +141,63 @@ class CompleteAuditionViewController: UIViewController, AVAudioRecorderDelegate 
         return (signal: floatArray, rate: file.fileFormat.sampleRate, frameCount: Int(file.length))
     }
     
-    //posting something to a server
-    //this code came from https://github.com/Kilo-Loco
-    func postAudioFile() {
+    func okButtonAlert(title : String, message : String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
+    func generalAlert() {
+        self.okButtonAlert(title: "Something went wrong!", message: "Sorry! Please try again.")
+    }
+    
+    func getAuditionInfo(completion : @escaping ()->()) {
+        let url: String = UserDefaults.standard.string(forKey: "userUrl")!+"/audition/\(auditionID)"
+        Alamofire.request(url).responseJSON { response in
+            if let status = response.response?.statusCode {
+                switch(status) {
+                case 200:
+                    let jsonResponse = JSON(response.result.value!)
+                    self.auditionerUsernameLabel.text = "Auditioner:  " + jsonResponse["auditioner"].stringValue
+                    self.scaleLabel.text = "Scale: " + jsonResponse["scale"].stringValue
+                    self.keyLabel.text = "Key: " + jsonResponse["key"].stringValue
+                default:
+                    DispatchQueue.main.async {
+                        self.generalAlert()
+                    }
+                }
+            }
+            completion()
+        }
+        
+    }
+    
+    func postAudioFile(completion: @escaping ()->()) {
         let audioFileData = loadAudioSignal(audioURL: self.audioFilename)
         let audioFloatArray = audioFileData.signal
-        let sampleRate = String(audioFileData.rate)
-        let frameCount = String(audioFileData.frameCount)
         let strarr = audioFloatArray.map { String($0) }
         let str = strarr.joined(separator: ",")
         
-        let parameters = ["id": auditionID, "file": str, "rate": sampleRate, "frameCount": frameCount]
+        let parameters:[String:String] = ["file": str]
+        let url:String = UserDefaults.standard.string(forKey: "userUrl")!+"/audition/\(auditionID)"
         
-        guard let url = URL(string: UserDefaults.standard.string(forKey: "userUrl")!+"/audition/\(auditionID)") else { return }
-        var request = URLRequest(url: url)
-        request.httpMethod = "PUT"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else { return }
-        request.httpBody = httpBody
-        
-        let session = URLSession.shared
-        session.dataTask(with: request) { (data, response, error) in
-            if let response = response {
+        Alamofire.request(url, method: .put, parameters: parameters, encoding: JSONEncoding.default)
+            .responseJSON { response in
                 print(response)
-            }
-            if let data = data {
-                do {
-                    //let json = try JSONSerialization.jsonObject(with: data, options: [])
-                    //try print(String(data: data, encoding: .utf8)!)
-                    //self.score.text = String(data: data, encoding: .utf8)!
-                    self.scoreData = String(data: data, encoding: .utf8)!
-                } catch {
-                    print("This is the error being printed error")
+                if let status = response.response?.statusCode {
+                    switch(status) {
+                    case 200:
+                        let json = JSON(response.result.value!)
+                        self.scoreData = json["score"].stringValue
+                        self.isComplete = true
+                    default:
+                        DispatchQueue.main.async {
+                            self.generalAlert()
+                        }
+                    }
                 }
-            }
-            }.resume()
+                completion()
+        }
     }
     
 }

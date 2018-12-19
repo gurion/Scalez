@@ -11,7 +11,7 @@ from flask_server import global_leaderboard
 from flask_json import FlaskJSON, JsonError, json_response, as_json
 from flask import jsonify
 from flask_server import app
-#from flask_login import current_user, login_user
+# from flask_login import current_user, login_user
 from flask_server.models import *
 from flask_server.processScales import processScale
 from werkzeug.urls import url_parse

@@ -15,42 +15,101 @@ class PendingAuditionsViewController : UIViewController, UITableViewDelegate, UI
     
     @IBOutlet var pendingAuditions: UITableView!
     @IBOutlet var back: UIButton!
-
-    var auditions = [[String : Any]]()
-    var auditionID: String = ""
+    
+    @IBAction func reloadButton(_ sender: Any) {
+        self.getAuditions(completion: {
+            if self.auditionee.count + self.auditioner.count > 0 {
+                self.pendingAuditions.reloadData()
+            }
+        })
+    }
+    
+    @IBAction func backButton(_ sender: Any) {
+         dismiss(animated: true, completion: nil)
+    }
+    
+    let sections = ["auditionee", "auditioner"]
+    var auditionee = [JSON]()
+    var auditioner = [JSON]()
+    let cellReuseIdentifier = "Cell"
+    var selectedIndex = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
         self.pendingAuditions.delegate   = self
         self.pendingAuditions.dataSource = self
-        self.getAuditions()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.getAuditions(completion: {
+            if self.auditionee.count + self.auditioner.count > 0 {
+                self.pendingAuditions.reloadData()
+            }
+        })
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int{
+        return sections.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sections[section] as? String
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return auditions.count
+        if (section == 0) {
+            return auditionee.count
+        } else if (section == 1) {
+            return auditioner.count
+        } else {
+            return 0
+        }
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell : UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "jsonCell")!
-        var dict = auditions[indexPath.row]
-        cell.textLabel?.text = dict["auditioner"] as? String
-        cell.detailTextLabel?.text = dict["id"] as? String
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            
+        let cell:AuditionTableCell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as! AuditionTableCell
+        
+        if indexPath.section == 0 {
+            let audition = auditionee[indexPath.row]
+            cell.usernameLabel.text = "Auditioner: " + audition["auditioner"].stringValue
+            cell.scaleLabel.text = "Scale: " + audition["scale"].stringValue
+            cell.keyLabel.text = "Key: " + audition["key"].stringValue
+            cell.scoreLabel.text = "Score: " + audition["score"].stringValue
+            cell.isComplete = audition["isComplete"].boolValue
+            cell.audtionID = audition["id"].stringValue
+        } else if indexPath.section == 1 {
+            let audition = auditioner[indexPath.row]
+            cell.usernameLabel.text = "Auditionee: " + audition["auditionee"].stringValue
+            cell.scaleLabel.text = "Scale: " + audition["scale"].stringValue
+            cell.keyLabel.text = "Key: " + audition["key"].stringValue
+            cell.scoreLabel.text = "Score: " + audition["score"].stringValue
+            cell.isComplete = audition["isComplete"].boolValue
+            cell.audtionID = audition["id"].stringValue
+        }
+        
         return cell
     }
     
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath) as! UITableViewCell
-        auditionID = cell.detailTextLabel!.text!
-        self.performSegue(withIdentifier: "completeAudition", sender: self)
+
+        if indexPath.section == 0 {
+            selectedIndex = indexPath.row
+            performSegue(withIdentifier: "completeAudition", sender: self)
+        } else if indexPath.section == 1 {
+            return
+        }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let completeAuditionVC = segue.destination as! CompleteAuditionViewController
-        completeAuditionVC.auditionID = self.auditionID
-    }
-    
-    @IBAction func reloadButton(_ sender: Any) {
-        self.getAuditions()
+        if (segue.identifier == "completeAudition") {
+            if let completeAuditionVC = segue.destination as? CompleteAuditionViewController {
+                completeAuditionVC.auditionID = auditionee[selectedIndex]["id"].stringValue
+            }
+        }
     }
     
     func okButtonAlert(title : String, message : String) {
@@ -63,23 +122,22 @@ class PendingAuditionsViewController : UIViewController, UITableViewDelegate, UI
         self.okButtonAlert(title: "Something went wrong!", message: "Sorry! Please try again.")
     }
     
-    func getAuditions() {
+    func getAuditions(completion : @escaping ()->()) {
         let url: String = UserDefaults.standard.string(forKey: "userUrl")!+"/audition"
-        Alamofire.request(url).responseJSON { (responseData) -> Void in
-            if((responseData.result.value) != nil) {
-                let swiftyJsonVar = JSON(responseData.result.value!)
-                
-                if let resData = swiftyJsonVar["auditions"].arrayObject {
-                    self.auditions = resData as! [[String:AnyObject]]
-                }
-                if self.auditions.count > 0 {
-                    self.pendingAuditions.reloadData()
-                }
-            } else {
-                DispatchQueue.main.async {
-                    self.generalAlert()
+        Alamofire.request(url).responseJSON { response in
+            if let status = response.response?.statusCode {
+                switch(status) {
+                case 200:
+                    let jsonResponse = JSON(response.result.value!)
+                    self.auditionee = jsonResponse["auditions"]["auditionee"].arrayValue
+                    self.auditioner = jsonResponse["auditions"]["auditionee"].arrayValue
+                default:
+                    DispatchQueue.main.async {
+                        self.generalAlert()
+                    }
                 }
             }
+            completion()
         }
         
     }

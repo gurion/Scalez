@@ -26,6 +26,7 @@ class LoginViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround() 
         loginButton.setImage(UIImage(named: "sign_in"), for: .normal)
         UserDefaults.standard.set(false, forKey: "isLoggedIn")
     }
@@ -35,6 +36,7 @@ class LoginViewController : UIViewController {
         let p = passwordField.text!
         
         if (u.isEmpty || p.isEmpty) {
+            self.okButtonAlert(title: "Please enter username and password", message: "")
             return
         }
         self.handleLogIn(u:u, p:p)
@@ -42,12 +44,22 @@ class LoginViewController : UIViewController {
     
     func handleLogIn(u : String, p : String) {
         self.username = u
-        self.password = self.passwordHash(u : u, p : p)
-        logInToServer(u : self.username, p : self.password)
+        self.password = p
+        logInToServer(u : self.username, p : self.password, completion: {
+            if (UserDefaults.standard.bool(forKey: "isLoggedIn")) {
+                self.performSegue(withIdentifier: "loginSegue", sender: self)
+            }
+        })
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+
         if (UserDefaults.standard.bool(forKey: "isLoggedIn")) {
-            let next = self.storyboard?.instantiateViewController(withIdentifier: "RecordVC") as! RecordViewController
-            present(next, animated: true, completion: nil)
+            return true
+        } else if (identifier == "createAccountSegue") {
+            self.performSegue(withIdentifier: "createAccountSegue", sender: self)
         }
+        return false
     }
     
     func passwordHash(u : String, p : String) -> String {
@@ -75,7 +87,7 @@ class LoginViewController : UIViewController {
         self.okButtonAlert(title: "Something went wrong!", message: "Sorry! Please try again.")
     }
     
-    func logInToServer(u: String, p: String) {
+    func logInToServer(u: String, p: String, completion : @escaping ()->()) {
         let url: String = "https://testdeployment-scalez.herokuapp.com/user/login"
         let params:[String:String] = ["username" : u,
                                       "password" : passwordHash(u: u, p: p)]
@@ -85,9 +97,8 @@ class LoginViewController : UIViewController {
             .responseJSON { response in
                 print(response)
                 if let status = response.response?.statusCode {
-                    print(status)
                     switch(status) {
-                    case 200:
+                    case 201:
                         self.setUserDefaults()
                     case 404:
                         DispatchQueue.main.async {
@@ -99,6 +110,7 @@ class LoginViewController : UIViewController {
                         }
                     }
                 }
+                completion()
         }
         
     }

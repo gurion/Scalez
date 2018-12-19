@@ -16,8 +16,17 @@ class AuditionMenuViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround() 
         title = "Auditions"
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    override func awakeFromNib() {
+        self.tabBarItem.title = "Auditions"
+    }
+    
+    @IBAction func unwindToContainerVC(segue: UIStoryboardSegue) {
+        self.performSegue(withIdentifier: "AuditionMenuViewController", sender: self)
     }
     
 }
