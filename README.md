@@ -9,7 +9,7 @@ An app to standardize scale practice
 		<li> Follow the on-screen instructions
 	</ol>
 	 __NOTE:__ This build is connected to our Heroku deployment. If you'd like to implement your own backend, change the host used by the login and create account pages. Likewise, if you'd like to build your own frontend, you can use our API found at `/API/Scalez.postman_collection.json`, and host <a href="https://testdeployment-scalez.herokuapp.com">here</a>
-<p>
+</details>
 <details><summary>How to build locally</summary>
 	<ol>
 		<li> Set up a database of SQLite or Postgres
@@ -21,6 +21,6 @@ An app to standardize scale practice
 		installed
 		<li> Finally enter `flask run` in the command line, this should start the server
 	</ol>
-<p>
+</details>
 ## Root Directory Files
 While there a quite a few python files in the root directory, this is so heroku can build and use them. We want to get this cleaned up, this will be fixed come iteration 6
