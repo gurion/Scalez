@@ -7,3 +7,14 @@
 //
 
 import Foundation
+import UIKit
+
+class LeaderboardViewController: UIViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        title = "Leaderboard"
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+}
