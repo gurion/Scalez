@@ -9,10 +9,9 @@ postgres:
 before_script:
   - psql -c 'create database myapp_test;' -U postgres
   - export DATABASE_URL=postgresql://postgres:@localhost:5432/myapp_test
-  - python db_create.py
+  - python server/db_create.py
 services:
   - postgresql
 script:
-  - export FLASK_APP=server.py
-  - flask run  & sleep 10 && newman run 'misc/Scalez.postman_collection.json' --environment 'misc/Development.postman_environment.json'
-
+  - export FLASK_APP=server/server.py
+  - flask run  & sleep 10 && newman run 'API/Scalez.postman_collection.json' --environment 'API/Development.postman_environment.json'
