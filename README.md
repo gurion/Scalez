@@ -38,7 +38,7 @@ What we would do with more time (see `enhancement` issue tag for more details)
 
 
 ## Build Instructions ##
-<details><summary>Current Build</summary>
+<details><summary><b>Current Build</b></summary>
 	<ol>
 		<li> Clone the project
 		<li> Open the XCode project - `/frontend/Scalez/Scalez/` - in XCode and build for an iOS 12 iPhone Simulator
@@ -48,7 +48,7 @@ What we would do with more time (see `enhancement` issue tag for more details)
 	</div>
 </details>
 <br>
-<details><summary>How to build locally</summary>
+<details><summary><b>How to build locally</b></summary>
 	<ol>
 		<li> Set up a database of SQLite or Postgres
 		<li> With the Database set up, go into command line and set the `DATABASE_URL`
