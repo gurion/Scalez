@@ -179,7 +179,6 @@ class CompleteAuditionViewController: UIViewController, AVAudioRecorderDelegate 
         
         Alamofire.request(url, method: .put, parameters: parameters, encoding: JSONEncoding.default)
             .responseJSON { response in
-                print(response)
                 if let status = response.response?.statusCode {
                     switch(status) {
                     case 200:
