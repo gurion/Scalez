@@ -7,6 +7,7 @@ from flask import (
 )
 from flask_server import db
 from flask_server import obsv
+from flask_server import global_leaderboard
 from flask_json import FlaskJSON, JsonError, json_response, as_json
 from flask import jsonify
 from flask_server import app
@@ -69,6 +70,8 @@ def sendScore(username):
 
         try:
             audio = data['file']
+            scale = data['scale']
+            key = data['key']
         except KeyError:
             return make_error(400, 'Bad Request')
 
@@ -79,13 +82,14 @@ def sendScore(username):
             return make_error(404, 'user not found')
 
         # score recording
-        score = processScale(audio, 12000)
+        score = float(processScale(audio,12000))
 
-        record = Recording(score=score, user_id=user.get_ID())
+        record = Recording(score=score, user_id=user.get_ID(), scale=scale,
+            key=key)
         db.session.add(record)
         db.session.commit()
 
-        obsv.notify_leaderboards(user.get_username(), score)
+        obsv.notify_leaderboards(user.get_username(),scale, key, score)
 
         return jsonify({'score': score, 'message': 'new recording has been created'}), 201
 
@@ -103,15 +107,10 @@ def del_user(username):
             return response
 
         recordings = user.recordings.all()
-        auditions = user.auditions.all()
 
         # delete recordings here
         for r in recordings:
             db.session.delete(r)
-
-        # delet auditions here
-        for a in aditions:
-            db.session.delete(a)
 
         db.session.delete(user)
         db.session.commit()
@@ -130,8 +129,7 @@ def change_name(username):
         # search of user in database
         user = db.session.query(User).filter_by(username=username).first()
         if user is None:
-            return make_error(404, 'user not found')
-
+            return make_kierror(404,'user not found')
         try:
             user.change_username(user.data['username'])
         except KeyError:
@@ -161,8 +159,21 @@ def get_leaderboard(username):
 
 # new audition
 
+        #TODO : fix the user.get_recording to have the right format
+        recordings = user.get_recording()
+        history = []
 
-@bp.route('/<username>/audition', methods=['POST'])
+        for index in range(len(recordings)):
+            entry = {'timestamp' : recordings[index][0], 
+                'score': recordings[index][1] }
+
+            history.append(entry)
+
+        return jsonify({'history': history}), 200
+
+#new audition
+@bp.route('/<username>/audition', methods=['POST', 'GET'])
+
 def new_audition(username):
 
     if request.method == 'POST':
@@ -171,6 +182,7 @@ def new_audition(username):
         try:
             auditionee = data['auditionee']
             scale = data['scale']
+            key = data['key']
         except KeyError:
             return make_error(400, 'bad json')
 
@@ -182,16 +194,15 @@ def new_audition(username):
 
         if auditionee is None:
             return make_error(404, 'auditionee not found')
-
-        # create the audition object
-        aud = Audition(is_completed=False,
-                       auditioner=username,
-                       auditionee=auditionee.get_username(),
-                       auditionee_id=auditioner.get_ID(),
-                       score=0,
-                       scale=scale
-                       )
-
+        #create the audition object
+        aud = Audition(  is_completed = False,
+                        auditioner = username,
+                        auditionee = auditionee.get_username(),
+                        score = 0,
+                        scale = scale,
+                        key = key
+                     )
+        
         db.session.add(aud)
         db.session.commit()
 
@@ -201,11 +212,29 @@ def new_audition(username):
 # TODO: make sure to fix the response body of this becuase it needs to be finished
 
 
-@bp.route('/<username>/audtion', methods=['GET'])
-def get_all_auditions():
-    # assume there is a good user
-    return jsonify({'message': 'reminder to finish this method'}), 400
 
+    if request.method == 'GET':
+        user = db.session.query(User).filter_by(username=username).first()
+        audee = get_all_auditionee(username)
+        auder = get_all_auditioner(username)
+
+        #get auditions where the user is the auditionee
+        auditioneelist = []
+        auditionerlist = []
+
+        for a in audee:
+            entry = audition_JSON(a)
+
+            auditioneelist.append(entry)
+
+        #get auditions where the user is the auditioner
+        for a in auder:
+            entry = audition_JSON(a)
+
+            auditionerlist.append(entry)
+
+        return jsonify({"auditions" : {'auditionee': auditioneelist, 
+            'auditioner': auditionerlist}}), 200
 
 # this is to get and complete auditions
 @bp.route('/<username>/audition/<auditionID>', methods=['GET', 'PUT'])
@@ -218,24 +247,25 @@ def audition_update(username, auditionID):
         return make_error(400, 'Bad auditionID')
 
     if request.method == 'GET':
-        return jsonify({'message': 'found audition'}), 200
+
+        return jsonify(audition_JSON(aud)), 200
+
 
     if request.method == 'PUT':
 
         try:
             audio = data['file']
-            rate = data['rate']
-            frame_count = data['frameCount']
         except KeyError:
             return make_error(400, 'no file in request body')
+        
+        score = float(processScale(audio,12000))
 
-        score = processScales(audio, 12000)
         aud.complete()
-        aud.score(score)
+        aud.set_score(score)
 
         db.session.commit()
 
-        return jsonify({'message': 'audition is complete!'}), 200
+        return jsonify(audition_JSON(aud)), 200
 
 
 @bp.route('test')
@@ -253,9 +283,24 @@ def get_info(username):
 
         return jsonify({'info': user.get_info()}), 200
 
+'''
+want to keep all JSON processing inthe routes
+'''
 
-# get all auditions where the username is the auditioner
-# just an easy helper method that may be more conveniant to use
-def get_auditioner_auditions(username):
+#get all auditions where the username is the auditioner
+#just an easy helper method that may be more conveniant to use
+def get_all_auditioner(username):
     auditions = db.session.query(Audition).filter_by(auditioner=username).all()
     return auditions
+
+def get_all_auditionee(username):
+    auditions = db.session.query(Audition).filter_by(auditionee=username).all()
+    return auditions
+
+#get the JSON of the audition
+def audition_JSON(aud):
+    return {'id': aud.get_ID(), 'auditionee': aud.get_auditionee(),
+                'scale': aud.get_scale(), 'key': aud.get_key(),
+                'auditioner': aud.get_auditioner(),
+                'isComplete': aud.get_complete(), 'score': aud.get_score() }
+

@@ -8,6 +8,7 @@ from flask import (
 from flask_server import db
 from flask import jsonify
 from flask_server import app
+from flask_server import obsv
 #from flask_login import current_user, login_user
 from flask_server.models import *
 from flask_server import global_leaderboard
@@ -22,5 +23,17 @@ def test():
 @bp.route('/leaderboard', methods=['GET'])
 def get_leaderboard():
 	if request.method == 'GET':
-		return jsonify({'leaderboard': global_leaderboard.response_string()}), 200
+
+		scores = global_leaderboard.get_scores()
+		history = []
+
+		print("here are the scores being processed:")
+		print(scores)
+
+		for index in range(0,len(scores)):
+			entry = {'username' : scores[index][0], 'scale': scores[index][1], 
+					'key': scores[index][2], 'score': scores[index][3] }
+			history.append(entry)
+
+		return jsonify({'leaderboard': history}), 200
 

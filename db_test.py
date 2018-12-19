@@ -82,23 +82,14 @@ class LeaderBoardTestCase(unittest.TestCase):
 
     def test_notify(self):
         u1 = User(username='test10', lastname='last1', firstname='first1')
+        u2 = User(username='test20', lastname='last2', firstname='first2')
         db.session.add(u1)
+        db.session.add(u2)
         db.session.commit()
 
         recordings = []
-        #create an instance of the board of length 6
-        board = LeaderBoard(3)
-        ##generate some recordings
-
-        '''
-        for i in range(0,3):
-            r = Recording(score=i, user_id=u1.id)
-            r.add_leaderboard(board)
-            r.notify_leaderboard()
-            db.session.add(r)
-            recordings.append(r)
-            db.session.commit()
-        '''
+        #create an instance of the board of length 4
+        board = LeaderBoard(length=4)
 
         obsv = UpdateLeaderboard()
         obsv.add_leaderboard(board)
@@ -110,14 +101,21 @@ class LeaderBoardTestCase(unittest.TestCase):
         r4 = Recording(score=4, user_id=u1.id)
         r5 = Recording(score=5, user_id=u1.id)
 
-        obsv.notify_leaderboards(u1.get_username(), 1)
-        obsv.notify_leaderboards(u1.get_username(), 2)
-        obsv.notify_leaderboards(u1.get_username(), 3)
-        obsv.notify_leaderboards(u1.get_username(), 4)
-        obsv.notify_leaderboards(u1.get_username(), 5)
+        obsv.notify_leaderboards(u1.get_username(),"scale", "key", 1)
+        obsv.notify_leaderboards(u1.get_username(),"scale", "key", 2)
+        obsv.notify_leaderboards(u1.get_username(),"scale", "key", 3)
+        obsv.notify_leaderboards(u1.get_username(),"scale", "key", 4)
+        obsv.notify_leaderboards(u1.get_username(),"scale", "key", 5)
 
         #print out the result
-        print(board.response_string())
+        print(board.get_scores())
+
+        obsv.notify_leaderboards(u2.get_username(),"scale", "key", 3)
+        obsv.notify_leaderboards(u2.get_username(),"scale", "key", 4)
+        obsv.notify_leaderboards(u2.get_username(),"scale", "key", 100)
+
+        print(board.get_scores())
+
         self.assertTrue(True)
 
     def tearDown(self):
@@ -134,8 +132,43 @@ class LeaderBoardTestCase(unittest.TestCase):
 
 
 
-# class AuditionTestCase(unittest.TestCase):
+class AuditionTestCase(unittest.TestCase):
+    def setUp(self):
+        u = User(username='test', lastname='last1', firstname='first1')
+        db.session.add(u)
+        db.session.commit()
 
+        #add an audition!
+        aud = Audition(  is_completed = False,
+                    auditioner = "test",
+                    auditionee = "test",
+                    score = 42.0,
+                    scale = "C",
+                    key ="major") 
+
+        db.session.add(aud)    
+        db.session.commit()
+
+    def test_getters(self):
+        r = Recording.query.first()
+        aud = Audition.query.first()
+        self.assertEqual(int(aud.get_score()), 42)
+
+    def tearDown(self):
+        aud = Audition.query.all()
+        user = User.query.all()
+        recordings = Recording.query.all()
+
+        for r in recordings:
+            db.session.delete(r)
+
+        for u in user:
+            db.session.delete(u)
+
+        for a in aud:
+            db.session.delete(a)
+        
+        db.session.commit()
 
 if __name__ == '__main__':
     unittest.main()

@@ -13,7 +13,7 @@ class User(db.Model):
     lastname = db.Column(db.String(64), index=True, unique=False)
     password_hash = db.Column(db.String(128))
     recordings = db.relationship('Recording', backref='author', lazy='dynamic')
-    auditionee = db.relationship('Audition')
+    #auditionee = db.relationship('Audition', backref='auditionee', lazy='dynamic')
 
 
     def get_info(self):
@@ -23,24 +23,22 @@ class User(db.Model):
         for r in recordings:
             scores.append(r.get_score())
 
-        if recordings is None:
+        if (len(scores) == 0):
             avg = 0
             high = 0
         else:
             avg = np.mean(scores)
             high = np.amax(scores)
 
-        return ("firstname : " + self.firstname + ",\n" +
-               "lastname : " +  self.lastname + ",\n" +
-               "avearge_score : " +  str(avg) + ",\n" +
-               "top_score : " +  str(high) + ",\n")
+        return {"firstname": self.firstname, "lastname": self.lastname,
+            "top_score": str(round(high,2)), "average_score": str(round(avg,2))}
 
     def get_recording(self):
         recordings =  self.recordings.all()
         data = []
 
         for r in recordings:
-            data.append(r.response_string())
+            data.append(r.info())
 
         return data
 
@@ -71,32 +69,62 @@ class Recording(db.Model):
     score = db.Column(db.Float)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    scale = db.Column(db.String(64), index=False, unique=False)
+    key = db.Column(db.String(64), index=False, unique=False)
 
     def get_score(self):
         return self.score
 
     def __repr__(self):
-        return '<Post {}>'.format(self.score)
+        return '<recording {}>'.format(self.score)
     
-    def response_string(self):
-        return (str(self.timestamp) + ' : ' + str(self.score))
+    def info(self):
+        return (str(self.timestamp), str(self.score))
+
+    def get_scale(self):
+        return str(scale)
+
+    def get_key(self):
+        return str(key)
 
 class Audition(db.Model):
+    
     id = db.Column(db.Integer, primary_key=True)
+    score = db.Column(db.Float)
+    scale = db.Column(db.String(64), index=False, unique=False)
+    key = db.Column(db.String(64), index=False, unique=False)
     is_completed = db.Column(db.Boolean, default=False)
     auditioner = db.Column(db.String(64), index=False, unique=False)
     auditionee = db.Column(db.String(64), index=False, unique=False)
-    auditionee_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    score = db.Column(db.Float)
-    scale = db.Column(db.String(64), index=True, unique=False)
 
     def complete(self):
         self.is_completed = True
         db.session.commit()
 
-    def score(self, score):
+    def set_score(self, score):
         self.score = score
-        db.session.commit()
+        db.session.commit() 
+
+    def get_score(self):
+        return self.score
+
+    def get_scale(self):
+        return self.scale
+
+    def get_key(self):
+        return self.key
+
+    def get_auditioner(self):
+        return self.auditioner
+
+    def get_ID(self):
+        return self.id
+
+    def get_auditionee(self):
+        return self.auditionee
+
+    def get_complete(self):
+        return self.is_completed
 
 
 
