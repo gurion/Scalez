@@ -1,34 +1,218 @@
 {
 	"info": {
-		"_postman_id": "a2e14905-3c00-4516-97db-517024ee6676",
+		"_postman_id": "7e92b33f-216b-4b7d-9444-840a7b237bea",
 		"name": "Scalez",
 		"description": "API for the endpoints of the Scalez app. Currently all of the endpoints are following the \"happy path\", meaning no error cases are currently being handled and everything is assumed to be successful. Once error cases are added, each endpoint will be put into a top level folder, and each error case will be given its own tab.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "New User",
+			"name": "Get leaderboard",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "2f5e97c4-5e7a-47b0-a0f0-c444a0787370",
+						"id": "7a674f8d-cb4b-4983-af2f-1946d83abb60",
 						"exec": [
-							"pm.test(\"Successful POST request\", function () {",
-							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
-							"});",
-							"",
-							""
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
 						],
 						"type": "text/javascript"
 					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
 				},
+				"url": {
+					"raw": "{{host}}/user/{{username}}/leaderboard",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"{{username}}",
+						"leaderboard"
+					]
+				},
+				"description": "This request will get the leaderboard for the current user. This will allow the front end to display the scores over time. The response status should be 200 if successful."
+			},
+			"response": [
 				{
-					"listen": "prerequest",
+					"name": "Get leaderboard",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user/{{username}}/leaderboard",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{username}}",
+								"leaderboard"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n\t\"history\" : [\n\t\t{\n\t\t\t\"timestamp\" : \"2018-12-10 19:42:09.993531\",\n\t\t\t\"score\" : \"1.0\"\n\t\t},\n\t\t{\n\t\t\t\"timestamp\" : \"2018-12-11 19:42:09.993531\",\n\t\t\t\"score\" : \"2.0\"\n\t\t},\n\t\t{\n\t\t\t\"timestamp\" : \"2018-12-12 19:42:09.993531\",\n\t\t\t\"score\" : \"1.5\"\n\t\t},\n\t\t{\n\t\t\t\"timestamp\" : \"2018-12-13 19:42:09.993531\",\n\t\t\t\"score\" : \"2.0\"\n\t\t},\n\t\t{\n\t\t\t\"timestamp\" : \"2018-12-14 19:42:09.993531\",\n\t\t\t\"score\" : \"3.0\"\n\t\t},\n\t\t{\n\t\t\t\"timestamp\" : \"2018-12-15 19:42:09.993531\",\n\t\t\t\"score\" : \"2.5\"\n\t\t},\n\t]\n}\n"
+				}
+			]
+		},
+		{
+			"name": "Complete audition",
+			"event": [
+				{
+					"listen": "test",
 					"script": {
-						"id": "1bb9df1e-f5ba-49b5-97eb-f75d9989b45d",
+						"id": "f7d9eb01-fb68-4a71-9ad6-253f5b11812e",
 						"exec": [
-							""
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"file\" : [1.00, 2.00, 3.00, 4.00, 5.00]}"
+				},
+				"url": {
+					"raw": "{{host}}/user/{{username}}/audition/{{auditionID}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"{{username}}",
+						"audition",
+						"{{auditionID}}"
+					]
+				},
+				"description": "This request will complete an audition. The request body will contain the requested scales from the auditioner. The response status should be 200 if successful."
+			},
+			"response": [
+				{
+					"name": "Complete audition",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"file\": [1.0, 2.0, 2.0, 1.0, 3.0]"
+						},
+						"url": {
+							"raw": "{{host}}/user/{{username}}/audition/{{auditionID}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{username}}",
+								"audition",
+								"{{auditionID}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "Text",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"auditionee\" : \"auditioneeUsername\",\n    \"auditioner\" : \"auditionerUsername\",\n    \"id\" : 11111,\n    \"isComplete\" : 1,\n    \"key\" : \"major\",\n    \"scale\" : \"C\",\n    \"score\" : 93.2\n}"
+				}
+			]
+		},
+		{
+			"name": "Get auditions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/user/{{username}}/audition",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"{{username}}",
+						"audition"
+					]
+				},
+				"description": "This request will get all of the auditions for the specified user. The reponse status should be 200 if successful."
+			},
+			"response": [
+				{
+					"name": "Get auditions",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user/{{username}}/audition",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{username}}",
+								"audition"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n\t\"auditions\" : {\n\t\t\"auditionee\" : [\n\t\t\t{\n\t\t\t\t\"id\" : \"abc123\",\n\t\t\t\t\"auditioner\" : \"auditioner1\",\n\t\t\t\t\"scale\" : \"c\",\n\t\t\t\t\"key\" : \"major\",\n\t\t\t\t\"isComplete\" : false,\n\t\t\t\t\"score\" : \"0\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"id\" : \"def456\",\n\t\t\t\t\"auditioner\" : \"auditioner2\",\n\t\t\t\t\"scale\" : \"e\",\n\t\t\t\t\"key\" : \"minor\",\n\t\t\t\t\"isComplete\" : false,\n\t\t\t\t\"score\" : \"0\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"id\" : \"ghi789\",\n\t\t\t\t\"auditioner\" : \"auditioner1\",\n\t\t\t\t\"scale\" : \"g\",\n\t\t\t\t\"key\" : \"major\",\n\t\t\t\t\"isComplete\" : true,\n\t\t\t\t\"score\" : \"70\"\n\t\t\t}\n\t\t],\n\t\t\"auditioner\" : [\n\t\t\t{\n\t\t\t\t\"id\" : \"abc123\",\n\t\t\t\t\"auditionee\" : \"auditionee1\",\n\t\t\t\t\"scale\" : \"c\",\n\t\t\t\t\"key\" : \"major\",\n\t\t\t\t\"isComplete\" : false,\n\t\t\t\t\"score\" : \"0\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"id\" : \"def456\",\n\t\t\t\t\"auditionee\" : \"auditionee2\",\n\t\t\t\t\"scale\" : \"e\",\n\t\t\t\t\"key\" : \"minor\",\n\t\t\t\t\"isComplete\" : true,\n\t\t\t\t\"score\" : \"90\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"id\" : \"ghi789\",\n\t\t\t\t\"auditionee\" : \"auditionee3\",\n\t\t\t\t\"scale\" : \"g\",\n\t\t\t\t\"key\" : \"major\",\n\t\t\t\t\"isComplete\" : true,\n\t\t\t\t\"score\" : \"70\"\n\t\t\t}\n\t\t]\n\t}\n}"
+				}
+			]
+		},
+		{
+			"name": "User login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7daa0596-5ea5-425f-b499-2553e6d8e1d3",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -39,26 +223,179 @@
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json"
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \"username\": \"efeldm16\", \"password\": \"aeiou\", \"firstname\" : \"Eric\", \"lastname\" : \"Feldman\"}"
+					"raw": "{ \"username\" : \"efeldm16\" , \"password\" : \"aeiou\" }"
 				},
 				"url": {
-					"raw": "{{host}}/user/",
+					"raw": "{{host}}/user/login",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
 						"user",
-						""
+						"login"
 					]
 				},
-				"description": "This request will create a new user. The request body will contain a JSON string containing the username, password, firstname, and lastname of the user. The response body will be raw text containing the username of the user. The response status should be 201 is successful.\n"
+				"description": "This request will login the user based on the request body. The request body will contain a JSON string of the username and password of the user. The response body will contain the username of the user in plain text. The response status should be 200 if successful."
 			},
 			"response": []
+		},
+		{
+			"name": "Score scale",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8862195f-e59e-444a-9cd1-fa95ad784d34",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,200]);",
+							"});",
+							"",
+							"pm.test(\"Content-Type is ‘application/json’\", () => pm.response.to.have.header(\"Content-Type\", \"application/json\"",
+							"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\" : \"efeldm16\", \"file\" : [1.00, 2.00, 3.00, 4.00, 5.00], \"rate\" : 12000, \"frameCount\" : 10000}\n\n"
+				},
+				"url": {
+					"raw": "{{host}}/user/{{username}}/recording",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"{{username}}",
+						"recording"
+					]
+				},
+				"description": "This request will send an audio file in the request body. This audio file will belong the user. The response body will contain the score. The response status should be 201 if completed."
+			},
+			"response": [
+				{
+					"name": "Score scale",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"file\": [1.0, 2.0, 2.0, 1.0, 3.0], \"scale\": \"C\", \"key\": \"major\"}"
+						},
+						"url": {
+							"raw": "{{host}}/user/{{username}}/recording",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{username}}",
+								"recording"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"message\": \"new recording has been created\"\n    \"score\": 10\n}"
+				}
+			]
+		},
+		{
+			"name": "New audition",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c2243902-d346-4412-be21-8db04fbaf783",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"auditonee\" : \"username\" , \"scale\" : \"C\" }"
+				},
+				"url": {
+					"raw": "{{host}}/user/{{username}}/audition",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"{{username}}",
+						"audition"
+					]
+				},
+				"description": "This request will create a new audition. The request body will contain the username of the auditonee, and the types of scales that should be played."
+			},
+			"response": [
+				{
+					"name": "New audition",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"auditonee\" : \"username\" , \"scale\" : \"C\", \"key\" : \"major\" }"
+						},
+						"url": {
+							"raw": "{{host}}/user/{{username}}/audition",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"{{username}}",
+								"audition"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "Text",
+					"header": [],
+					"cookie": [],
+					"body": "{\"message\" = \"audition created\"}"
+				}
+			]
 		},
 		{
 			"name": "Delete User",
@@ -111,6 +448,71 @@
 							"path": [
 								"user",
 								"{{username}}"
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "Text",
+					"header": [],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "User logout",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "99d8e611-59f5-4460-b85c-d4bd7652e772",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/user/logout",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"logout"
+					]
+				},
+				"description": "This request will log out the user based on the request body. The username of the user is supplied in the URL. The response should be 204 if successful."
+			},
+			"response": [
+				{
+					"name": "User logout",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/user/logout",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"logout"
 							]
 						}
 					},
@@ -189,418 +591,6 @@
 			]
 		},
 		{
-			"name": "User login",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "7daa0596-5ea5-425f-b499-2553e6d8e1d3",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{ \"username\" : \"efeldm16\" , \"password\" : \"aeiou\" }"
-				},
-				"url": {
-					"raw": "{{host}}/user/login",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"user",
-						"login"
-					]
-				},
-				"description": "This request will login the user based on the request body. The request body will contain a JSON string of the username and password of the user. The response body will contain the username of the user in plain text. The response status should be 200 if successful."
-			},
-			"response": []
-		},
-		{
-			"name": "User logout",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "99d8e611-59f5-4460-b85c-d4bd7652e772",
-						"exec": [
-							"pm.test(\"Status code is 204\", function () {",
-							"    pm.response.to.have.status(204);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{host}}/user/logout",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"user",
-						"logout"
-					]
-				},
-				"description": "This request will log out the user based on the request body. The username of the user is supplied in the URL. The response should be 204 if successful."
-			},
-			"response": [
-				{
-					"name": "User logout",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{host}}/user/logout",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"user",
-								"logout"
-							]
-						}
-					},
-					"status": "No Content",
-					"code": 204,
-					"_postman_previewlanguage": "Text",
-					"header": [],
-					"cookie": [],
-					"body": ""
-				}
-			]
-		},
-		{
-			"name": "Get leaderboard",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "7a674f8d-cb4b-4983-af2f-1946d83abb60",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"pm.test(\"Content-Type is ‘application/json’\", () => pm.response.to.have.header(\"Content-Type\", \"application/json\"));"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{host}}/user/{{username}}/leaderboard",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"user",
-						"{{username}}",
-						"leaderboard"
-					]
-				},
-				"description": "This request will get the leaderboard for the current user. This will allow the front end to display the scores over time. The response status should be 200 if successful."
-			},
-			"response": [
-				{
-					"name": "Get leaderboard",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{host}}/user/{{username}}/leaderboard",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"user",
-								"{{username}}",
-								"leaderboard"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [],
-					"cookie": [],
-					"body": "{ \"1/1/2018 12:00 AM\" : 75 , \"1/2/2018 11:00 AM\" : 78 }\n"
-				}
-			]
-		},
-		{
-			"name": "Score scale",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "8862195f-e59e-444a-9cd1-fa95ad784d34",
-						"exec": [
-							"pm.test(\"Successful POST request\", function () {",
-							"    pm.expect(pm.response.code).to.be.oneOf([201,200]);",
-							"});",
-							"",
-							"pm.test(\"Content-Type is ‘application/json’\", () => pm.response.to.have.header(\"Content-Type\", \"application/json\"",
-							"));",
-							"",
-							"pm.test(\"Response contains a score\", () => {",
-							"    const response = pm.response.json();",
-							"    pm.expect(response).to.an(\"object\").that.has.all.keys(\"score\");",
-							"    const score = response.score;",
-							"    pm.expect(score).to.be.an(\"double\");",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"username\" : \"efeldm16\", \"file\" : [1.00, 2.00, 3.00, 4.00, 5.00], \"rate\" : 12000, \"frameCount\" : 10000}\n\n"
-				},
-				"url": {
-					"raw": "{{host}}/user/{{username}}/recording",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"user",
-						"{{username}}",
-						"recording"
-					]
-				},
-				"description": "This request will send an audio file in the request body. This audio file will belong the user. The response body will contain the score. The response status should be 201 if completed."
-			},
-			"response": [
-				{
-					"name": "Score scale",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{host}}/user/{{username}}/recording",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"user",
-								"{{username}}",
-								"recording"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [],
-					"cookie": [],
-					"body": "{\n    \"score\": 10\n}"
-				}
-			]
-		},
-		{
-			"name": "New audition",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "c2243902-d346-4412-be21-8db04fbaf783",
-						"exec": [
-							"pm.test(\"Successful POST request\", function () {",
-							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{ \"auditonee\" : \"username\" , \"scale\" : \"C\" }"
-				},
-				"url": {
-					"raw": "{{host}}/user/{{username}}/audition",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"user",
-						"{{username}}",
-						"audition"
-					]
-				},
-				"description": "This request will create a new audition. The request body will contain the username of the auditonee, and the types of scales that should be played."
-			},
-			"response": [
-				{
-					"name": "New audition",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{host}}/user/{{username}}/audition",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"user",
-								"{{username}}",
-								"audition"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 204,
-					"_postman_previewlanguage": "Text",
-					"header": [],
-					"cookie": [],
-					"body": ""
-				}
-			]
-		},
-		{
-			"name": "Complete audition",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "f7d9eb01-fb68-4a71-9ad6-253f5b11812e",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{ \"file\" : [1.00, 2.00, 3.00, 4.00, 5.00], \"rate\" : 12000, \"frameCount\" : 10000 }"
-				},
-				"url": {
-					"raw": "{{host}}/user/{{username}}/audition/{{auditionID}}",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"user",
-						"{{username}}",
-						"audition",
-						"{{auditionID}}"
-					]
-				},
-				"description": "This request will complete an audition. The request body will contain the requested scales from the auditioner. The response status should be 200 if successful."
-			},
-			"response": [
-				{
-					"name": "Complete audition",
-					"originalRequest": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{host}}/user/{{username}}/audition/{{auditionID}}",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"user",
-								"{{username}}",
-								"audition",
-								"{{auditionID}}"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 204,
-					"_postman_previewlanguage": "Text",
-					"header": [],
-					"cookie": [],
-					"body": ""
-				}
-			]
-		},
-		{
 			"name": "Get audition",
 			"event": [
 				{
@@ -610,20 +600,6 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"pm.test(\"Content-Type is ‘application/json’\", () => pm.response.to.have.header(\"Content-Type\", \"application/json\"",
-							"));",
-							"",
-							"pm.test(\"Response contains a correct data\", () => {",
-							"    const response = pm.response.json();",
-							"    pm.expect(response).to.an(\"object\").that.has.all.keys(\"auditioner\", \"scale\", \"id\");",
-							"    const auditioner = response.auditioner;",
-							"    pm.expect(auditioner).to.be.an(\"String\");",
-							"    const scale = response.scale;",
-							"    pm.expect(scale).to.be.an(\"String\");",
-							"    const id = response.id;",
-							"    pm.expect(id).to.be.an(\"int\");",
 							"});"
 						],
 						"type": "text/javascript"
@@ -679,34 +655,20 @@
 					"_postman_previewlanguage": "json",
 					"header": [],
 					"cookie": [],
-					"body": "{\"auditioner\" : \"eric\", \"scale\" : \"c scale\", \"id\" : \"12345\" }"
+					"body": "{\n    \"auditionee\" = \"auditioneeUsername\",\n    \"auditioner\" = \"auditionerUsername\",\n    \"id\" = 11111,\n    \"isComplete\" = 1,\n    \"key\" = \"major\",\n    \"scale\" = \"C\",\n    \"score\" = 93.2\n}"
 				}
 			]
 		},
 		{
-			"name": "Get auditions",
+			"name": "Get Profile Info",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "3f897bd8-2bae-419e-b016-c0d18e49fbe4",
+						"id": "ebc94620-98cf-425b-99fc-834a2bad6e5e",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"pm.test(\"Content-Type is ‘application/json’\", () => pm.response.to.have.header(\"Content-Type\", \"application/json\"",
-							"));",
-							"",
-							"pm.test(\"Response contains a correct data\", () => {",
-							"    const response = pm.response.json();",
-							"    pm.expect(response).to.an(\"object\").that.has.all.keys(\"auditions\");",
-							"    const auditions = response.auditions;",
-							"    const sample = auditions[0];",
-							"    const auditioner = sample.auditioner;",
-							"    pm.expect(auditioner).to.be.an(\"String\");",
-							"    const request = sample.request;",
-							"    pm.expect(request).to.be.an(\"String\");",
 							"});"
 						],
 						"type": "text/javascript"
@@ -721,21 +683,20 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{host}}/user/{{username}}/audition",
+					"raw": "{{host}}/user/info",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
 						"user",
-						"{{username}}",
-						"audition"
+						"info"
 					]
 				},
-				"description": "This request will get all of the auditions for the specified user. The reponse status should be 200 if successful."
+				"description": "Gets the user's information to show on profile page. Returns 200 is successful."
 			},
 			"response": [
 				{
-					"name": "Get auditions",
+					"name": "Get Profile Info",
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
@@ -744,14 +705,13 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{host}}/user/{{username}}/audition",
+							"raw": "{{host}}/user/info",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"user",
-								"{{username}}",
-								"audition"
+								"info"
 							]
 						}
 					},
@@ -760,7 +720,93 @@
 					"_postman_previewlanguage": "json",
 					"header": [],
 					"cookie": [],
-					"body": "{\n    \"auditions\": [\n        {\n            \"auditioner\": \"eric\",\n            \"request\": \"c scale\",\n            \"deadline\": \"1/1/18 10:00PM\"\n        },\n        {\n            \"auditioner\": \"jake\",\n            \"request\": \"c scale\",\n            \"deadline\": \"2/2/18 10:00PM\"\n        }\n    ]\n}"
+					"body": "{\n\t\"info\" : {\n\t\t\"firstname\" : \"firstname\",\n\t\t\"lastname\" : \"lastname\",\n\t\t\"top_score\" : \"99\",\n\t\t\"average_score\" : \"92\"\n\t}\n}"
+				}
+			]
+		},
+		{
+			"name": "New User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2f5e97c4-5e7a-47b0-a0f0-c444a0787370",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "1bb9df1e-f5ba-49b5-97eb-f75d9989b45d",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"username\": \"efeldm16\", \"password\": \"aeiou\", \"firstname\" : \"Eric\", \"lastname\" : \"Feldman\"}"
+				},
+				"url": {
+					"raw": "{{host}}/user/",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						""
+					]
+				},
+				"description": "This request will create a new user. The request body will contain a JSON string containing the username, password, firstname, and lastname of the user. The response body will be raw text containing the username of the user. The response status should be 201 is successful.\n"
+			},
+			"response": [
+				{
+					"name": "New User",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"username\": \"efeldm16\", \"password\": \"password\", \"firstname\" : \"Eric\", \"lastname\" : \"Feldman\"}"
+						},
+						"url": {
+							"raw": "{{host}}/user/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								""
+							]
+						}
+					},
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": "{\"message\": \"new user made\"}"
 				}
 			]
 		},
@@ -774,14 +820,6 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"pm.test(\"Content-Type is ‘application/json’\", () => pm.response.to.have.header(\"Content-Type\", \"application/json\"",
-							"));",
-							"",
-							"pm.test(\"Response contains a correct data\", () => {",
-							"    const response = pm.response.json();",
-							"    pm.expect(response).to.an(\"object\").that.has.all.keys(\"leaderboard\");",
 							"});"
 						],
 						"type": "text/javascript"
@@ -831,86 +869,7 @@
 					"_postman_previewlanguage": "json",
 					"header": [],
 					"cookie": [],
-					"body": "{\n    \"leaderboard\": {\n        \"eric\": 10,\n        \"gurion\": 5\n    }\n}"
-				}
-			]
-		},
-		{
-			"name": "Get Profile Info",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "ebc94620-98cf-425b-99fc-834a2bad6e5e",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"pm.test(\"Content-Type is ‘application/json’\", () => pm.response.to.have.header(\"Content-Type\", \"application/json\"",
-							"));",
-							"",
-							"pm.test(\"Response contains a correct data\", () => {",
-							"    const response = pm.response.json();",
-							"    pm.expect(response).to.an(\"object\").that.has.all.keys(\"firstname\", \"lastname\", \"average_score\", \"top_score\");",
-							"    const firstname = response.firstname;",
-							"    pm.expect(firstname).to.be.an(\"String\");",
-							"    const lastname = response.lastname;",
-							"    pm.expect(lastname).to.be.an(\"String\");",
-							"    const average = response.average_score;",
-							"    pm.expect(average).to.be.an(\"int\");",
-							"    const top = response.top_score;",
-							"    pm.expect(top).to.be.an(\"int\");",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{host}}/user/info",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"user",
-						"info"
-					]
-				},
-				"description": "Gets the user's information to show on profile page. Returns 200 is successful."
-			},
-			"response": [
-				{
-					"name": "Get Profile Info",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{host}}/user/info",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"user",
-								"info"
-							]
-						}
-					},
-					"_postman_previewlanguage": "json",
-					"header": null,
-					"cookie": [],
-					"body": "{ \"firstname\" : \"eric\" , \"lastname\" : \"feldman\" , \"average_score\" : 100 , \"top_score\" : 100 }"
+					"body": "{\n\t\"leaderboard\" : [\n\t\t{\n\t\t\t\"username\" : \"username1\",\n\t\t\t\"scale\" : \"c\",\n\t\t\t\"key\" : \"major\",\n\t\t\t\"score\" : \"99\"\n\t\t},\n\t\t{\n\t\t\t\"username\" : \"username2\",\n\t\t\t\"scale\" : \"e\",\n\t\t\t\"key\" : \"major\",\n\t\t\t\"score\" : \"96\"\n\t\t},\n\t\t{\n\t\t\t\"username\" : \"username1\",\n\t\t\t\"scale\" : \"g\",\n\t\t\t\"key\" : \"major\",\n\t\t\t\"score\" : \"95\"\n\t\t},\n\t\t{\n\t\t\t\"username\" : \"username3\",\n\t\t\t\"scale\" : \"c\",\n\t\t\t\"key\" : \"major\",\n\t\t\t\"score\" : \"70\"\n\t\t},\n\t\t{\n\t\t\t\"username\" : \"username2\",\n\t\t\t\"scale\" : \"c\",\n\t\t\t\"key\" : \"major\",\n\t\t\t\"score\" : \"60\"\n\t\t}\n\t]\n}"
 				}
 			]
 		}
