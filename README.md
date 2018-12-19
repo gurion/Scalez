@@ -44,7 +44,7 @@ What we would do with more time (see `enhancement` issue tag for more details)
 		<li> Open the XCode project - `/frontend/Scalez/Scalez/` - in XCode and build for an iOS 12 iPhone Simulator
 		<li> Follow the on-screen instructions
 	</ol>
-	<div style="margin-left: 5rem;">__NOTE:__ This build is connected to our Heroku deployment. If you'd like to implement your own backend, change the host used by the login and create account pages. Likewise, if you'd like to build your own frontend, you can use our API found at `/API/Scalez.postman_collection.json`, and host <a href="https://testdeployment-scalez.herokuapp.com">here</a>
+	<div style="margin-left: 5rem;"><b>NOTE:</b> This build is connected to our Heroku deployment. If you'd like to implement your own backend, change the host used by the login and create account pages. Likewise, if you'd like to build your own frontend, you can use our API found at `/API/Scalez.postman_collection.json`, and host <a href="https://testdeployment-scalez.herokuapp.com">here</a>
 	</div>
 </details>
 <br>
