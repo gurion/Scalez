@@ -4,34 +4,34 @@ An app to standardize scale practice
 ## Features ##
 
 <details><summary><b>Core Features</b></summary>
-<b>What we did<b>
+What we did
 	<ul>
-	<li> _Create and log in_ users</li>
-	<li> _Record and upload_ a certain scale/key eg. C maj</li>
- 	<li> _View personal history_
+	<li> <i>Create and log in</i> users</li>
+	<li> <i>Record and upload</i> a certain scale/key eg. C maj</li>
+ 	<li> <i>View personal history</i>
 	<ul>
 	<li> Top score
 	<li> Average score
 	<li> Graph of personal history showing scores over time
 	</ul>
-	<li> _Auditions_
+	<li> <i>Auditions</i>
 	<ul>
 	<li> Request a user to complete an audition of a certain scale
 	<li> See all pending auditions for which you are the auditioner or auditionee
 	<li> Complete an audition as requested
 	<li> See the score of completed auditions
 	</ul>
-	<li> _View a leaderboard_ of top scores and the user and scale associated with them
+	<li> <i>View a leaderboard</i> of top scores and the user and scale associated with them
 	</ul>
 </details>
-
+<br>
 <details><summary><b>Extended Features</b></summary>
 What we would do with more time (see `enhancement` issue tag for more details)
 	<ul>
-	<li> _Create groups of users_
-	<li> _add instrument recognition_
-	<li> _add more types of scales_ (chromatic, pentatonic, etc.)
-	<li> _score a full piece of music_
+	<li> <i>Create groups of users</i>
+	<li> <i>Add instrument recognition</i>
+	<li> <i>Add more types of scales</i> (chromatic, pentatonic, etc.)
+	<li> <i>Score a full piece of music</i>
 	</ul>
 </details>
 
@@ -47,6 +47,7 @@ What we would do with more time (see `enhancement` issue tag for more details)
 	<div style="margin-left: 5rem;">__NOTE:__ This build is connected to our Heroku deployment. If you'd like to implement your own backend, change the host used by the login and create account pages. Likewise, if you'd like to build your own frontend, you can use our API found at `/API/Scalez.postman_collection.json`, and host <a href="https://testdeployment-scalez.herokuapp.com">here</a>
 	</div>
 </details>
+<br>
 <details><summary>How to build locally</summary>
 	<ol>
 		<li> Set up a database of SQLite or Postgres
